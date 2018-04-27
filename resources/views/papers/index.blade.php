@@ -5,172 +5,23 @@
 <script type="text/javascript">
 	var id = '{{ Auth::id() }}';
 	var server = '{{ url("/") }}';
-
-	function getComment(idpapers, stt) {
-		var offset = $('#offset-comment').val();
-		var limit = $('#limit-comment').val();
-		if (stt == 'new') {
-			var url_comment = '{{ url("/get/comment/") }}'+'/'+idpapers+'/0/'+offset;
-		} else {
-			var url_comment = '{{ url("/get/comment/") }}'+'/'+idpapers+'/'+offset+'/'+limit;
-		}
-		$.ajax({
-			url: url_comment,
-			dataType: 'json',
-		})
-		.done(function(data) {
-			var dt = '';
-			for (var i = 0; i < data.length; i++) {
-				var server_foto = server+'/profile/thumbnails/'+data[i].foto;
-				var server_user = server+'/user/'+data[i].id;
-				if (data[i].id == id) {
-					var op = '<span class="fa fa-lg fa-circle"></span>\
-							<span class="del pointer" onclick="opQuestion('+"'open'"+','+"'Delete this comment ?'"+','+"'deleteComment("+data[i].idcomment+")'"+')" title="Delete comment.">Delete</span>';
-				} else {
-					var op = '';
-				}
-				dt += '\
-					<div class="frame-comment comment-owner">\
-						<div class="dt-1">\
-							<a href="'+server_user+'" title="'+data[i].name+'">\
-								<div class="image image-35px image-circle" style="background-image: url('+server_foto+')"></div>\
-							</a>\
-						</div>\
-						<div class="dt-2">\
-							<div class="desk comment-owner-radius">\
-								<div class="comment-main">\
-									<a href="'+server_user+'" title="'+data[i].name+'"><strong class="comment-name">'+data[i].name+'</strong></a>\
-									<div>'+data[i].description+'</div>\
-								</div>\
-							</div>\
-							<div class="tgl">\
-								<span>'+data[i].created+'</span>\
-								'+op+'\
-							</div>\
-						</div>\
-					</div>\
-				';
-			}
-			if (stt === 'new') {
-				$('#place-comment').html(dt);
-			} else {
-				$('#place-comment').append(dt);
-
-				var ttl = (parseInt($('#offset-comment').val()) + 5);
-				$('#offset-comment').val(ttl);
-			}
-			if (data.length >= limit) {
-				$('#frame-more-comment').show();
-			} else {
-				$('#frame-more-comment').hide();
-			}
-		})
-		.fail(function(data) {
-			console.log(data.responseJSON);
-		});
-		
-	}
-	function deleteComment(idcomment) {
-		$.ajax({
-			url: '{{ url("/delete/comment") }}',
-			type: 'post',
-			data: {'idcomment': idcomment},
-		})
-		.done(function(data) {
-			if (data === 'success') {
-				getComment('{{ $idpapers }}', 'new');
-			} else {
-				opAlert('open', 'Deletting comment failed.');
-			}
-		})
-		.fail(function(data) {
-			console.log(data.responseJSON);
-		}).
-		always(function() {
-			opQuestion('hide');
-		});
-	}
-	function toComment() {
-		var top = $('#tr-comment').offset().top;
-		$('html, body').animate({scrollTop : (Math.round(top) - 100)}, 300);
-		$('#comment-description').select();
-	}
-	$(document).ready(function() {
-		$('#offset-comment').val(0);
-		$('#limit-comment').val(5);
-		getComment('{{ $idpapers }}', 'add');
-
-
-		$('#frame-loves').on('click', function(event) {
-			$.ajax({
-				url: '{{ url("/loves/add") }}',
-				type: 'post',
-				data: {'idpapers': '{{ $idpapers }}', 'ttl-loves': 1},
-			})
-			.done(function(data) {
-				$('#ttl-loves').html(data);
-			});
-		});
-
-		$('#comment-publish').submit(function(event) {
-			var idpapers = '{{ $idpapers }}';
-			var desc = $('#comment-description').val();
-			if (desc === '') {
-				$('#comment-description').focus();
-			} else {
-				$.ajax({
-					url: '{{ url("/add/comment") }}',
-					type: 'post',
-					data: {
-						'description': desc,
-						'idpapers': idpapers
-					},
-				})
-				.done(function(data) {
-					if (data === 'failed') {
-						opAlert('open', 'Sending comment failed.');
-						$('#comment-description').focus();
-					} else {
-						$('#comment-description').val('');
-						//refresh comment
-						getComment('{{ $idpapers }}', 'new');
-					}
-				})
-				.fail(function(data) {
-					console.log(data.responseJSON);
-					opAlert('open', 'There is an error, please try again.');
-				});
-			}
-		});
-
-		$('#load-more-comment').on('click', function(event) {
-			getComment('{{ $idpapers }}', 'add');
-		});
-
-	});
 </script>
-@foreach ($getStory as $story)
 <div class="sc-header">
 	<div class="sc-place pos-fix">
-		<div class="col-900px">
+		<div class="col-800px">
 			<div class="sc-grid sc-grid-3x">
 				<div class="sc-col-1">
-					@if ($story->id == Auth::id())
-						<button class="btn btn-circle btn-main2-color btn-focus" onclick="opQuestionPost('{{ $story->idpapers }}')">
+					@if ($id == Auth::id())
+						<button class="btn btn-circle btn-main2-color btn-focus" onclick="opQuestionPost('{{ $idpapers }}')">
 							<span class="far fa-lg fa-trash-alt"></span>
 						</button>
-						<a href="{{ url('/paper/'.$story->idpapers.'/edit') }}">
+						<a href="{{ url('/paper/'.$idpapers.'/edit') }}">
 							<button class="btn btn-circle btn-main2-color btn-focus mobile">
 								<span class="fas fa-lg fa-pencil-alt"></span>
 							</button>
 						</a>
-						<a href="{{ url('/paper/'.$story->idpapers.'/designs') }}">
-							<button class="btn btn-circle btn-main2-color btn-focus mobile">
-								<span class="fas fa-lg fa-images"></span>
-							</button>
-						</a>
 					@endif
-					<button class="btn btn-circle btn-main2-color btn-focus" onclick="opPostPopup('open', 'menu-popup', '{{ $story->idpapers }}', '{{ $story->id }}')">
+					<button class="btn btn-circle btn-main2-color btn-focus" onclick="opPostPopup('open', 'menu-popup', '{{ $idpapers }}', '{{ $id }}')">
 						<span class="fas fa-lg fa-ellipsis-h"></span>
 					</button>
 				</div>
@@ -180,175 +31,91 @@
 					</h3>
 				</div>
 				<div class="sc-col-3 txt-right">
-					<button class="btn btn-main-color btn-no-border" onclick="addBookmark('{{ $idimage }}')">
-						@if (is_int($check))
-							<span class="bookmark-{{ $idimage }} fas fa-lg fa-bookmark" id="bookmark-{{ $idimage }}"></span>
-						@else
-							<span class="bookmark-{{ $idimage }} far fa-lg fa-bookmark" id="bookmark-{{ $idimage }}"></span>
-						@endif
-						<span>Save</span>
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="place-story">
-	<div class="main">
-		<div class="place">
-			<div class="frame-story grid col-900px" id="main-story">
-				<div class="grid-1">
-					<div class="mid padding-top-10px">
-						<div class="pict">
-							<img src="{{ asset('/story/covers/'.$getImage) }}" id="pict-{{ $idimage }}" alt="pict">
-						</div>
-					</div>
-				</div>
-				<div class="grid-2">
-					<div class="pos mid bdr-bottom" key="more design">
-						<div class="ctn-main-font ctn-14px ctn-sek-color ctn-bold padding-bottom-15px">More Designs</div>
-						<div class="place-search-tag">
-							<div class="st-lef">
-								<div class="btn btn-circle btn-sekunder-color btn-no-border hg-100px" onclick="toLeft()">
-									<span class="fa fa-lg fa-angle-left"></span>
-								</div>
-							</div>
-							<div class="st-mid" id="ctnTag">
-								@if (count($getAllImage) != 0)
-									@foreach ($getAllImage as $img)
-										<a href="{{ url('/paper/'.$img->idpapers.'/design/'.$img->idimage) }}">
-											<div class="image image-100px image-radius"
-												style="background-image: url({{ asset('/story/thumbnails/'.$img->image) }})"></div>
-										</a>
-									@endforeach
-								@endif
-							</div>
-							<div class="st-rig">
-								<div class="btn btn-circle btn-sekunder-color btn-no-border hg-100px" onclick="toRight()">
-									<span class="fa fa-lg fa-angle-right"></span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="mid bdr-top padding-bottom-5px">
-						<div class="ctn-main-font ctn-bold ctn-mikro ctn-sek-color padding-bottom-10px">
-							<?php echo $story->title; ?>
-						</div>
-						@if ($story->description != "")
-							<div class="desc ctn-main-font ctn-bold ctn-14px ctn-sek-color padding-bottom-10px">
-								<?php echo $story->description; ?>
-							</div>
-						@endif
-						<div>
-							@if (count($tags) > 0)
-								@foreach($tags as $tag)
-								<?php 
-									$replace = array('[',']','@',',','.','#','+','-','*','<','>','-','(',')',';','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
-									$title = str_replace($replace, '', $tag->tag); 
-								?>
-								<a href="{{ url('/tags/'.$title) }}" class="frame-top-tag">
-									<div>{{ $tag->tag }}</div>
-								</a>
-								@endforeach
-							@endif
-						</div>
-					</div>
-					<div class="pos bot bdr-top">
-						<div class="profile">
-							<div class="foto">
-								<a href="{{ url('/user/'.$story->id) }}">
-									<div class="image image-35px image-circle" style="background-image: url({{ asset('/profile/thumbnails/'.$story->foto) }});"></div>
-								</a>
-							</div>
-							<div class="info">
-								<div class="name">
-									<div>
-										<a href="{{ url('/user/'.$story->id) }}">
-											{{ $story->username }}
-										</a>
-									</div>
-								</div>
-							</div>
-							<div class="tool">
-								@if ($story->id != Auth::id())
-									@if (is_int($statusFolow))
-										<input type="button" name="follow" class="btn btn-main3-color" id="add-follow-{{ $story->id }}" value="Unfollow" onclick="opFollow('{{ $story->id }}', '{{ url("/") }}', '{{ Auth::id() }}')">
-									@else
-										<input type="button" name="follow" class="btn btn-sekunder-color" id="add-follow-{{ $story->id }}" value="Follow" onclick="opFollow('{{ $story->id }}', '{{ url("/") }}', '{{ Auth::id() }}')">
-									@endif
-								@endif
-							</div>
-						</div>
-					</div>
-					<div class="pos bot bdr-top">
-						<div class="ctn-main-font ctn-14px ctn-sek-color ctn-bold padding-bottom-15px">Share to your friends</div>
-						<div class="here">
-							<div class="here-block">
-								<ul class="menu-share">
-									<li class="mn btn btn-color-fb">
-										<span class="fab fa-lg fa-facebook"></span>
-									</li>
-									<li class="mn btn btn-color-tw">
-										<span class="fab fa-lg fa-twitter"></span>
-									</li>
-									<li class="mn btn btn-color-gg-2">
-										<span class="fab fa-lg fa-pinterest"></span>
-									</li>
-									<li class="mn btn btn-color-gg">
-										<span class="fab fa-lg fa-google-plus"></span>
-									</li>
-								</ul>
-							</div>
-						</div>
-						
-					</div>
-				</div>
-			</div>
-			<div class="frame-story col-900px padding-bottom-20px">
-				<div class="bot place-comment">
-					<div class="loved top-comment" id="tr-comment">
-						<div class="ctn-main-font ctn-16px ctn-sek-color ctn-bold padding-5px">Comments</div>
-						@if (Auth::id())
-						<form method="post" action="javascript:void(0)" id="comment-publish">
-							<div class="comment-head">
-								<div>
-									<textarea class="txt comment-text txt-sekunder-color" id="comment-description" placeholder="Type comment here.."></textarea>
-								</div>
-								<div class="place-btn">
-									<button type="submit" name="btn-comment" class="btn btn-sekunder-color">
-										<span>Send</span>
-									</button>
-								</div>
-							</div>
-						</form>
-						@endif
-						<div class="comment-content" id="place-comment"></div>
-					</div>
-					<div class="frame-more" id="frame-more-comment">
-						<input type="hidden" name="offset" id="offset-comment" value="0">
-						<input type="hidden" name="limit" id="limit-comment" value="0">
-						<button class="btn btn-sekunder-color btn-radius" id="load-more-comment">
-							<span class="Load More Comment">Load More</span>
+					<a href="{{ url('/paper/'.$idpapers.'/designs') }}">
+						<button class="btn btn-sekunder-color btn-focus">
+							<span class="fas fa-lg fa-images"></span>
+							<span class="mobile">Organized</span>
 						</button>
-					</div>
+					</a>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-@endforeach
-<div class="col-full">
-	<div class="padding-20px">
-		<div class="ctn-main-font ctn-small ctn-sek-color ctn-bold ctn-center">Related Designs</div>
-	</div>
-</div>
-<div class="padding-20px">
-	<div>
-		<div class="post">
-			@foreach ($newStory as $story)
-				@include('main.post')
-			@endforeach
+<div class="col-800px padding-bottom-20px">
+	@foreach ($getPaper as $dt)
+		<div>
+			<h1 class="ctn-main-font ctn-bold ctn-standar ctn-sek-color padding-10px">{{ $dt->title }}</h1>
 		</div>
+		@if ($dt->description != "")
+			<div>
+				<div class="desc ctn-main-font ctn-bold ctn-16px ctn-sek-color">
+					<?php echo $dt->description; ?>
+				</div>
+			</div>
+		@endif
+		<div>
+			<div class="menu-val">
+				<ul>
+					<li>
+						<div class="val">{{ $dt->views }}</div>
+						<div class="ttl">Visited</div>
+					</li>
+					<li>
+						<div class="val">{{ $dt->ttl_image }}</div>
+						<div class="ttl">Designs</div>
+					</li>
+					<li>
+						<a href="{{ url('/user/'.$dt->id) }}">
+							<div class="image image-50px image-circle" style="background-image: url({{ asset('/profile/photos/'.$dt->foto) }});"></div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div>
+			@if (count($tags) > 0)
+				@foreach($tags as $tag)
+					<?php 
+						$replace = array('[',']','@',',','.','#','+','-','*','<','>','-','(',')',';','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
+						$title = str_replace($replace, '', $tag->tag); 
+					?>
+					<a href="{{ url('/tags/'.$title) }}" class="frame-top-tag">
+						<div>{{ $tag->tag }}</div>
+					</a>
+				@endforeach
+			@endif
+		</div>
+	@endforeach
+</div>
+<div>
+	<div class="padding-top-15px">
+		@if (count($paperImage) == 0)
+		<div class="frame-empty">
+			<div class="icn fa fa-lg fa-thermometer-empty btn-main-color"></div>
+			<div class="ttl padding-15px">
+				Design Empty.
+			</div>
+			@if ($id == Auth::id())
+				<div class="desc ctn-main-font ctn-bold ctn-14px ctn-sek-color padding-bottom-20px">
+					Try to adding one's.
+				</div>
+				<a href="{{ url('/paper/'.$idpapers.'/designs') }}">
+					<button class="create btn btn-sekunder-color btn-radius width-all">
+						<span class="fas fa-lg fa-plus"></span>
+						<span>Add Designs</span>
+					</button>
+				</a>
+			@endif
+		</div>
+		@else
+			<div class="post">
+				@foreach ($paperImage as $story)
+					@include('main.post')
+				@endforeach
+			</div>
+			{{ $paperImage->links() }}
+		@endif
 	</div>
 </div>
 @endsection

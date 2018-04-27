@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\CommentModel;
 use App\NotifModel;
-use App\PaperModel;
+use App\ImageModel;
 
 class CommentController extends Controller
 {
@@ -17,32 +17,32 @@ class CommentController extends Controller
     	} else {
     		$id = 0;
     	}
-    	$idpapers = $req['idpapers'];
+    	$idimage = $req['idimage'];
     	$description = $req['description'];
     	$data = array(
     		'description' => $description,
-    		'idpapers' => $idpapers,
+    		'idimage' => $idimage,
     		'id' => $id
     	);
     	$rest = CommentModel::Add($data);
     	if ($rest) {
             //get user id
-            $iduser = PaperModel::GetIduser($idpapers);
+            $iduser = ImageModel::GetIduser($idimage);
             if ($id != $iduser) {
                 //get idcomment
-                $idcomment = CommentModel::GetIdcomment($idpapers, $id);
+                $idcomment = CommentModel::GetIdcomment($idimage, $id);
                 //add notif comment
                 $notif = array(
-                    'idpapers' => $idpapers,
+                    'idimage' => $idimage,
                     'idcomment' => $idcomment,
                     'id' => $id,
                     'iduser' => $iduser,
-                    'title' => 'Commented on your Paper',
+                    'title' => 'Commented on your Design',
                     'type' => 'comment'
                 );
                 NotifModel::AddNotifS($notif);
             }
-    		echo $idpapers;
+    		echo $idimage;
     	} else {
     		echo "failed";
     	}
@@ -57,9 +57,9 @@ class CommentController extends Controller
     		echo "failed";
     	}
     }
-    function get($idpapers, $offset, $limit)
+    function get($idimage, $offset, $limit)
     {
-    	$rest = CommentModel::GetID($idpapers, $offset, $limit);
+    	$rest = CommentModel::GetID($idimage, $offset, $limit);
     	echo json_encode($rest);
     }
 }

@@ -195,7 +195,7 @@ a {
 				text-align: left;
 				@media (max-width: $max-width) {
 					position: fixed;
-					top: 61px;
+					top: 60px;
 					left: 0;
 					width: calc(100% - 20px);
 					padding: 7.5px 10px;
@@ -356,6 +356,10 @@ a {
 	.post {
 		@include col_full();
 		@include col_masonry(5);
+		&.mas-4x {
+			width: 100%;
+			@include col_masonry(4);
+		}
 		@media (max-width: $max-width) {
 			@include col_masonry(2);
 			padding-top: 10px;

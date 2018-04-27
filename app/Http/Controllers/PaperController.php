@@ -14,47 +14,22 @@ use App\ImageModel;
 
 class PaperController extends Controller
 {
-    function paper($id)
+    function paper($idpapers)
     {
-        $check = PaperModel::CheckPaper($id);
-        if (is_int($check)) {
-            $idimage = ImageModel::GetIdImage($id, 'asc');
-            if (is_int($idimage)) {
-                PaperModel::UpdateViewsPaper($id);
-                $iduserMe = Auth::id();
-                $iduser = PaperModel::GetIduser($id);
-                
-                $getStory = PaperModel::GetPaper($id);
-                $getImage = ImageModel::GetImage($idimage);
-                $getAllImage = ImageModel::GetAllImage($id, 'desc');
-
-                $newStory = PaperModel::PagRelatedPaper(20, $id);
-
-                $tags = TagModel::GetTags($id);
-                $statusFolow = FollowModel::Check($iduser, $iduserMe);
-                $check = BookmarkModel::Check($idimage, $iduserMe);
-                return view('papers.index', [
-                    'title' => 'Paper',
-                    'path' => 'none',
-                    'getStory' => $getStory,
-                    'getImage' => $getImage,
-                    'getAllImage' => $getAllImage,
-                    'newStory' => $newStory,
-                    'tags' => $tags,
-                    'check' => $check,
-                    'statusFolow' => $statusFolow,
-                    'idpapers' => $id,
-                    'idimage' => $idimage
-                ]);
-            } else {
-                return redirect('/paper/'.$id.'/designs');
-            }
-        } else {
-            return view('papers.empty', [
-                'title' => 'Paper Not Finded',
-                'path' => 'none',
-            ]);
-        }
+        PaperModel::UpdateViewsPaper($idpapers);
+        $id = Auth::id();
+        $getPaper = PaperModel::GetPaper($idpapers);
+        $paperImage = PaperModel::pagImagePaper(20, $idpapers);
+        $tags = TagModel::GetTags($idpapers);
+        return view('papers.index', [
+            'title' => 'Paper',
+            'path' => 'none',
+            'getPaper' => $getPaper,
+            'paperImage' => $paperImage,
+            'tags' => $tags,
+            'idpapers' => $idpapers,
+            'id' => $id
+        ]);
     }
     function paperImage($id, $idimage)
     {
@@ -69,20 +44,16 @@ class PaperController extends Controller
             $getAllImage = ImageModel::GetAllImage($id,'desc');
             
             $newStory = PaperModel::PagRelatedPaper(20, $id);
-            
-            $tags = TagModel::GetTags($id);
-            $statusFolow = FollowModel::Check($iduser, $iduserMe);
+
             $check = BookmarkModel::Check($idimage, $iduserMe);
-            return view('papers.index', [
+            return view('designs.index', [
                 'title' => 'Paper',
                 'path' => 'none',
                 'getStory' => $getStory,
                 'getImage' => $getImage,
                 'getAllImage' => $getAllImage,
                 'newStory' => $newStory,
-                'tags' => $tags,
                 'check' => $check,
-                'statusFolow' => $statusFolow,
                 'idpapers' => $id,
                 'idimage' => $idimage
             ]);

@@ -56,4 +56,10 @@ class ImageModel extends Model
         ->limit(1)
         ->value('idimage');
     }
+    function scopeGetIduser($query, $idimage)
+    {
+        return DB::table('image')
+        ->where('image.idimage', $idimage)
+        ->value('image.id');
+    }
 }

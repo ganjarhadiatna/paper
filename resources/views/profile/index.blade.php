@@ -9,7 +9,7 @@
 @foreach ($profile as $p)
 <div class="sc-header">
 	<div class="sc-place pos-fix">
-		<div class="col-800px">
+		<div class="col-700px">
 			<div class="sc-grid sc-grid-3x">
 				<div class="sc-col-1">
 					@if (Auth::id() == $p->id)
@@ -61,7 +61,7 @@
 </div>
 <div class="padding-20px">
 	<div class="frame-profile">
-		<div class="profile col-800px">
+		<div class="profile col-700px">
 			<div class="foto">
 				<div class="image image-150px image-circle" id="place-picture" style="background-image: url({{ asset('/profile/photos/'.$p->foto) }});"></div>
 			</div>
@@ -77,7 +77,7 @@
 					<a class="link" href="{{ $p->website }}" target="_blank">{{ $p->website }}</a>
 				</div>
 				<div>
-					<div class="other mrg-bottom">
+					<div class="menu-val">
 						<ul>
 							<li>
 								<a href="{{ url('/user/'.$p->id.'/following') }}">

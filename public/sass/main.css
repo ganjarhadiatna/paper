@@ -126,7 +126,7 @@
 
 .txt {
   width: calc(100% - 30px);
-  height: 40px;
+  height: 45px;
   font-size: 14px;
   font-weight: 900;
   padding: 0 15px;
@@ -145,7 +145,7 @@
   .txt.txt-box-shadow {
     border: 1px rgba(0, 0, 0, 0.1) solid; }
   .txt.txt-sekunder-color {
-    height: 38px;
+    height: 43px;
     background-color: #fff;
     color: rgba(0, 0, 0, 0.84);
     border: 1px rgba(0, 0, 0, 0.1) solid; }
@@ -736,22 +736,8 @@
     line-height: 1.5; }
   .frame-story .bot {
     color: rgba(0, 0, 0, 0.54); }
-    .frame-story .bot .loved {
-      margin: 15px 0; }
     .frame-story .bot .top-comment .comment-head {
       padding: 15px 0; }
-      .frame-story .bot .top-comment .comment-head .comment-text {
-        min-width: calc(100% - 30px);
-        max-width: calc(100% - 30px);
-        height: 50px;
-        min-height: 50px;
-        max-height: 300px;
-        padding: 15px;
-        color: rgba(0, 0, 0, 0.54);
-        margin-bottom: 15px; }
-        .frame-story .bot .top-comment .comment-head .comment-text:focus {
-          color: rgba(0, 0, 0, 0.84);
-          border: 1px rgba(0, 0, 0, 0.84) solid; }
       .frame-story .bot .top-comment .comment-head .place-btn {
         position: relative;
         width: 100%;
@@ -765,8 +751,8 @@
       border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
       display: grid;
       display: -ms-grid;
-      grid-template-columns: 45px 1fr 90px;
-      -ms-grid-columns: 45px 1fr 90px; }
+      grid-template-columns: 65px 1fr 90px;
+      -ms-grid-columns: 65px 1fr 90px; }
       .frame-story .bot .profile .foto {
         grid-column: 1;
         -ms-grid-column: 1; }
@@ -775,13 +761,7 @@
         grid-column: 2;
         -ms-grid-column: 2; }
         .frame-story .bot .profile .info .name {
-          position: absolute;
-          top: 50%;
-          -webkit-transform: translate(0, -50%);
-          -moz-transform: translate(0, -50%);
-          -ms-transform: translate(0, -50%);
-          -o-transform: translate(0, -50%);
-          transform: translate(0, -50%);
+          position: relative;
           font-weight: 600;
           font-size: 14px; }
           .frame-story .bot .profile .info .name a {
@@ -805,8 +785,8 @@
   margin-bottom: 20px;
   display: grid;
   display: -ms-grid;
-  grid-template-columns: 45px 1fr;
-  -ms-grid-columns: 45px 1fr; }
+  grid-template-columns: 70px 1fr;
+  -ms-grid-columns: 70px 1fr; }
   .frame-comment .dt-1 {
     grid-column: 1;
     -ms-grid-column: 1; }
@@ -847,11 +827,8 @@
     position: relative;
     display: grid;
     display: -ms-grid;
-    grid-template-columns: 200px 1fr;
-    -ms-grid-columns: 200px 1fr; }
-    @media (max-width: 768px) {
-      .frame-profile .profile {
-        display: block; } }
+    grid-template-columns: 175px 1fr;
+    -ms-grid-columns: 175px 1fr; }
     .frame-profile .profile .foto {
       grid-column: 1;
       -ms-grid-column: 1;
@@ -863,29 +840,6 @@
       -ms-grid-column: 2; }
       .frame-profile .profile .info .user-name {
         color: rgba(0, 0, 0, 0.54); }
-      .frame-profile .profile .info .other a {
-        color: rgba(0, 0, 0, 0.54);
-        font-weight: 600; }
-      .frame-profile .profile .info .other .link {
-        color: #529ecc;
-        font-weight: 600; }
-        .frame-profile .profile .info .other .link:hover {
-          text-decoration: underline; }
-      .frame-profile .profile .info .other ul {
-        position: relative;
-        width: 100%;
-        padding: 10px 0; }
-        .frame-profile .profile .info .other ul li {
-          position: relative;
-          padding: 5px 10px;
-          display: inline-block;
-          text-align: left; }
-          .frame-profile .profile .info .other ul li .val {
-            font-size: 14px; }
-          .frame-profile .profile .info .other ul li .ttl {
-            color: rgba(0, 0, 0, 0.34);
-            font-weight: 500;
-            font-size: 14px; }
 
 .frame-edit .create-head {
   border-bottom: 1px rgba(0, 0, 0, 0.1) solid; }
@@ -1824,7 +1778,7 @@
   position: relative;
   top: 0;
   left: 0;
-  min-height: 65px;
+  min-height: 50px;
   width: 100%;
   cursor: default; }
   .sc-header .sc-place {
@@ -1892,7 +1846,8 @@
       position: fixed;
       top: 60px;
       z-index: 50;
-      border-bottom: 1px rgba(0, 0, 0, 0.1) solid; }
+      background-color: #fff;
+      opacity: 0.9; }
       @media (max-width: 768px) {
         .sc-header .sc-place.pos-fix {
           position: relative;
@@ -2043,6 +1998,40 @@
     .nav-theme-3 ul li.active {
       background-color: rgba(225, 225, 225, 0.54);
       color: rgba(0, 0, 0, 0.54); }
+
+.menu-val a {
+  color: rgba(0, 0, 0, 0.54);
+  font-weight: 600; }
+.menu-val .link {
+  color: #529ecc;
+  font-weight: 600; }
+  .menu-val .link:hover {
+    text-decoration: underline; }
+.menu-val ul {
+  position: relative;
+  width: 100%;
+  padding: 10px 0;
+  cursor: default; }
+  .menu-val ul li {
+    position: relative;
+    padding: 5px 10px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.54);
+    font-weight: 600; }
+    .menu-val ul li.right {
+      float: right;
+      display: block; }
+    .menu-val ul li .val {
+      font-size: 14px; }
+    .menu-val ul li .ttl {
+      color: rgba(0, 0, 0, 0.34);
+      font-weight: 500;
+      font-size: 14px; }
+    .menu-val ul li .image {
+      display: inline-block;
+      vertical-align: middle; }
 
 * {
   padding: 0;
@@ -2247,7 +2236,7 @@ a {
         @media (max-width: 768px) {
           #header .place .menu .mid {
             position: fixed;
-            top: 61px;
+            top: 60px;
             left: 0;
             width: calc(100% - 20px);
             padding: 7.5px 10px;
@@ -2403,6 +2392,16 @@ a {
     @media (max-width: 768px) {
       #body .post {
         width: calc(100% - 20px); } }
+    #body .post.mas-4x {
+      width: 100%;
+      column-count: 4;
+      column-gap: 0;
+      -webkit-column-count: 4;
+      -webkit-column-gap: 0;
+      -moz-column-count: 4;
+      -moz-column-gap: 0;
+      -ms-column-count: 4;
+      -ms-column-gap: 0; }
     @media (max-width: 768px) {
       #body .post {
         column-count: 2;

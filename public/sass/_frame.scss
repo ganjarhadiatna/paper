@@ -532,26 +532,9 @@
 	}
 	.bot {
 		color: $txt-sek-color;
-		.loved {
-			margin: 15px 0;
-		}
 		.top-comment {
 			.comment-head {
 				padding: 15px 0;
-				.comment-text {
-					min-width: calc(100% - 30px);
-					max-width: calc(100% - 30px);
-					height: 50px;
-					min-height: 50px;
-					max-height: 300px;
-					padding: 15px;
-					color: $txt-sek-color;
-					margin-bottom: 15px;
-					&:focus {
-						color: $txt-min-color;
-						border: 1px $txt-min-color solid;
-					}
-				}
 				.place-btn {
 					position: relative;
 					width: 100%;
@@ -566,7 +549,7 @@
 		.profile {
 			padding: 15px 0;
 			@include bdr_top_bottom();
-			@include grid_3x(45px, 1fr, 90px);
+			@include grid_3x(65px, 1fr, 90px);
 			.foto {
 				@include column_1();
 			}
@@ -574,7 +557,7 @@
 				position: relative;
 				@include column_2();
 				.name {
-					@include post_top();
+					position: relative;
 					font-weight: 600;
 					font-size: $txt-size-desc;
 					a {
@@ -604,7 +587,7 @@
 	width: 100%;
 	margin-top: 20px;
 	margin-bottom: 20px;
-	@include grid_2x(45px, 1fr);
+	@include grid_2x(70px, 1fr);
 	.dt-1 {
 		@include column_1();
 	}
@@ -651,10 +634,7 @@
 	padding: 20px 0;
 	.profile {
 		position: relative;
-		@include grid_2x(200px, 1fr);
-		@media (max-width: $max-width) {
-			@include grid_none();
-		}
+		@include grid_2x(175px, 1fr);
 		.foto {
 			@include column_1();
 			margin-bottom: 20px;
@@ -665,38 +645,6 @@
 			@include column_2();
 			.user-name {
 				color: $txt-sek-color;
-			}
-			.other {
-				a {
-					color: $txt-sek-color;
-					font-weight: 600;
-				}
-				.link {
-					color: $pos-color;
-					font-weight: 600;
-					&:hover {
-						text-decoration: underline;
-					}
-				}
-				ul {
-					position: relative;
-					width: 100%;
-					padding: 10px 0;
-					li {
-						position: relative;
-						padding: 5px 10px;
-						display: inline-block;
-						text-align: left;
-						.val {
-							font-size: $txt-size-desc;
-						}
-						.ttl {
-							color: rgba(0,0,0,0.34);
-							font-weight: 500;
-							font-size: 14px;
-						}
-					}
-				}
 			}
 		}
 	}

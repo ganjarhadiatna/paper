@@ -36,7 +36,7 @@
 	position: relative;
 	top: 0;
 	left: 0;
-	min-height: 65px;
+	min-height: 50px;
 	width: 100%;
 	cursor: default;
 	.sc-place {
@@ -94,7 +94,8 @@
 			position: fixed;
 			top: 60px;
 			z-index: 50;
-			border-bottom: 1px rgba(0,0,0,0.1) solid;
+			background-color: $sek-color;
+			opacity: 0.9;
 			@media (max-width: $max-width) {
 				position: relative;
 				top: 0;
@@ -307,4 +308,49 @@
             }
         }
     }
+}
+
+.menu-val {
+	a {
+		color: $txt-sek-color;
+		font-weight: 600;
+	}
+	.link {
+		color: $pos-color;
+		font-weight: 600;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+	ul {
+		position: relative;
+		width: 100%;
+		padding: 10px 0;
+		cursor: default;
+		li {
+			position: relative;
+			padding: 5px 10px;
+			display: inline-block;
+			vertical-align: middle;
+			text-align: left;
+			color: $txt-sek-color;
+			font-weight: 600;
+			&.right {
+				float: right;
+				display: block;
+			}
+			.val {
+				font-size: $txt-size-desc;
+			}
+			.ttl {
+				color: rgba(0,0,0,0.34);
+				font-weight: 500;
+				font-size: 14px;
+			}
+			.image {
+				display: inline-block;
+				vertical-align: middle;
+			}
+		}
+	}
 }
