@@ -845,15 +845,10 @@
   padding: 20px 0; }
   .frame-profile .profile {
     position: relative;
-    width: 680px;
-    margin: 0 auto;
     display: grid;
     display: -ms-grid;
     grid-template-columns: 200px 1fr;
     -ms-grid-columns: 200px 1fr; }
-    @media (max-width: 768px) {
-      .frame-profile .profile {
-        width: calc(100% - 20px); } }
     @media (max-width: 768px) {
       .frame-profile .profile {
         display: block; } }

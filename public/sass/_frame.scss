@@ -651,7 +651,6 @@
 	padding: 20px 0;
 	.profile {
 		position: relative;
-		@include col_set(680px);
 		@include grid_2x(200px, 1fr);
 		@media (max-width: $max-width) {
 			@include grid_none();

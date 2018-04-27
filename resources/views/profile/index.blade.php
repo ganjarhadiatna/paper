@@ -9,7 +9,7 @@
 @foreach ($profile as $p)
 <div class="sc-header">
 	<div class="sc-place pos-fix">
-		<div class="col-small">
+		<div class="col-800px">
 			<div class="sc-grid sc-grid-3x">
 				<div class="sc-col-1">
 					@if (Auth::id() == $p->id)
@@ -61,7 +61,7 @@
 </div>
 <div class="padding-20px">
 	<div class="frame-profile">
-		<div class="profile">
+		<div class="profile col-800px">
 			<div class="foto">
 				<div class="image image-150px image-circle" id="place-picture" style="background-image: url({{ asset('/profile/photos/'.$p->foto) }});"></div>
 			</div>
