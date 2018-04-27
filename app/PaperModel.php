@@ -99,7 +99,6 @@ class PaperModel extends Model
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
@@ -129,7 +128,6 @@ class PaperModel extends Model
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
@@ -159,8 +157,7 @@ class PaperModel extends Model
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
-            DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
+            DB::raw('(select count(comment.idcomment) from comment where comment.idimage = image.idimage) as ttl_comment'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
         ->join('papers','papers.idpapers', '=', 'image.idpapers')
@@ -190,8 +187,7 @@ class PaperModel extends Model
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
-            DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
+            DB::raw('(select count(comment.idcomment) from comment where comment.idimage = image.idimage) as ttl_comment'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
         ->join('papers','papers.idpapers', '=', 'image.idpapers')
@@ -221,7 +217,6 @@ class PaperModel extends Model
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
@@ -259,7 +254,6 @@ class PaperModel extends Model
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
@@ -292,7 +286,6 @@ class PaperModel extends Model
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
@@ -324,7 +317,6 @@ class PaperModel extends Model
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
@@ -361,7 +353,6 @@ class PaperModel extends Model
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
@@ -392,7 +383,6 @@ class PaperModel extends Model
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
@@ -423,7 +413,6 @@ class PaperModel extends Model
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
