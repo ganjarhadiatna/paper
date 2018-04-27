@@ -6,12 +6,13 @@
 	var id = '{{ Auth::id() }}';
 	var server = '{{ url("/") }}';
 </script>
+@foreach ($getPaper as $dt)
 <div class="sc-header">
 	<div class="sc-place pos-fix">
 		<div class="col-800px">
 			<div class="sc-grid sc-grid-3x">
 				<div class="sc-col-1">
-					@if ($id == Auth::id())
+					@if ($dt->id == Auth::id())
 						<button class="btn btn-circle btn-main2-color btn-focus" onclick="opQuestionPost('{{ $idpapers }}')">
 							<span class="far fa-lg fa-trash-alt"></span>
 						</button>
@@ -20,10 +21,10 @@
 								<span class="fas fa-lg fa-pencil-alt"></span>
 							</button>
 						</a>
+						<button class="btn btn-circle btn-main2-color btn-focus" onclick="opPostPopup('open', 'menu-popup', '{{ $idpapers }}', '{{ $dt->id }}')">
+							<span class="fas fa-lg fa-ellipsis-h"></span>
+						</button>
 					@endif
-					<button class="btn btn-circle btn-main2-color btn-focus" onclick="opPostPopup('open', 'menu-popup', '{{ $idpapers }}', '{{ $id }}')">
-						<span class="fas fa-lg fa-ellipsis-h"></span>
-					</button>
 				</div>
 				<div class="sc-col-2 txt-center">
 					<h3 class="ttl ttl-head-2 ttl-sekunder-color">
@@ -31,17 +32,20 @@
 					</h3>
 				</div>
 				<div class="sc-col-3 txt-right">
-					<a href="{{ url('/paper/'.$idpapers.'/designs') }}">
-						<button class="btn btn-sekunder-color btn-focus">
-							<span class="fas fa-lg fa-images"></span>
-							<span class="mobile">Organized</span>
-						</button>
-					</a>
+					@if ($dt->id == Auth::id())
+						<a href="{{ url('/paper/'.$idpapers.'/designs') }}">
+							<button class="btn btn-sekunder-color btn-focus">
+								<span class="fas fa-lg fa-images"></span>
+								<span class="mobile">Organized</span>
+							</button>
+						</a>
+					@endif
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+@endforeach
 <div class="col-800px padding-bottom-20px">
 	@foreach ($getPaper as $dt)
 		<div>
