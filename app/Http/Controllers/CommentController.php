@@ -29,15 +29,17 @@ class CommentController extends Controller
             //get user id
             $iduser = ImageModel::GetIduser($idimage);
             if ($id != $iduser) {
+				//get papers id GetIdpaper
+				$idpapers = ImageModel::GetIdpaper($idimage);
                 //get idcomment
                 $idcomment = CommentModel::GetIdcomment($idimage, $id);
                 //add notif comment
                 $notif = array(
+					'idpapers' => $idpapers,
                     'idimage' => $idimage,
                     'idcomment' => $idcomment,
                     'id' => $id,
                     'iduser' => $iduser,
-                    'title' => 'Commented on your Design',
                     'type' => 'comment'
                 );
                 NotifModel::AddNotifS($notif);

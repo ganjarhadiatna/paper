@@ -32,15 +32,17 @@ class BookmarkController extends Controller
 	    		//get user id
 	    		$iduser = ImageModel::GetIduser($idimage);
 	    		if ($id != $iduser) {
+					//get papers id GetIdpaper
+					$idpapers = ImageModel::GetIdpaper($idimage);
 	    			//get bookmark id
 		    		$idbookmark = BookmarkModel::GetIduser($iduser);
 		    		//add notif bookmark
 		    		$notif = array(
+						'idpapers' => $idpapers,
 		    			'idimage' => $idimage,
 		    			'idbookmark' => $idbookmark,
 		    			'id' => $id,
 		    			'iduser' => $iduser,
-		    			'title' => 'Saved your Design',
 		    			'type' => 'bookmark'
 		    		);
 		    		NotifModel::AddNotifS($notif);

@@ -20,17 +20,26 @@
 			for (var i = 0; i < data.length; i++) {
 				var server_foto = server+'/profile/thumbnails/'+data[i].foto;
 				var server_cover = server+'/story/thumbnails/'+data[i].image;
-				var server_post = server+'/paper/'+data[i].idpapers+'/design/'+data[i].idimage;
+				var server_design = server+'/paper/'+data[i].idpapers+'/design/'+data[i].idimage;
+				var server_papers = server+'/paper/'+data[i].idpapers;
 				var server_user = server+'/user/'+data[i].id;
+				if (data[i].type == 'bookmark') {
+					var title = 'Saved a design from <a href="'+server_papers+'"><strong>'+data[i].title+'</strong></a>.';
+				} else {
+					var title = 'Comented "'+data[i].description+'" on your design.';
+				}
 				dt += '\
-					<div class="frame-notif" onclick="toLink('+"'"+server_post+"'"+')">\
+					<div class="frame-notif">\
 						<div class="notif-sid">\
-							<div class="image image-35px image-radius" style="background-image: url('+server_cover+');"></div>\
+							<a href="'+server_design+'">\
+								<div class="image image-35px image-radius" style="background-image: url('+server_cover+');"></div>\
+							</a>\
 						</div>\
 						<div class="notif-mid">\
 							<div class="ntf-mid">\
 								<div class="desc">\
-									<strong onclick="toLink('+"'"+server_user+"'"+')">'+data[i].username+'</strong> '+data[i].title+'\
+									<a href="'+server_user+'"><strong>'+data[i].username+'</strong></a>\
+									'+title+'\
 								</div>\
 								<div class="desc date">\
 									'+data[i].created+'\
@@ -78,11 +87,16 @@
 				dt += '\
 					<div class="frame-notif">\
 						<div class="notif-sid">\
-							<div class="image image-35px image-radius" style="background-image: url('+server_foto+');" onclick="toLink('+"'"+server_user+"'"+')"></div>\
+							<a href="'+server_user+'">\
+								<div class="image image-35px image-radius" style="background-image: url('+server_foto+');"></div>\
+							</a>\
 						</div>\
 						<div class="notif-mid">\
 							<div class="desc">\
-								<strong onclick="toLink('+"'"+server_user+"'"+')">'+data[i].username+'</strong> '+data[i].title+'\
+								<a href="'+server_user+'">\
+									<strong>'+data[i].username+'</strong>\
+								</a>\
+								Started following you.\
 							</div>\
 							<div class="desc date">\
 								'+data[i].created+'\
@@ -176,7 +190,7 @@
 		});
 
 		$('#notifications *').on('click', function(event) {
-			return false;
+			event.stopPropagation();
 		});
 
 		$('#close-notif').on('click', function(event) {

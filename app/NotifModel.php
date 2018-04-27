@@ -56,7 +56,6 @@ class NotifModel extends Model
             'notif_f.idnotif_f',
             'notif_f.id',
             'notif_f.iduser',
-            'notif_f.title',
             'notif_f.created',
             'users.name',
             'users.username',
@@ -75,22 +74,26 @@ class NotifModel extends Model
         return DB::table('notif_s')
         ->select(
             'notif_s.idnotif_s',
-            'notif_s.title',
             'notif_s.status',
             'notif_s.id',
             'notif_s.iduser',
             'notif_s.idimage',
             'notif_s.created',
+            'notif_s.type',
             'users.name',
             'users.username',
             'users.foto',
             'users.about',
             'image.image',
-            'image.idpapers'
+            'image.idpapers',
+            'papers.title',
+            'comment.description'
         )
         ->where('notif_s.iduser', $id)
         ->join('users','users.id','=','notif_s.id')
         ->join('image','image.idimage','=','notif_s.idimage')
+        ->join('papers','papers.idpapers','=','notif_s.idpapers')
+        ->leftJoin('comment','comment.idcomment','=','notif_s.idcomment')
         ->orderBy('notif_s.idnotif_s', 'desc')
         ->limit($limit)
         ->offset($offset)

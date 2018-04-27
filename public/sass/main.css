@@ -641,21 +641,23 @@
   grid-template-columns: 50px 1fr;
   -ms-grid-columns: 50px 1fr; }
   .frame-notif:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-    cursor: pointer; }
+    background-color: #f0f0f0; }
   .frame-notif a {
     color: rgba(0, 0, 0, 0.84); }
+    .frame-notif a:hover {
+      color: #bd081c; }
   .frame-notif .notif-sid {
     grid-column: 1;
     -ms-grid-column: 1; }
   .frame-notif .notif-mid {
     grid-column: 2;
-    -ms-grid-column: 2; }
+    -ms-grid-column: 2;
+    line-height: 1.5; }
     .frame-notif .notif-mid .desc {
       font-size: 14px;
-      color: rgba(0, 0, 0, 0.84); }
+      color: rgba(0, 0, 0, 0.54); }
       .frame-notif .notif-mid .desc.date {
-        font-size: 12px;
+        font-size: 14px;
         color: rgba(0, 0, 0, 0.54); }
 
 .frame-story {

@@ -425,22 +425,25 @@
 	@include grid_2x(50px, 1fr);
 
 	&:hover {
-		background-color: rgba(0,0,0,0.1);
-		cursor: pointer;
+		background-color: #f0f0f0;
 	}
 	a {
 		color: $txt-min-color;
+		&:hover {
+			color: $min-color;
+		}
 	}
 	.notif-sid {
 		@include column_1();
 	}
 	.notif-mid {
 		@include column_2();
+		line-height: 1.5;
 		.desc {
 			font-size: 14px;
-			color: $txt-min-color;
+			color: $txt-sek-color;
 			&.date {
-				font-size: 12px;
+				font-size: 14px;
 				color: $txt-sek-color;
 			}
 		}

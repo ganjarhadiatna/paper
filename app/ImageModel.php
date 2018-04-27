@@ -62,4 +62,10 @@ class ImageModel extends Model
         ->where('image.idimage', $idimage)
         ->value('image.id');
     }
+    function scopeGetIdpaper($query, $idimage)
+    {
+        return DB::table('image')
+        ->where('image.idimage', $idimage)
+        ->value('image.idpapers');
+    }
 }
