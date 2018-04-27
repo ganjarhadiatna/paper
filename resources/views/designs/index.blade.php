@@ -219,7 +219,7 @@
 						<div class="profile">
 							<div class="foto">
 								<a href="{{ url('/user/'.$story->id) }}">
-									<div class="image image-50px image-circle" style="background-image: url({{ asset('/profile/thumbnails/'.$story->foto) }});"></div>
+									<div class="image image-40px image-circle" style="background-image: url({{ asset('/profile/thumbnails/'.$story->foto) }});"></div>
 								</a>
 							</div>
 							<div class="info">

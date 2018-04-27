@@ -751,8 +751,8 @@
       border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
       display: grid;
       display: -ms-grid;
-      grid-template-columns: 65px 1fr 90px;
-      -ms-grid-columns: 65px 1fr 90px; }
+      grid-template-columns: 55px 1fr 90px;
+      -ms-grid-columns: 55px 1fr 90px; }
       .frame-story .bot .profile .foto {
         grid-column: 1;
         -ms-grid-column: 1; }
@@ -774,8 +774,7 @@
         .frame-story .bot .profile .tool .btn {
           width: 100%;
           padding: 0 0;
-          font-size: 14px;
-          height: 35px; }
+          font-size: 14px; }
 
 /*start frame-comment*/
 .frame-comment {
