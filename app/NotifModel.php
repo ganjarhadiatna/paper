@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class NotifModel extends Model
 {
-    function scopeCekNotifStory($query, $iduser)
+    function scopeCekNotifimage($query, $iduser)
     {
         return DB::table('notif_s')
         ->where('notif_s.iduser', $iduser)
@@ -79,17 +79,18 @@ class NotifModel extends Model
             'notif_s.status',
             'notif_s.id',
             'notif_s.iduser',
-            'notif_s.idstory',
+            'notif_s.idimage',
             'notif_s.created',
             'users.name',
             'users.username',
             'users.foto',
             'users.about',
-            'story.cover'
+            'image.image',
+            'image.idpapers'
         )
         ->where('notif_s.iduser', $id)
         ->join('users','users.id','=','notif_s.id')
-        ->join('story','story.idstory','=','notif_s.idstory')
+        ->join('image','image.idimage','=','notif_s.idimage')
         ->orderBy('notif_s.idnotif_s', 'desc')
         ->limit($limit)
         ->offset($offset)

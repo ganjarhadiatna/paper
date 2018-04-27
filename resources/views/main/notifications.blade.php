@@ -19,8 +19,8 @@
 			var dt = '';
 			for (var i = 0; i < data.length; i++) {
 				var server_foto = server+'/profile/thumbnails/'+data[i].foto;
-				var server_cover = server+'/story/thumbnails/'+data[i].cover;
-				var server_post = server+'/story/'+data[i].idstory;
+				var server_cover = server+'/story/thumbnails/'+data[i].image;
+				var server_post = server+'/paper/'+data[i].idpapers+'/design/'+data[i].idimage;
 				var server_user = server+'/user/'+data[i].id;
 				dt += '\
 					<div class="frame-notif" onclick="toLink('+"'"+server_post+"'"+')">\
