@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\BookmarkModel;
-use App\BoxsModel;
+use App\ImageModel;
 use App\NotifModel;
 
 class BookmarkController extends Controller
@@ -29,8 +29,8 @@ class BookmarkController extends Controller
 			);
 	    	$rest = BookmarkModel::Add($data);
 	    	if ($rest) {
-	    		/*//get user id
-	    		$iduser = BoxsModel::GetIduser($idimage);
+	    		//get user id
+	    		$iduser = ImageModel::GetIduser($idimage);
 	    		if ($id != $iduser) {
 	    			//get bookmark id
 		    		$idbookmark = BookmarkModel::GetIduser($iduser);
@@ -40,11 +40,11 @@ class BookmarkController extends Controller
 		    			'idbookmark' => $idbookmark,
 		    			'id' => $id,
 		    			'iduser' => $iduser,
-		    			'title' => 'Saved your Story',
+		    			'title' => 'Saved your Design',
 		    			'type' => 'bookmark'
 		    		);
 		    		NotifModel::AddNotifS($notif);
-	    		}*/
+	    		}
 	    		echo "bookmark";	
 	    	} else {
 	    		echo "failedadd";
@@ -65,7 +65,7 @@ class BookmarkController extends Controller
 	    if ($rest) {
 			//get user id
 			$ch = BookmarkModel::Check($idstory, $id);
-	    	$iduser = BoxsModel::GetIduser($idstory);
+	    	$iduser = PaperModel::GetIduser($idstory);
 	    	if ($id != $iduser) {
 		   		//add notif bookmark
 		   		$notif = array(

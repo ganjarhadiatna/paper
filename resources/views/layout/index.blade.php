@@ -131,7 +131,7 @@
 					//console.log(data);
 				})
 				.fail(function(data) {
-					//console.log(data.responseJSON);
+					console.log(data.responseJSON);
 					opAlert('open', 'There is an error, please try again.');
 				});
 			}
