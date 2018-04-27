@@ -16,7 +16,7 @@
 		window.location = server_post;
 	}
 	function opQuestionPost(idpapers) {
-		opQuestion('open','Are you sure you want to delete this box?', 'deletePost("'+idpapers+'")');
+		opQuestion('open','Are you sure you want to delete this paper?', 'deletePost("'+idpapers+'")');
 	}
 	function deletePost(idpapers) {
 		$.ajax({
