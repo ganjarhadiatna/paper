@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use App\BoxsModel;
+use App\PaperModel;
 use App\ProfileModel;
 use App\TagModel;
 use App\ImageModel;
@@ -19,7 +19,7 @@ class MainController extends Controller
         if (Auth::id()) {
             $id = Auth::id();
             $profile = FollowModel::GetAllFollowing($id);
-            $topStory = BoxsModel::PagTimelinesStory(20, $profile, $id);
+            $topStory = PaperModel::PagTimelinesStory(20, $profile, $id);
             return view('home.index', [
                 'title' => 'Official Site',
                 'path' => 'home',
@@ -39,7 +39,7 @@ class MainController extends Controller
         } else {
             $id = 0;
         }
-        $topStory = BoxsModel::PagAllStory(20);
+        $topStory = PaperModel::PagAllStory(20);
         $topTags = TagModel::TopTags();
         $allTags = TagModel::AllTags();
         $topUsers = ProfileModel::TopUsers($id, 7);
@@ -58,7 +58,7 @@ class MainController extends Controller
     }
     function tagsId($ctr)
     {
-        $topStory = BoxsModel::PagTagBoxs($ctr, 12);
+        $topStory = PaperModel::PagTagPaper($ctr, 12);
         return view('others.index', [
             'title' => $ctr,
             'path' => 'none',
@@ -67,7 +67,7 @@ class MainController extends Controller
     }
     function ctrId($ctr)
     {
-        $topStory = BoxsModel::PagCtrBoxs($ctr, 12);
+        $topStory = PaperModel::PagCtrPaper($ctr, 12);
         return view('others.index', [
             'title' => 'Category '.$ctr,
             'path' => 'none',
@@ -78,7 +78,7 @@ class MainController extends Controller
     {
         $id = Auth::id();
         $profile = FollowModel::GetAllFollowing($id);
-        $topStory = BoxsModel::PagTimelinesBoxs(20, $profile);
+        $topStory = PaperModel::PagTimelinesPaper(20, $profile);
         return view('others.index', [
             'title' => 'Timelines',
             'path' => 'timelines',
@@ -87,33 +87,33 @@ class MainController extends Controller
     }
     function popular()
     {
-        $topStory = BoxsModel::PagPopularBoxs(20);
+        $topStory = PaperModel::PagPopularPaper(20);
         return view('others.index', [
             'title' => 'Popular',
             'path' => 'popular',
             'topStory' => $topStory
         ]);
     }
-    function composeImage($idboxs)
+    function composeImage($idpapers)
     {
-        $image = ImageModel::GetAllImage($idboxs,'asc');
+        $image = ImageModel::GetAllImage($idpapers,'asc');
         return view('compose.image', [
             'title' => 'Add Designs',
             'path' => 'compose',
-            'idboxs' => $idboxs,
+            'idpapers' => $idpapers,
             'image' => $image
         ]);
     }
-    function composeBox()
+    function composePaper()
     {
-        return view('compose.box', [
-            'title' => 'Add Box',
+        return view('compose.paper', [
+            'title' => 'Add Paper',
             'path' => 'compose'
         ]);
     }
     function fresh()
     {
-        $topStory = BoxsModel::PagAllBoxs(20);
+        $topStory = PaperModel::PagAllPaper(20);
         return view('others.index', [
             'title' => 'Fresh',
             'path' => 'fresh',
@@ -122,7 +122,7 @@ class MainController extends Controller
     }
     function trending()
     {
-        $topStory = BoxsModel::PagTrendingBoxs(20);
+        $topStory = PaperModel::PagTrendingPaper(20);
         return view('others.index', [
             'title' => 'Trending',
             'path' => 'trending',
@@ -136,7 +136,7 @@ class MainController extends Controller
         } else {
             $id = 0;
         }
-        $topStory = BoxsModel::PagSearchBoxs($ctr, 20);
+        $topStory = PaperModel::PagSearchPaper($ctr, 20);
         $topUsers = ProfileModel::SearchUsers($ctr, $id);
         $topTags = TagModel::SearchTags($ctr);
         return view('search.index', [
@@ -155,7 +155,7 @@ class MainController extends Controller
             $id = 0;
         }
         $ctr = $_GET['q'];
-        $topStory = BoxsModel::PagSearchBoxs($ctr, 20);
+        $topStory = PaperModel::PagSearchPaper($ctr, 20);
         $topUsers = ProfileModel::SearchUsers($ctr, $id);
         $topTags = TagModel::SearchTags($ctr);
         return view('search.index', [

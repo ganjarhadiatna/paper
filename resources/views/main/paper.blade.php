@@ -1,6 +1,6 @@
 <div class="frame-box">
     <div class="top">
-        <a href="{{ url('/box/'.$bx->idboxs) }}">
+        <a href="{{ url('/paper/'.$bx->idpapers) }}">
             @if ($bx->ttl_save != 0)
                 <div class="pl-icn pl-image">
                     <div class="bg-image" style="background-image: url({{ asset('/story/thumbnails/'.$bx->cover1) }})"></div>
@@ -20,7 +20,7 @@
         </a>
     </div>
     <div class="mid">
-        <a href="{{ url('/box/'.$bx->idboxs) }}">
+        <a href="{{ url('/box/'.$bx->idpapers) }}">
             <h3 class="ctn-main-font ctn-min-color ctn-line">
                 {{ $bx->title }}
             </h3>

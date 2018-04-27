@@ -52,7 +52,7 @@ class ProfileModel extends Model
     		'users.visitor',
     		'users.foto',
             'users.website',
-            DB::raw('(select count(boxs.idboxs) from boxs where boxs.id = users.id) as ttl_boxs'),
+            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.id = users.id) as ttl_bookmark'),
             DB::raw('(select count(follow.idfollow) from follow where follow.followers = users.id) as ttl_following'),
             DB::raw('(select count(follow.idfollow) from follow where follow.following = users.id) as ttl_followers')

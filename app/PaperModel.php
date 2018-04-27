@@ -6,65 +6,65 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-class BoxsModel extends Model
+class PaperModel extends Model
 {
-    protected $table = 'boxs';
+    protected $table = 'papers';
 
     function scopeGetID($query)
     {
-        return DB::table('boxs')
-        ->orderBy('idboxs', 'desc')
+        return DB::table('papers')
+        ->orderBy('idpapers', 'desc')
         ->limit(1)
-        ->value('idboxs');
+        ->value('idpapers');
     }
-    function scopeGetIduser($query, $idboxs)
+    function scopeGetIduser($query, $idpapers)
     {
-        return DB::table('boxs')
-        ->where('boxs.idboxs', $idboxs)
-        ->value('boxs.id');
+        return DB::table('papers')
+        ->where('papers.idpapers', $idpapers)
+        ->value('papers.id');
     }
-    function scopeAddBoxs($query, $data)
+    function scopeAddPaper($query, $data)
     {
-        return DB::table('boxs')->insert($data);
+        return DB::table('papers')->insert($data);
     }
-    function scopeUpdateBoxs($query, $idboxs, $data)
+    function scopeUpdatePaper($query, $idpapers, $data)
     {
-        return DB::table('boxs')->where('boxs.idboxs', $idboxs)->update($data);
+        return DB::table('papers')->where('papers.idpapers', $idpapers)->update($data);
     }
-    function scopeDeleteBoxs($query, $idboxs, $id)
+    function scopeDeletePaper($query, $idpapers, $id)
     {
-        return DB::table('boxs')
-        ->where('boxs.idboxs', $idboxs)
-        ->where('boxs.id', $id)
+        return DB::table('papers')
+        ->where('papers.idpapers', $idpapers)
+        ->where('papers.id', $id)
         ->delete();
     }
-    function scopeCheckBoxs($query, $idboxs)
+    function scopeCheckPaper($query, $idpapers)
     {
-        return DB::table('boxs')
-        ->where('boxs.idboxs', $idboxs)
-        ->value('boxs.idboxs');
+        return DB::table('papers')
+        ->where('papers.idpapers', $idpapers)
+        ->value('papers.idpapers');
     }
-    function scopeUpdateViewsBoxs($query, $idboxs)
+    function scopeUpdateViewsPaper($query, $idpapers)
     {
-        $no = (DB::table('boxs')->where('idboxs', $idboxs)->value('views'))+1;
-        return DB::table('boxs')
-        ->where('boxs.idboxs', $idboxs)
-        ->update(['boxs.views' => $no]);
+        $no = (DB::table('papers')->where('idpapers', $idpapers)->value('views'))+1;
+        return DB::table('papers')
+        ->where('papers.idpapers', $idpapers)
+        ->update(['papers.views' => $no]);
     }
-    function scopeGetBoxs($query, $idboxs)
+    function scopeGetPaper($query, $idpapers)
     {
         if (Auth::id()) {
             $id = Auth::id();
         } else {
             $id = 0;
         }
-        return DB::table('boxs')
+        return DB::table('papers')
         ->select(
-            'boxs.idboxs',
-            'boxs.created',
-            'boxs.title',
-            'boxs.description',
-            'boxs.views',
+            'papers.idpapers',
+            'papers.created',
+            'papers.title',
+            'papers.description',
+            'papers.views',
             'users.id',
             'users.name',
             'users.username',
@@ -72,14 +72,14 @@ class BoxsModel extends Model
             'users.created_at',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(boxs.idboxs) from boxs where boxs.id = users.id) as ttl_boxs'),
-            DB::raw('(select count(comment.idcomment) from comment where comment.idboxs = boxs.idboxs) as ttl_comment')
+            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
+            DB::raw('(select count(comment.idcomment) from comment where comment.idpapers = papers.idpapers) as ttl_comment')
         )
-        ->join('users','users.id', '=', 'boxs.id')
-        ->where('boxs.idboxs', $idboxs)
+        ->join('users','users.id', '=', 'papers.id')
+        ->where('papers.idpapers', $idpapers)
         ->get();
     }
-    function scopePagAllboxs($query, $limit)
+    function scopePagAllPaper($query, $limit)
     {
         if (Auth::id()) {
             $id = Auth::id();
@@ -90,27 +90,27 @@ class BoxsModel extends Model
         ->select(
             'image.idimage',
             'image.image as cover',
-            'boxs.idboxs',
-            'boxs.created',
-            'boxs.title',
-            'boxs.description',
-            'boxs.views',
+            'papers.idpapers',
+            'papers.created',
+            'papers.title',
+            'papers.description',
+            'papers.views',
             'users.id',
             'users.name',
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(boxs.idboxs) from boxs where boxs.id = users.id) as ttl_boxs'),
-            DB::raw('(select count(comment.idcomment) from comment where comment.idboxs = boxs.idboxs) as ttl_comment'),
+            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
+            DB::raw('(select count(comment.idcomment) from comment where comment.idpapers = papers.idpapers) as ttl_comment'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
-        ->join('boxs','boxs.idboxs', '=', 'image.idboxs')
+        ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
-        ->orderBy('boxs.idboxs', 'desc')
+        ->orderBy('papers.idpapers', 'desc')
         ->paginate($limit);
     }
-    function scopePagRelatedboxs($query, $limit, $idboxs)
+    function scopePagRelatedPaper($query, $limit, $idpapers)
     {
         if (Auth::id()) {
             $id = Auth::id();
@@ -121,27 +121,27 @@ class BoxsModel extends Model
         ->select(
             'image.idimage',
             'image.image as cover',
-            'boxs.idboxs',
-            'boxs.created',
-            'boxs.title',
-            'boxs.description',
-            'boxs.views',
+            'papers.idpapers',
+            'papers.created',
+            'papers.title',
+            'papers.description',
+            'papers.views',
             'users.id',
             'users.name',
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(boxs.idboxs) from boxs where boxs.id = users.id) as ttl_boxs'),
-            DB::raw('(select count(comment.idcomment) from comment where comment.idboxs = boxs.idboxs) as ttl_comment'),
+            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
+            DB::raw('(select count(comment.idcomment) from comment where comment.idpapers = papers.idpapers) as ttl_comment'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
-        ->join('boxs','boxs.idboxs', '=', 'image.idboxs')
+        ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
-        ->orderBy('boxs.idboxs', 'desc')
+        ->orderBy('papers.idpapers', 'desc')
         ->paginate($limit);
     }
-    function scopePagPopularboxs($query, $limit)
+    function scopePagPopularPaper($query, $limit)
     {
         if (Auth::id()) {
             $id = Auth::id();
@@ -152,28 +152,28 @@ class BoxsModel extends Model
         ->select(
             'image.idimage',
             'image.image as cover',
-            'boxs.idboxs',
-            'boxs.created',
-            'boxs.title',
-            'boxs.description',
-            'boxs.views',
+            'papers.idpapers',
+            'papers.created',
+            'papers.title',
+            'papers.description',
+            'papers.views',
             'users.id',
             'users.name',
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(boxs.idboxs) from boxs where boxs.id = users.id) as ttl_boxs'),
-            DB::raw('(select count(comment.idcomment) from comment where comment.idboxs = boxs.idboxs) as ttl_comment'),
+            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
+            DB::raw('(select count(comment.idcomment) from comment where comment.idpapers = papers.idpapers) as ttl_comment'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
-        ->join('boxs','boxs.idboxs', '=', 'image.idboxs')
+        ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
         ->orderBy('ttl_comment', 'desc')
         ->paginate($limit);
     }
     /*trending belum benar karena komentar belum ada*/
-    function scopePagTrendingboxs($query, $limit)
+    function scopePagTrendingPaper($query, $limit)
     {
         if (Auth::id()) {
             $id = Auth::id();
@@ -184,27 +184,27 @@ class BoxsModel extends Model
         ->select(
             'image.idimage',
             'image.image as cover',
-            'boxs.idboxs',
-            'boxs.created',
-            'boxs.title',
-            'boxs.description',
-            'boxs.views',
+            'papers.idpapers',
+            'papers.created',
+            'papers.title',
+            'papers.description',
+            'papers.views',
             'users.id',
             'users.name',
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(boxs.idboxs) from boxs where boxs.id = users.id) as ttl_boxs'),
-            DB::raw('(select count(comment.idcomment) from comment where comment.idboxs = boxs.idboxs) as ttl_comment'),
+            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
+            DB::raw('(select count(comment.idcomment) from comment where comment.idpapers = papers.idpapers) as ttl_comment'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
-        ->join('boxs','boxs.idboxs', '=', 'image.idboxs')
+        ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
         ->orderBy('ttl_comment', 'desc')
         ->paginate($limit);
     }
-    function scopePagSearchboxs($query, $ctr, $limit)
+    function scopePagSearchPaper($query, $ctr, $limit)
     {
         if (Auth::id()) {
             $id = Auth::id();
@@ -216,34 +216,34 @@ class BoxsModel extends Model
         ->select(
             'image.idimage',
             'image.image as cover',
-            'boxs.idboxs',
-            'boxs.created',
-            'boxs.title',
-            'boxs.description',
-            'boxs.views',
+            'papers.idpapers',
+            'papers.created',
+            'papers.title',
+            'papers.description',
+            'papers.views',
             'users.id',
             'users.name',
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(boxs.idboxs) from boxs where boxs.id = users.id) as ttl_boxs'),
-            DB::raw('(select count(comment.idcomment) from comment where comment.idboxs = boxs.idboxs) as ttl_comment'),
+            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
+            DB::raw('(select count(comment.idcomment) from comment where comment.idpapers = papers.idpapers) as ttl_comment'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
-        ->join('boxs','boxs.idboxs', '=', 'image.idboxs')
+        ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
-        ->where('boxs.description','like',"%$ctr%")
+        ->where('papers.description','like',"%$ctr%")
         ->orWhere('users.name','like',"%$ctr%")
         ->orWhere(function ($q) use ($searchValues)
         {
             foreach ($searchValues as $value) {
-                $q->orWhere('boxs.description','like',"%$value%");
+                $q->orWhere('papers.description','like',"%$value%");
             }
         })
         ->paginate($limit);
     }
-    function scopePagTagboxs($query, $ctr, $limit)
+    function scopePagTagPaper($query, $ctr, $limit)
     {
         if (Auth::id()) {
             $id = Auth::id();
@@ -255,29 +255,29 @@ class BoxsModel extends Model
             'tags.idtags',
             'image.idimage',
             'image.image as cover',
-            'boxs.idboxs',
-            'boxs.created',
-            'boxs.title',
-            'boxs.description',
-            'boxs.views',
+            'papers.idpapers',
+            'papers.created',
+            'papers.title',
+            'papers.description',
+            'papers.views',
             'users.id',
             'users.name',
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(boxs.idboxs) from boxs where boxs.id = users.id) as ttl_boxs'),
-            DB::raw('(select count(comment.idcomment) from comment where comment.idboxs = boxs.idboxs) as ttl_comment'),
+            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
+            DB::raw('(select count(comment.idcomment) from comment where comment.idpapers = papers.idpapers) as ttl_comment'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
-        ->join('boxs','boxs.idboxs', '=', 'tags.idboxs')
-        ->join('image','image.idboxs', '=', 'tags.idboxs')
+        ->join('papers','papers.idpapers', '=', 'tags.idpapers')
+        ->join('image','image.idpapers', '=', 'tags.idpapers')
         ->join('users','users.id', '=', 'image.id')
         ->where('tags.tag', 'like', "%{$ctr}%")
         ->orderBy('tags.idtags', 'desc')
         ->paginate($limit);
     }
-    function scopePagCtrboxs($query, $ctr, $limit)
+    function scopePagCtrPaper($query, $ctr, $limit)
     {
         if (Auth::id()) {
             $id = Auth::id();
@@ -289,26 +289,26 @@ class BoxsModel extends Model
             'category.idcategory',
             'image.idimage',
             'image.image as cover',
-            'boxs.idboxs',
-            'boxs.created',
-            'boxs.title',
-            'boxs.description',
-            'boxs.views',
+            'papers.idpapers',
+            'papers.created',
+            'papers.title',
+            'papers.description',
+            'papers.views',
             'users.id',
             'users.name',
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(boxs.idboxs) from boxs where boxs.id = users.id) as ttl_boxs'),
-            DB::raw('(select count(comment.idcomment) from comment where comment.idboxs = boxs.idboxs) as ttl_comment'),
+            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
+            DB::raw('(select count(comment.idcomment) from comment where comment.idpapers = papers.idpapers) as ttl_comment'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
-        ->join('boxs','boxs.idcategory', '=', 'category.idcategory')
-        ->join('boxs','boxs.idboxs', '=', 'image.idboxs')
+        ->join('papers','papers.idcategory', '=', 'category.idcategory')
+        ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
         ->where('category.title', $ctr)
-        ->orderBy('boxs.idboxs', 'desc')
+        ->orderBy('papers.idpapers', 'desc')
         ->paginate($limit);
     }
     function scopePagTimelinesStory($query, $limit, $profile)
@@ -322,34 +322,34 @@ class BoxsModel extends Model
         ->select(
             'image.idimage',
             'image.image as cover',
-            'boxs.idboxs',
-            'boxs.created',
-            'boxs.title',
-            'boxs.description',
-            'boxs.views',
+            'papers.idpapers',
+            'papers.created',
+            'papers.title',
+            'papers.description',
+            'papers.views',
             'users.id',
             'users.name',
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(boxs.idboxs) from boxs where boxs.id = users.id) as ttl_boxs'),
-            DB::raw('(select count(comment.idcomment) from comment where comment.idboxs = boxs.idboxs) as ttl_comment'),
+            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
+            DB::raw('(select count(comment.idcomment) from comment where comment.idpapers = papers.idpapers) as ttl_comment'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
-        ->join('boxs','boxs.idboxs', '=', 'image.idboxs')
+        ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
-        ->where('boxs.id', $id)
+        ->where('papers.id', $id)
         ->orWhere(function ($q) use ($profile)
         {
             foreach ($profile as $value) {
-                $q->orWhere('boxs.id', $value->following);
+                $q->orWhere('papers.id', $value->following);
             }
         })
         ->orderBy('image.idimage', 'desc')
         ->paginate($limit);
     }
-    function scopePagUserBoxs($query, $limit, $iduser)
+    function scopePagUserPaper($query, $limit, $iduser)
     {
         if (Auth::id()) {
             $id = Auth::id();
@@ -360,25 +360,25 @@ class BoxsModel extends Model
         ->select(
             'image.idimage',
             'image.image as cover',
-            'boxs.idboxs',
-            'boxs.created',
-            'boxs.title',
-            'boxs.description',
-            'boxs.views',
+            'papers.idpapers',
+            'papers.created',
+            'papers.title',
+            'papers.description',
+            'papers.views',
             'users.id',
             'users.name',
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(boxs.idboxs) from boxs where boxs.id = users.id) as ttl_boxs'),
-            DB::raw('(select count(comment.idcomment) from comment where comment.idboxs = boxs.idboxs) as ttl_comment'),
+            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
+            DB::raw('(select count(comment.idcomment) from comment where comment.idpapers = papers.idpapers) as ttl_comment'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
-        ->join('boxs','boxs.idboxs', '=', 'image.idboxs')
+        ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
-        ->where('boxs.id', $iduser)
-        ->orderBy('boxs.idboxs', 'desc')
+        ->where('papers.id', $iduser)
+        ->orderBy('papers.idpapers', 'desc')
         ->paginate($limit);
     }
     function scopePagUserBookmark($query, $limit, $iduser)
@@ -392,47 +392,47 @@ class BoxsModel extends Model
         ->select(
             'image.idimage',
             'image.image as cover',
-            'boxs.idboxs',
-            'boxs.created',
-            'boxs.title',
-            'boxs.description',
-            'boxs.views',
+            'papers.idpapers',
+            'papers.created',
+            'papers.title',
+            'papers.description',
+            'papers.views',
             'users.id',
             'users.name',
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(boxs.idboxs) from boxs where boxs.id = users.id) as ttl_boxs'),
-            DB::raw('(select count(comment.idcomment) from comment where comment.idboxs = boxs.idboxs) as ttl_comment'),
+            DB::raw('(select count(papers.idpapers) from papers where papers.id = users.id) as ttl_papers'),
+            DB::raw('(select count(comment.idcomment) from comment where comment.idpapers = papers.idpapers) as ttl_comment'),
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
         ->join('image','image.idimage', '=', 'bookmark.idimage')
-        ->join('boxs','boxs.idboxs', '=', 'image.idboxs')
+        ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
         ->where('bookmark.id', $iduser)
         ->orderBy('bookmark.idbookmark', 'desc')
         ->paginate($limit);
     }
-    function scopeDetailBoxs($query, $limit, $id)
+    function scopeDetailPaper($query, $limit, $id)
     {
-        return DB::table('boxs')
+        return DB::table('papers')
         ->select(
-            'boxs.idboxs',
-            'boxs.title',
-            'boxs.description',
-            'boxs.created',
-            'boxs.id',
+            'papers.idpapers',
+            'papers.title',
+            'papers.description',
+            'papers.created',
+            'papers.id',
             'users.username',
             'users.foto',
-            DB::raw('(select image.image from image where image.idboxs = boxs.idboxs limit 1 offset 0) as cover1'),
-            DB::raw('(select image.image from image where image.idboxs = boxs.idboxs limit 1 offset 1) as cover2'),
-            DB::raw('(select image.image from image where image.idboxs = boxs.idboxs limit 1 offset 2) as cover3'),
-            DB::raw('(select count(image.idimage) from image where image.idboxs = boxs.idboxs) as ttl_save')
+            DB::raw('(select image.image from image where image.idpapers = papers.idpapers limit 1 offset 0) as cover1'),
+            DB::raw('(select image.image from image where image.idpapers = papers.idpapers limit 1 offset 1) as cover2'),
+            DB::raw('(select image.image from image where image.idpapers = papers.idpapers limit 1 offset 2) as cover3'),
+            DB::raw('(select count(image.idimage) from image where image.idpapers = papers.idpapers) as ttl_save')
         )
-        ->join('users','users.id', '=', 'boxs.id')
-        ->where('boxs.id', $id)
-        ->orderBy('boxs.title','asc')
+        ->join('users','users.id', '=', 'papers.id')
+        ->where('papers.id', $id)
+        ->orderBy('papers.title','asc')
         ->paginate($limit);
     }
 }

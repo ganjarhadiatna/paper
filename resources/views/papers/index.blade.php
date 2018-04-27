@@ -6,13 +6,13 @@
 	var id = '{{ Auth::id() }}';
 	var server = '{{ url("/") }}';
 
-	function getComment(idboxs, stt) {
+	function getComment(idpapers, stt) {
 		var offset = $('#offset-comment').val();
 		var limit = $('#limit-comment').val();
 		if (stt == 'new') {
-			var url_comment = '{{ url("/get/comment/") }}'+'/'+idboxs+'/0/'+offset;
+			var url_comment = '{{ url("/get/comment/") }}'+'/'+idpapers+'/0/'+offset;
 		} else {
-			var url_comment = '{{ url("/get/comment/") }}'+'/'+idboxs+'/'+offset+'/'+limit;
+			var url_comment = '{{ url("/get/comment/") }}'+'/'+idpapers+'/'+offset+'/'+limit;
 		}
 		$.ajax({
 			url: url_comment,
@@ -78,7 +78,7 @@
 		})
 		.done(function(data) {
 			if (data === 'success') {
-				getComment('{{ $idboxs }}', 'new');
+				getComment('{{ $idpapers }}', 'new');
 			} else {
 				opAlert('open', 'Deletting comment failed.');
 			}
@@ -98,14 +98,14 @@
 	$(document).ready(function() {
 		$('#offset-comment').val(0);
 		$('#limit-comment').val(5);
-		getComment('{{ $idboxs }}', 'add');
+		getComment('{{ $idpapers }}', 'add');
 
 
 		$('#frame-loves').on('click', function(event) {
 			$.ajax({
 				url: '{{ url("/loves/add") }}',
 				type: 'post',
-				data: {'idboxs': '{{ $idboxs }}', 'ttl-loves': 1},
+				data: {'idpapers': '{{ $idpapers }}', 'ttl-loves': 1},
 			})
 			.done(function(data) {
 				$('#ttl-loves').html(data);
@@ -113,7 +113,7 @@
 		});
 
 		$('#comment-publish').submit(function(event) {
-			var idboxs = '{{ $idboxs }}';
+			var idpapers = '{{ $idpapers }}';
 			var desc = $('#comment-description').val();
 			if (desc === '') {
 				$('#comment-description').focus();
@@ -123,7 +123,7 @@
 					type: 'post',
 					data: {
 						'description': desc,
-						'idboxs': idboxs
+						'idpapers': idpapers
 					},
 				})
 				.done(function(data) {
@@ -133,7 +133,7 @@
 					} else {
 						$('#comment-description').val('');
 						//refresh comment
-						getComment('{{ $idboxs }}', 'new');
+						getComment('{{ $idpapers }}', 'new');
 					}
 				})
 				.fail(function(data) {
@@ -144,7 +144,7 @@
 		});
 
 		$('#load-more-comment').on('click', function(event) {
-			getComment('{{ $idboxs }}', 'add');
+			getComment('{{ $idpapers }}', 'add');
 		});
 
 	});
@@ -156,21 +156,21 @@
 			<div class="sc-grid sc-grid-2x">
 				<div class="sc-col-1">
 					@if ($story->id == Auth::id())
-						<button class="btn btn-circle btn-main2-color btn-focus" onclick="opQuestionPost('{{ $story->idboxs }}')">
+						<button class="btn btn-circle btn-main2-color btn-focus" onclick="opQuestionPost('{{ $story->idpapers }}')">
 							<span class="far fa-lg fa-trash-alt"></span>
 						</button>
-						<a href="{{ url('/box/'.$story->idboxs.'/edit') }}">
+						<a href="{{ url('/paper/'.$story->idpapers.'/edit') }}">
 							<button class="btn btn-circle btn-main2-color btn-focus">
 								<span class="fas fa-lg fa-pencil-alt"></span>
 							</button>
 						</a>
-						<a href="{{ url('/box/'.$story->idboxs.'/designs') }}">
+						<a href="{{ url('/paper/'.$story->idpapers.'/designs') }}">
 							<button class="btn btn-circle btn-main2-color btn-focus">
 								<span class="fas fa-lg fa-images"></span>
 							</button>
 						</a>
 					@endif
-					<button class="btn btn-circle btn-main2-color btn-focus" onclick="opPostPopup('open', 'menu-popup', '{{ $story->idboxs }}', '{{ $story->id }}', '{{ $title }}')">
+					<button class="btn btn-circle btn-main2-color btn-focus" onclick="opPostPopup('open', 'menu-popup', '{{ $story->idpapers }}', '{{ $story->id }}', '{{ $title }}')">
 						<span class="fas fa-lg fa-ellipsis-h"></span>
 					</button>
 				</div>
@@ -211,7 +211,7 @@
 							<div class="st-mid" id="ctnTag">
 								@if (count($getAllImage) != 0)
 									@foreach ($getAllImage as $img)
-										<a href="{{ url('/box/'.$img->idboxs.'/design/'.$img->idimage) }}">
+										<a href="{{ url('/paper/'.$img->idpapers.'/design/'.$img->idimage) }}">
 											<div class="image image-100px image-radius"
 												style="background-image: url({{ asset('/story/thumbnails/'.$img->image) }})"></div>
 										</a>

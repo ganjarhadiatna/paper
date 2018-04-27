@@ -6,35 +6,35 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Image;
 
-use App\BoxsModel;
+use App\PaperModel;
 use App\TagModel;
 use App\FollowModel;
 use App\BookmarkModel;
 use App\ImageModel;
 
-class BoxsController extends Controller
+class PaperController extends Controller
 {
-    function Boxs($id)
+    function paper($id)
     {
-        $check = BoxsModel::CheckBoxs($id);
+        $check = PaperModel::CheckPaper($id);
         if (is_int($check)) {
             $idimage = ImageModel::GetIdImage($id, 'asc');
             if (is_int($idimage)) {
-                BoxsModel::UpdateViewsBoxs($id);
+                PaperModel::UpdateViewsPaper($id);
                 $iduserMe = Auth::id();
-                $iduser = BoxsModel::GetIduser($id);
+                $iduser = PaperModel::GetIduser($id);
                 
-                $getStory = BoxsModel::GetBoxs($id);
+                $getStory = PaperModel::GetPaper($id);
                 $getImage = ImageModel::GetImage($idimage);
                 $getAllImage = ImageModel::GetAllImage($id, 'desc');
 
-                $newStory = BoxsModel::PagRelatedBoxs(20, $id);
+                $newStory = PaperModel::PagRelatedPaper(20, $id);
 
                 $tags = TagModel::GetTags($id);
                 $statusFolow = FollowModel::Check($iduser, $iduserMe);
                 $check = BookmarkModel::Check($idimage, $iduserMe);
-                return view('boxs.index', [
-                    'title' => 'Box',
+                return view('papers.index', [
+                    'title' => 'Paper',
                     'path' => 'none',
                     'getStory' => $getStory,
                     'getImage' => $getImage,
@@ -43,38 +43,38 @@ class BoxsController extends Controller
                     'tags' => $tags,
                     'check' => $check,
                     'statusFolow' => $statusFolow,
-                    'idboxs' => $id,
+                    'idpapers' => $id,
                     'idimage' => $idimage
                 ]);
             } else {
-                return redirect('/box/'.$id.'/designs');
+                return redirect('/paper/'.$id.'/designs');
             }
         } else {
-            return view('boxs.empty', [
-                'title' => 'Box Not Finded',
+            return view('papers.empty', [
+                'title' => 'Paper Not Finded',
                 'path' => 'none',
             ]);
         }
     }
-    function boxsImage($id, $idimage)
+    function paperImage($id, $idimage)
     {
-        $check = BoxsModel::CheckBoxs($id);
+        $check = PaperModel::CheckPaper($id);
         if (is_int($check)) {
-            BoxsModel::UpdateViewsBoxs($id);
+            PaperModel::UpdateViewsPaper($id);
             $iduserMe = Auth::id();
-            $iduser = BoxsModel::GetIduser($id);
+            $iduser = PaperModel::GetIduser($id);
             
-            $getStory = BoxsModel::GetBoxs($id);
+            $getStory = PaperModel::GetPaper($id);
             $getImage = ImageModel::GetImage($idimage);
             $getAllImage = ImageModel::GetAllImage($id,'desc');
             
-            $newStory = BoxsModel::PagRelatedBoxs(20, $id);
+            $newStory = PaperModel::PagRelatedPaper(20, $id);
             
             $tags = TagModel::GetTags($id);
             $statusFolow = FollowModel::Check($iduser, $iduserMe);
             $check = BookmarkModel::Check($idimage, $iduserMe);
-            return view('boxs.index', [
-                'title' => 'Design',
+            return view('papers.index', [
+                'title' => 'Paper',
                 'path' => 'none',
                 'getStory' => $getStory,
                 'getImage' => $getImage,
@@ -83,33 +83,33 @@ class BoxsController extends Controller
                 'tags' => $tags,
                 'check' => $check,
                 'statusFolow' => $statusFolow,
-                'idboxs' => $id,
+                'idpapers' => $id,
                 'idimage' => $idimage
             ]);
         } else {
-            return view('boxs.empty', [
-                'title' => 'Box Not Finded',
+            return view('papers.empty', [
+                'title' => 'Paper Not Finded',
                 'path' => 'none',
             ]);
         }
     }
-    function boxsEdit($idboxs)
+    function paperEdit($idpapers)
     {
-        $getStory = BoxsModel::GetBoxs($idboxs);
-        $restTags = TagModel::GetTags($idboxs);
+        $getStory = PaperModel::GetPaper($idpapers);
+        $restTags = TagModel::GetTags($idpapers);
         $temp = [];
         foreach ($restTags as $tag) {
             array_push($temp, $tag->tag);
         }
         $tags = implode(", ", $temp);
-        return view('compose.edit-box', [
-            'title' => 'Edit Box',
+        return view('compose.edit-paper', [
+            'title' => 'Edit Paper',
             'path' => 'none',
             'getStory' => $getStory,
             'tags' => $tags
         ]);
     }
-    function mentions($tags, $idboxs)
+    function mentions($tags, $idpapers)
     {
         $replace = array('[',']','@','+','-','*','<','>','-','(',')',';','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
         $str1 = str_replace($replace, '', $tags);
@@ -122,7 +122,7 @@ class BoxsController extends Controller
                 $data = array([
                     'tag' => $tag[$i],
                     'link' => '',
-                    'idboxs' => $idboxs
+                    'idpapers' => $idpapers
                 ]);
                 TagModel::AddTags($data);
             }
@@ -132,12 +132,12 @@ class BoxsController extends Controller
     {
         $idstory = $request['idstory'];
         $ttl = $request['ttl-loves'];
-        BoxsModel::UpdateLoves($idstory, $ttl);
-        $rest = BoxsModel::GetLoves($idstory);
+        PaperModel::UpdateLoves($idstory, $ttl);
+        $rest = PaperModel::GetLoves($idstory);
         echo $rest;
     }
 
-    /*Setting boxs*/
+    /*Setting Papers*/
     function publish(Request $request)
     {
     	$id = Auth::id();
@@ -152,18 +152,18 @@ class BoxsController extends Controller
     		'id' => $id
     	);
 
-    	$rest = BoxsModel::AddBoxs($data);
+    	$rest = PaperModel::AddPaper($data);
     	if ($rest) {
-    		$dt = BoxsModel::GetID();
+    		$dt = PaperModel::GetID();
             $this->mentions($request['tags'], $dt);
     		echo $dt;
     	} else {
     		echo 0;
         }
     }
-    function editBoxs(Request $request)
+    function editPaper(Request $request)
     {
-        $idboxs = $request['idboxs'];
+        $idpapers = $request['idpapers'];
         $title = $request['title'];
         $content = $request['content'];
         $tags = $request['tags'];
@@ -173,32 +173,32 @@ class BoxsController extends Controller
             'description' => $content
         );
 
-        $rest = BoxsModel::UpdateBoxs($idboxs, $data);
+        $rest = PaperModel::UpdatePaper($idpapers, $data);
         if ($rest) {
             //remove tags
-            TagModel::DeleteTags($idboxs);
+            TagModel::DeleteTags($idpapers);
 
             //editting tags
-            $this->mentions($request['tags'], $idboxs);
-            echo $idboxs;
+            $this->mentions($request['tags'], $idpapers);
+            echo $idpapers;
         } else {
             echo "failed";
         }
     }
-    function deleteBoxs(Request $request)
+    function deletePaper(Request $request)
     {
         $iduser = Auth::id();
-        $idboxs = $request['idboxs'];
+        $idpapers = $request['idpapers'];
 
         //deleting cover
-        $cover = ImageModel::GetAllImage($idboxs);
+        $cover = ImageModel::GetAllImage($idpapers);
         foreach ($cover as $dt) {
             unlink(public_path('story/covers/'.$dt->image));
 			unlink(public_path('story/thumbnails/'.$dt->image));
         }
 
         //deleting story
-        $rest = BoxsModel::DeleteBoxs($idboxs, $iduser);
+        $rest = PaperModel::DeletePaper($idpapers, $iduser);
         if ($rest) {
             echo "success";
         } else {

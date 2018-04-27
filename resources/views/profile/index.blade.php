@@ -101,8 +101,8 @@
 <div class="padding-bottom-20px">
 	<div class="navigator nav-3x nav-theme-3 col-400px" id="post-nav">
 		<ul>
-			<a href="{{ url('/user/'.$p->id.'/boxs') }}">
-				<li id="boxs">Boxs</li>
+			<a href="{{ url('/user/'.$p->id.'/papers') }}">
+				<li id="papers">Papers</li>
 			</a>
 			<a href="{{ url('/user/'.$p->id.'/designs') }}">
 				<li id="design">Designs</li>

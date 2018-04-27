@@ -4,7 +4,7 @@
 @section('content')
 @include('profile.index')
 <div>
-    @if (count($userBoxs) == 0)
+    @if (count($userPapers) == 0)
         <div class="frame-empty">
             <div class="icn fa fa-lg fa-thermometer-empty btn-main-color"></div>
             <div class="ttl padding-15px">Box empty, try to create one.</div>
@@ -17,11 +17,11 @@
         </div>
     @else
         <div class="post-flex">
-            @foreach ($userBoxs as $bx)
-                @include('main.box')
+            @foreach ($userPapers as $bx)
+                @include('main.paper')
             @endforeach
         </div>
-        {{ $userBoxs->links() }}
+        {{ $userPapers->links() }}
     @endif
 </div>
 @endsection

@@ -4,7 +4,7 @@
 @section('content')
 <script type="text/javascript">
     var server = '{{ url("/") }}';
-	var idboxs = '{{ $idboxs }}';
+	var idpapers = '{{ $idpapers }}';
 	function removeCover() {
 		$("#image-preview").attr('src','');
 		$('.compose .main .create-body .create-block .cover-icon .img').hide();
@@ -20,7 +20,7 @@
 		$('.compose .main .create-body .create-block .cover-icon .icn').hide();
 	}
 	function rvDone() {
-		window.location = server+'/box/'+idboxs;
+		window.location = server+'/paper/'+idpapers;
 	}
 	function rvImage(url, idimage) {
 		var review = '\
@@ -40,13 +40,13 @@
 		var dt = '';
 		
 		fd.append('image', image);
-		fd.append('idboxs', idboxs);
+		fd.append('idpapers', idpapers);
 		$.each($('#form-image').serializeArray(), function(a, b) {
 	    	fd.append(b.name, b.value);
 	    });
 
 	    $.ajax({
-	    	url: '{{ url("/box/image/upload") }}',
+	    	url: '{{ url("/paper/image/upload") }}',
 			data: fd,
 			processData: false,
 			contentType: false,
@@ -84,7 +84,7 @@
 	}
 	function delImage(idimage) {
 		$.ajax({
-	    	url: '{{ url("/box/image/delete") }}',
+	    	url: '{{ url("/paper/image/delete") }}',
 			data: {'idimage':idimage},
 			type: 'post',
 			beforeSend: function() {
@@ -137,8 +137,8 @@
 							</form>
 							<label for="get-image">
 								<span class="btn btn-div btn-sekunder-color btn-radius">
-									<span class="fa fa-lg fa-camera"></span>
-									<span>Browse Picture</span>
+									<span class="fa fa-lg fa-plus"></span>
+									<span>Browse Design</span>
 								</span>
 							</label>
 						</span>

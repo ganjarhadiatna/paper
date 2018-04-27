@@ -18,25 +18,25 @@
 		});
 
 		$.ajax({
-		  	url: '{{ url("/box/publish") }}',
+		  	url: '{{ url("/paper/publish") }}',
 			data: fd,
 			processData: false,
 			contentType: false,
 			type: 'post',
 			beforeSend: function() {
-				open_progress('Uploading your Story...');
+				open_progress('Uploading your Paper...');
 			}
 		})
 		.done(function(data) {
 		   	if (data == 0) {
-		   		opAlert('open', 'failed to publish story.');
+		   		opAlert('open', 'failed to publish paper.');
 		   		close_progress();
 		   	} else {
 		   		$('#cover').val('');
 				$('#write-story').val('');
 				opCreateStory('close');
 				close_progress();
-				window.location = '{{ url("/compose/box/") }}'+'/'+data+'/designs';
+				window.location = '{{ url("/compose/paper/") }}'+'/'+data+'/designs';
 		   	}
 		   	//console.log(data);
 		})
@@ -75,7 +75,7 @@
 						</button>
 					</div>
 					<div class="sc-col-2">
-						<h3 class="ttl-head ttl-sekunder-color">Add Box</h3>
+						<h3 class="ttl-head ttl-sekunder-color">Add Paper</h3>
 					</div>
 					<div class="sc-col-3 txt-right">
 						<input type="submit" name="save" class="btn btn-main-color" value="Next" id="btn-publish">

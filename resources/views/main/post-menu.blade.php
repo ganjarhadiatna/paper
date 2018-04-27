@@ -1,45 +1,45 @@
 <script type="text/javascript">
-	function viewDesign(idboxs, idimage) {
-		var server_post = '{{ url("/box/") }}'+'/'+idboxs+'/design/'+idimage;
+	function viewDesign(idpapers, idimage) {
+		var server_post = '{{ url("/paper/") }}'+'/'+idpapers+'/design/'+idimage;
 		window.location = server_post;
 	}
-	function viewPost(idboxs, title='') {
-		var server_post = '{{ url("/box/") }}'+'/'+idboxs+'/'+title;
+	function viewPost(idpapers, title='') {
+		var server_post = '{{ url("/paper/") }}'+'/'+idpapers+'/'+title;
 		window.location = server_post;
 	}
-	function editPost(idboxs) {
-		var server_post = '{{ url("/box/") }}'+'/'+idboxs+'/edit';
+	function editPost(idpapers) {
+		var server_post = '{{ url("/paper/") }}'+'/'+idpapers+'/edit';
 		window.location = server_post;
 	}
-	function organizedPost(idboxs) {
-		var server_post = '{{ url("/box/") }}'+'/'+idboxs+'/designs';
+	function organizedPost(idpapers) {
+		var server_post = '{{ url("/paper/") }}'+'/'+idpapers+'/designs';
 		window.location = server_post;
 	}
-	function opQuestionPost(idboxs) {
-		opQuestion('open','Are you sure you want to delete this box?', 'deletePost("'+idboxs+'")');
+	function opQuestionPost(idpapers) {
+		opQuestion('open','Are you sure you want to delete this box?', 'deletePost("'+idpapers+'")');
 	}
-	function deletePost(idboxs) {
+	function deletePost(idpapers) {
 		$.ajax({
-			url: '{{ url("/box/delete") }}',
+			url: '{{ url("/paper/delete") }}',
 			type: 'post',
-			data: {'idboxs': idboxs},
+			data: {'idpapers': idpapers},
 			beforeSend: function() {
 				opQuestion('hide');
-				open_progress('Deleting your design...');
+				open_progress('Deleting your paper...');
 			}
 		})
 		.done(function(data) {
 			close_progress();
 			if (data == 'success') {
-				opAlert('open', 'This box has been deleted, to take effect try refresh this page.');
+				opAlert('open', 'This paper has been deleted, to take effect try refresh this page.');
 			} else {
-				opAlert('open', 'Failed to delete this box.');
+				opAlert('open', 'Failed to delete this paper.');
 			}
-			console.log(data);
+			//console.log(data);
 		})
 		.fail(function(data) {
 			opAlert('open', 'There is an error, please try again.');
-			console.log(data.responseJSON);
+			//console.log(data.responseJSON);
 		})
 		.always(function() {
 			close_progress();
@@ -60,20 +60,20 @@
 			$('#'+path).hide();
 		}
 	}
-	function opPostPopup(stt, path, idboxs, iduser, title = '') {
+	function opPostPopup(stt, path, idpapers, iduser, title = '') {
 		var id = '{{ Auth::id() }}';
 		if (stt === 'open') {
 			$('#'+path).show();
 			if (id === iduser) {
 				var menu = '\
-				<li onclick="organizedPost('+idboxs+')">Organized Designs</li>\
-				<li onclick="viewPost('+idboxs+')">View Boxs</li>\
-				<li onclick="editPost('+idboxs+')">Edit Boxs</li>\
-				<li onclick="opQuestionPost('+idboxs+')">Delete Boxs</li>\
+				<li onclick="organizedPost('+idpapers+')">Organized Designs</li>\
+				<li onclick="viewPost('+idpapers+')">View Paper</li>\
+				<li onclick="editPost('+idpapers+')">Edit Paper</li>\
+				<li onclick="opQuestionPost('+idpapers+')">Delete Paper</li>\
 				';
 			} else {
 				var menu = '\
-				<li onclick="viewPost('+idboxs+')">View Box</li>\
+				<li onclick="viewPost('+idpapers+')">View Paper</li>\
 				<li>Report</li>\
 				';
 			}
@@ -82,19 +82,19 @@
 			$('#'+path).hide();
 		}
 	}
-	function opPostSmallPopup(stt, path, idboxs, iduser, idimage) {
+	function opPostSmallPopup(stt, path, idpapers, iduser, idimage) {
 		var id = '{{ Auth::id() }}';
 		if (stt === 'open') {
 			$('#'+path).show();
 			if (id === iduser) {
 				var menu = '\
-				<li onclick="viewDesign('+idboxs+','+idimage+')">View Design</li>\
+				<li onclick="viewDesign('+idpapers+','+idimage+')">View Design</li>\
 				<li onclick="addBookmark('+idimage+')">Save Design</li>\
 				<li onclick="pictZoom('+idimage+')">Zoomed</li>\
 				';
 			} else {
 				var menu = '\
-				<li onclick="viewDesign('+idboxs+','+idimage+')">View Design</li>\
+				<li onclick="viewDesign('+idpapers+','+idimage+')">View Design</li>\
 				<li onclick="addBookmark('+idimage+')">Save Design</li>\
 				<li onclick="pictZoom('+idimage+')">Zoomed</li>\
 				<li>Report</li>\

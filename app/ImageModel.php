@@ -26,32 +26,32 @@ class ImageModel extends Model
         ->where('idimage', $idimage)
         ->value('image');
     }
-    function scopeGetAllImage($query, $idboxs, $stt)
+    function scopeGetAllImage($query, $idpapers, $stt)
     {
         return DB::table('image')
         ->select(
             'idimage',
             'image',
             'id',
-            'idboxs'
+            'idpapers'
         )
-        ->where('idboxs', $idboxs)
+        ->where('idpapers', $idpapers)
         ->orderBy('image.idimage',$stt)
         ->get();
     }
-    function scopeGetId($query, $id, $idboxs)
+    function scopeGetId($query, $id, $idpapers)
     {
         return DB::table('image')
         ->where('id',$id)
-        ->where('idboxs',$idboxs)
+        ->where('idpapers',$idpapers)
         ->limit(1)
         ->orderBy('idimage','desc')
         ->value('idimage');
     }
-    function scopeGetIdImage($query, $idboxs, $stt)
+    function scopeGetIdImage($query, $idpapers, $stt)
     {
         return DB::table('image')
-        ->where('idboxs',$idboxs)
+        ->where('idpapers',$idpapers)
         ->orderBy('idimage',$stt)
         ->limit(1)
         ->value('idimage');

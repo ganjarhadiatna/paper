@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Image;
 
-use App\BoxsModel;
+use App\PaperModel;
 use App\ProfileModel;
 use App\FollowModel;
 use App\TagModel;
@@ -18,13 +18,13 @@ class ProfileController extends Controller
 	{
 		$id = Auth::id();
         $profile = ProfileModel::UserData($id);
-        $userBoxs = BoxsModel::DetailBoxs(20, $id);
-        return view('profile.boxs', [
+        $usepapers = PaperModel::DetailPaper(20, $id);
+        return view('profile.papers', [
             'title' => 'User Profile',
             'path' => 'profile',
-            'nav' => 'boxs',
+            'nav' => 'papers',
             'profile' => $profile,
-            'userBoxs' => $userBoxs
+            'usepapers' => $usepapers
         ]);
 	}
     function designs($id)
@@ -36,7 +36,7 @@ class ProfileController extends Controller
 			$pathProfile = 'none';
 		}
         $profile = ProfileModel::UserData($id);
-        $userStory = BoxsModel::PagUserBoxs(20, $id);
+        $userStory = PaperModel::PagUserPaper(20, $id);
         $statusFolow = FollowModel::Check($id, $iduser);
         return view('profile.designs', [
             'title' => 'User Profile',
@@ -47,7 +47,7 @@ class ProfileController extends Controller
             'statusFolow' => $statusFolow
         ]);
 	}
-	function boxs($id)
+	function Paper($id)
 	{
 		$iduser = Auth::id();
 		if ($iduser == $id) {
@@ -56,14 +56,14 @@ class ProfileController extends Controller
 			$pathProfile = 'none';
 		}
         $profile = ProfileModel::UserData($id);
-        $userBoxs = BoxsModel::DetailBoxs(20, $id);
+        $userPapers = PaperModel::DetailPaper(20, $id);
         $statusFolow = FollowModel::Check($id, $iduser);
-        return view('profile.boxs', [
+        return view('profile.papers', [
             'title' => 'User Profile',
             'path' => $pathProfile,
-            'nav' => 'boxs',
+            'nav' => 'papers',
             'profile' => $profile,
-            'userBoxs' => $userBoxs,
+            'userPapers' => $userPapers,
             'statusFolow' => $statusFolow
         ]);
 	}
@@ -76,7 +76,7 @@ class ProfileController extends Controller
 			$pathProfile = 'none';
 		}
         $profile = ProfileModel::UserData($id);
-        $userStory = BoxsModel::PagUserBookmark(20, $id);
+        $userStory = PaperModel::PagUserBookmark(20, $id);
         $statusFolow = FollowModel::Check($id, $iduser);
         return view('profile.saved', [
             'title' => 'User Profile',

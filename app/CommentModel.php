@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\DB;
 
 class CommentModel extends Model
 {
-    function scopeGetIdcomment($query, $idboxs, $iduser)
+    function scopeGetIdcomment($query, $idpapers, $iduser)
     {
         return DB::table('comment')
-        ->where('comment.idboxs', $idboxs)
+        ->where('comment.idpapers', $idpapers)
         ->where('comment.id', $iduser)
         ->orderBy('comment.idcomment', 'desc')
         ->limit(1)
@@ -27,7 +27,7 @@ class CommentModel extends Model
     	->where('comment.idcomment', $idcomment)
     	->delete();
     }
-    function scopeGetID($scope, $idboxs, $offset, $limit)
+    function scopeGetID($scope, $idpapers, $offset, $limit)
     {
     	return DB::table('comment')
     	->select(
@@ -38,7 +38,7 @@ class CommentModel extends Model
     		'users.name',
     		'users.foto'
     	)
-    	->where('comment.idboxs',$idboxs)
+    	->where('comment.idpapers',$idpapers)
     	->join('users','users.id','=','comment.id')
     	->orderBy('comment.idcomment','desc')
     	->offset($offset)

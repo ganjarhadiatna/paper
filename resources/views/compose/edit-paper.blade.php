@@ -6,12 +6,12 @@
 	var server = '{{ url("/") }}';
 	function publish() {
 		var fd = new FormData();
-		var idboxs = $('#id-story').val();
+		var idpapers = $('#id-story').val();
 		var title = $('#title-story').val();
 		var content = $('#write-story').val();
 		var tags = $('#tags-story').val();
 
-		fd.append('idboxs', idboxs);
+		fd.append('idpapers', idpapers);
 		fd.append('title', title);
 		fd.append('content', content);
 		fd.append('tags', tags);
@@ -20,25 +20,25 @@
 		});
 
 		$.ajax({
-		  	url: '{{ url("/box/edit") }}',
+		  	url: '{{ url("/paper/edit") }}',
 			data: fd,
 			processData: false,
 			contentType: false,
 			type: 'post',
 			beforeSend: function() {
-				open_progress('Updating your box...');
+				open_progress('Updating your paper...');
 			}
 		})
 		.done(function(data) {
 		   	if (data === 'failed') {
-		   		opAlert('open', 'failed to saving box, your box still the same with previous content. To fix problem try with edit content box.');
+		   		opAlert('open', 'failed to saving paper, your paper still the same with previous content. To fix problem try with edit content paper.');
 		   		close_progress();
 		   	} else {
 				$('#title-story').val('');
 				$('#write-story').val('');
 				opCreateStory('close');
 				close_progress();
-				window.location = '{{ url("/box/") }}'+'/'+data;
+				window.location = '{{ url("/paper/") }}'+'/'+data;
 		   	}
 		   	//console.log(data);
 		})
@@ -95,7 +95,7 @@
 					<div class="create-block no-pad">
 						<!--progress bar-->
 						<div class="loading mrg-bottom" id="progressbar"></div>
-						<input type="hidden" name="idboxs" id="id-story" required="required" value="{{ $story->idboxs }}">
+						<input type="hidden" name="idpapers" id="id-story" required="required" value="{{ $story->idpapers }}">
 						<div class="block-field">
 							<div class="pan">
 								<div class="left">
@@ -112,7 +112,7 @@
 									name="title" 
 									id="title-story" 
 									class="tg txt txt-main-color txt-box-shadow" 
-									placeholder="Such as Robot, Mobile box etc." 
+									placeholder="Such as Robot, Mobile Design etc." 
 									required="true" 
 									maxlength="50"
 									value="{{ $story->title }}">

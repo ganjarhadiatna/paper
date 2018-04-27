@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\CommentModel;
 use App\NotifModel;
-use App\BoxsModel;
+use App\PaperModel;
 
 class CommentController extends Controller
 {
@@ -17,32 +17,32 @@ class CommentController extends Controller
     	} else {
     		$id = 0;
     	}
-    	$idboxs = $req['idboxs'];
+    	$idpapers = $req['idpapers'];
     	$description = $req['description'];
     	$data = array(
     		'description' => $description,
-    		'idboxs' => $idboxs,
+    		'idpapers' => $idpapers,
     		'id' => $id
     	);
     	$rest = CommentModel::Add($data);
     	if ($rest) {
             //get user id
-            $iduser = BoxsModel::GetIduser($idboxs);
+            $iduser = PaperModel::GetIduser($idpapers);
             if ($id != $iduser) {
                 //get idcomment
-                $idcomment = CommentModel::GetIdcomment($idboxs, $id);
+                $idcomment = CommentModel::GetIdcomment($idpapers, $id);
                 //add notif comment
                 $notif = array(
-                    'idboxs' => $idboxs,
+                    'idpapers' => $idpapers,
                     'idcomment' => $idcomment,
                     'id' => $id,
                     'iduser' => $iduser,
-                    'title' => 'Commented on your Story',
+                    'title' => 'Commented on your Paper',
                     'type' => 'comment'
                 );
                 NotifModel::AddNotifS($notif);
             }
-    		echo $idboxs;
+    		echo $idpapers;
     	} else {
     		echo "failed";
     	}
@@ -57,9 +57,9 @@ class CommentController extends Controller
     		echo "failed";
     	}
     }
-    function get($idboxs, $offset, $limit)
+    function get($idpapers, $offset, $limit)
     {
-    	$rest = CommentModel::GetID($idboxs, $offset, $limit);
+    	$rest = CommentModel::GetID($idpapers, $offset, $limit);
     	echo json_encode($rest);
     }
 }

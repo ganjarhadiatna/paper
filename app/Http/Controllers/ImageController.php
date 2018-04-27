@@ -16,7 +16,7 @@ class ImageController extends Controller
     {
     	$id = Auth::id();
 		$image = $request->file('image');
-		$idboxs = $request['idboxs'];
+		$idpapers = $request['idpapers'];
 
 		if (csrf_token()) {
 			if ($image) {
@@ -32,7 +32,7 @@ class ImageController extends Controller
 				$data = array(
 					'image' => $filename,
 					'id' => $id,
-					'idboxs' => $idboxs
+					'idpapers' => $idpapers
 				);
 				$rest = ImageModel::AddImage($data);
 				if ($rest) {
@@ -49,11 +49,11 @@ class ImageController extends Controller
 					$image->move($destination, $filename);
 
 					//getting last idimage
-					$idimage = ImageModel::GetId($id, $idboxs);
+					$idimage = ImageModel::GetId($id, $idpapers);
 					$final = array(
 						'filename' => $filename,
 						'id' => $id,
-						'idboxs' => $idboxs,
+						'idpapers' => $idpapers,
 						'idimage' => $idimage
 					);
 					echo json_encode($final);

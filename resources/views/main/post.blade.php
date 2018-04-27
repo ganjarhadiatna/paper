@@ -17,9 +17,9 @@
 			</div>
 		</div>
 		<div class="mid-tool">
-			<a href="{{ url('/box/'.$story->idboxs.'/design/'.$story->idimage) }}">
+			<a href="{{ url('/paper/'.$story->idpapers.'/design/'.$story->idimage) }}">
 				<div class="cover"></div>
-				<img src="{{ asset('/story/thumbnails/'.$story->cover) }}" alt="pict" id="pict-{{ $story->idimage }}" key="{{ $story->idboxs }}">
+				<img src="{{ asset('/story/thumbnails/'.$story->cover) }}" alt="pict" id="pict-{{ $story->idimage }}" key="{{ $story->idpapers }}">
 			</a>
 		</div>
 	</div>
@@ -33,7 +33,7 @@
 				</div>
 				<div class="grid-2 right">
 					<button class="icn btn btn-circle btn-primary-color btn-focus"
-						onclick="opPostSmallPopup('open', 'menu-popup', '{{ $story->idboxs }}', '{{ $story->id }}', '{{ $story->idimage }}')">
+						onclick="opPostSmallPopup('open', 'menu-popup', '{{ $story->idpapers }}', '{{ $story->id }}', '{{ $story->idimage }}')">
 						<span class="fa fa-lg fa-ellipsis-h"></span>
 					</button>
 					<!--
