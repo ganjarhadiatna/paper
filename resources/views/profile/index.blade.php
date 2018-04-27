@@ -42,7 +42,7 @@
 						<a href="{{ route('logout') }}" 
 							onclick="event.preventDefault();
 							document.getElementById('logout-form').submit();">
-							<button class="btn btn-main2-color">
+							<button class="btn btn-sekunder-color btn-focus">
 								<span class="fas fa-lg fa-power-off"></span>
 								<span class="">Logout</span>
 							</button>

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Coca Code - Register</title>
+	<title>Pictlr - Register</title>
 	<meta charset=utf-8>
     <meta name=description content="">
     <meta name=viewport content="width=device-width, initial-scale=1">
@@ -11,7 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- ICON -->
-    <link href="{{ asset('/img/C/6.png') }}" rel='SHORTCUT ICON'/>
+    <link href="{{ asset('/img/P/5.png') }}" rel='SHORTCUT ICON'/>
 
 	<!-- SASS -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/css/fontawesome-all.min.css') }}">

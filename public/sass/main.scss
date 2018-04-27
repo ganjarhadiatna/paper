@@ -157,10 +157,10 @@ a {
 			position: relative;
 			padding: 10px 0;
 			cursor: default;
-			@include grid_3x(60px, 1fr, 1fr);
+			@include grid_3x(120px, 1fr, 1fr);
 			@include col_full();
 			@media (max-width: $max-width) {
-				@include grid_2x(60px, 1fr);
+				@include grid_2x(120px, 1fr);
 			}
 			#main-search {
 				&.hide {
@@ -181,8 +181,7 @@ a {
 				@include column_1();
 				.logo {
 					position: relative;
-					width: 40px;
-					border-radius: 100%;
+					width: 90px;
 					height: 40px;
 					overflow: hidden;
 					img {

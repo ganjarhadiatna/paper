@@ -136,7 +136,7 @@
 								<input type="file" name="get-image" accept="image/*" class="hide-input-file" id="get-image" onchange="getImage()">
 							</form>
 							<label for="get-image">
-								<span class="btn btn-div btn-sekunder-color btn-radius">
+								<span class="btn btn-div btn-sekunder-color btn-focus">
 									<span class="fa fa-lg fa-plus"></span>
 									<span>Browse Design</span>
 								</span>

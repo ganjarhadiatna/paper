@@ -19,7 +19,10 @@
 		<div class="mid-tool">
 			<a href="{{ url('/paper/'.$story->idpapers.'/design/'.$story->idimage) }}">
 				<div class="cover"></div>
-				<img src="{{ asset('/story/thumbnails/'.$story->cover) }}" alt="pict" id="pict-{{ $story->idimage }}" key="{{ $story->idpapers }}">
+				<img src="{{ asset('/story/thumbnails/'.$story->cover) }}"
+				alt="pict"
+				id="pict-{{ $story->idimage }}"
+				key="{{ $story->idpapers }}">
 			</a>
 		</div>
 	</div>
@@ -36,11 +39,6 @@
 						onclick="opPostSmallPopup('open', 'menu-popup', '{{ $story->idpapers }}', '{{ $story->id }}', '{{ $story->idimage }}')">
 						<span class="fa fa-lg fa-ellipsis-h"></span>
 					</button>
-					<!--
-					<a href="{{ url('/user/'.$story->id) }}">
-						<div class="image image-35px image-circle" style="background-image: url({{ asset('/profile/thumbnails/'.$story->foto) }});"></div>
-					</a>
-					-->
 				</div>
 			</div>
 		</div>

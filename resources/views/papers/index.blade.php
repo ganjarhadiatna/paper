@@ -153,36 +153,36 @@
 <div class="sc-header">
 	<div class="sc-place pos-fix">
 		<div class="col-900px">
-			<div class="sc-grid sc-grid-2x">
+			<div class="sc-grid sc-grid-3x">
 				<div class="sc-col-1">
 					@if ($story->id == Auth::id())
 						<button class="btn btn-circle btn-main2-color btn-focus" onclick="opQuestionPost('{{ $story->idpapers }}')">
 							<span class="far fa-lg fa-trash-alt"></span>
 						</button>
 						<a href="{{ url('/paper/'.$story->idpapers.'/edit') }}">
-							<button class="btn btn-circle btn-main2-color btn-focus">
+							<button class="btn btn-circle btn-main2-color btn-focus mobile">
 								<span class="fas fa-lg fa-pencil-alt"></span>
 							</button>
 						</a>
-						<a href="{{ url('/paper/'.$story->idpapers.'/designs') }}">
-							<button class="btn btn-circle btn-main2-color btn-focus">
-								<span class="fas fa-lg fa-images"></span>
-							</button>
-						</a>
 					@endif
-					<button class="btn btn-circle btn-main2-color btn-focus" onclick="opPostPopup('open', 'menu-popup', '{{ $story->idpapers }}', '{{ $story->id }}', '{{ $title }}')">
+					<button class="btn btn-circle btn-main2-color btn-focus" onclick="opPostPopup('open', 'menu-popup', '{{ $story->idpapers }}', '{{ $story->id }}')">
 						<span class="fas fa-lg fa-ellipsis-h"></span>
 					</button>
 				</div>
-				<div class="sc-col-2 txt-right">
-					<button class="btn btn-main-color btn-no-border" onclick="addBookmark('{{ $idimage }}')">
-						@if (is_int($check))
-							<span class="bookmark-{{ $idimage }} fas fa-lg fa-bookmark" id="bookmark-{{ $idimage }}"></span>
-						@else
-							<span class="bookmark-{{ $idimage }} far fa-lg fa-bookmark" id="bookmark-{{ $idimage }}"></span>
-						@endif
-						<span>Save</span>
-					</button>
+				<div class="sc-col-2 txt-center">
+					<h3 class="ttl ttl-head-2 ttl-sekunder-color">
+						Paper
+					</h3>
+				</div>
+				<div class="sc-col-3 txt-right">
+					@if ($story->id == Auth::id())
+						<a href="{{ url('/paper/'.$story->idpapers.'/designs') }}">
+							<button class="btn btn-sekunder-color btn-focus">
+								<span class="fas fa-lg fa-images"></span>
+								<span class="mobile">Organized</span>
+							</button>
+						</a>
+					@endif
 				</div>
 			</div>
 		</div>
@@ -195,32 +195,33 @@
 				<div class="grid-1">
 					<div class="mid padding-top-10px">
 						<div class="pict">
-							<img src="{{ asset('/story/covers/'.$getImage) }}" alt="pict">
+							<img src="{{ asset('/story/covers/'.$getImage) }}" id="pict-{{ $idimage }}" alt="pict">
 						</div>
 					</div>
 				</div>
 				<div class="grid-2">
-					<div class="pos mid bdr-bottom">
-						<div class="ctn-main-font ctn-14px ctn-sek-color ctn-bold padding-bottom-15px">More Designs</div>
-						<div class="place-search-tag">
-							<div class="st-lef">
-								<div class="btn btn-circle btn-sekunder-color btn-no-border hg-100px" onclick="toLeft()">
-									<span class="fa fa-lg fa-angle-left"></span>
+					<div class="sc-header">
+						<div class="sc-place">
+							<div class="sc-grid sc-grid-2x">
+								<div class="sc-col-1">
+									<button class="btn btn-circle btn-main2-color btn-focus"
+										onclick="pictZoom({{ $idimage }})">
+										<span class="fas fa-lg fa-search-plus"></span>
+									</button>
+									<button class="btn btn-circle btn-main2-color btn-focus"
+										onclick="opPostSmallPopup('open', 'menu-popup', '{{ $idpapers }}', '{{ $story->id }}', '{{ $idimage }}')">
+										<span class="fas fa-lg fa-ellipsis-h"></span>
+									</button>
 								</div>
-							</div>
-							<div class="st-mid" id="ctnTag">
-								@if (count($getAllImage) != 0)
-									@foreach ($getAllImage as $img)
-										<a href="{{ url('/paper/'.$img->idpapers.'/design/'.$img->idimage) }}">
-											<div class="image image-100px image-radius"
-												style="background-image: url({{ asset('/story/thumbnails/'.$img->image) }})"></div>
-										</a>
-									@endforeach
-								@endif
-							</div>
-							<div class="st-rig">
-								<div class="btn btn-circle btn-sekunder-color btn-no-border hg-100px" onclick="toRight()">
-									<span class="fa fa-lg fa-angle-right"></span>
+								<div class="sc-col-2 txt-right">
+									<button class="btn btn-main-color btn-no-border" onclick="addBookmark('{{ $idimage }}')">
+										@if (is_int($check))
+											<span class="bookmark-{{ $idimage }} fas fa-lg fa-bookmark" id="bookmark-{{ $idimage }}"></span>
+										@else
+											<span class="bookmark-{{ $idimage }} far fa-lg fa-bookmark" id="bookmark-{{ $idimage }}"></span>
+										@endif
+										<span>Save</span>
+									</button>
 								</div>
 							</div>
 						</div>
@@ -248,29 +249,6 @@
 							@endif
 						</div>
 					</div>
-					<div class="pos mid bdr-top">
-						<div class="panel-bottom">
-							<div class="col-auto">
-								<div class="grid grid-2x">
-									<div class="grid-1">
-										<button class="btn btn-sekunder-color btn-no-border btn-no-pad">
-											<span id="ttl-view">{{ ($story->views + $story->ttl_comment) }} Notes</span>
-										</button>
-									</div>
-									<div class="grid-2 text-right crs-default">
-										<button class="btn btn-sekunder-color btn-no-border">
-											<span class="fas fa-lg fa-align-center"></span>
-											<span id="ttl-view">{{ $story->views }}</span>
-										</button>
-										<button class="btn btn-sekunder-color btn-no-border" onclick="toComment()">
-											<span class="far fa-lg fa-comment"></span>
-											<span class="ttl-loves">{{ $story->ttl_comment }}</span>
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 					<div class="pos bot bdr-top">
 						<div class="profile">
 							<div class="foto">
@@ -295,6 +273,31 @@
 										<input type="button" name="follow" class="btn btn-sekunder-color" id="add-follow-{{ $story->id }}" value="Follow" onclick="opFollow('{{ $story->id }}', '{{ url("/") }}', '{{ Auth::id() }}')">
 									@endif
 								@endif
+							</div>
+						</div>
+					</div>
+					<div class="pos mid bdr-bottom" key="more design">
+						<div class="ctn-main-font ctn-14px ctn-sek-color ctn-bold padding-bottom-15px">More Designs</div>
+						<div class="place-search-tag">
+							<div class="st-lef">
+								<div class="btn btn-circle btn-sekunder-color btn-no-border hg-100px" onclick="toLeft()">
+									<span class="fa fa-lg fa-angle-left"></span>
+								</div>
+							</div>
+							<div class="st-mid" id="ctnTag">
+								@if (count($getAllImage) != 0)
+									@foreach ($getAllImage as $img)
+										<a href="{{ url('/paper/'.$img->idpapers.'/design/'.$img->idimage) }}">
+											<div class="image image-100px image-radius"
+												style="background-image: url({{ asset('/story/thumbnails/'.$img->image) }})"></div>
+										</a>
+									@endforeach
+								@endif
+							</div>
+							<div class="st-rig">
+								<div class="btn btn-circle btn-sekunder-color btn-no-border hg-100px" onclick="toRight()">
+									<span class="fa fa-lg fa-angle-right"></span>
+								</div>
 							</div>
 						</div>
 					</div>

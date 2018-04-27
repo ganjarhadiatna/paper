@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Coca Code</title>
+	<title>Pictlr</title>
 	<meta charset=utf-8>
     <meta name=description content="">
     <meta name=viewport content="width=device-width, initial-scale=1">
@@ -11,7 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- ICON -->
-    <link href="{{ asset('/img/C/6.png') }}" rel='SHORTCUT ICON'/>
+    <link href="{{ asset('/img/P/5.png') }}" rel='SHORTCUT ICON'/>
 
 	<!-- SASS -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/css/fontawesome-all.min.css') }}">
@@ -28,8 +28,8 @@
 				<div class="bl detail col-400px">
 					<ul>
 						<li>
-							<div class="icn fas fa-lg fa-box-open"></div>
-							<div class="ttl ctn-main-font ctn-18px">Put your designs on a boxs.</div>
+							<div class="icn far fa-lg fa-images"></div>
+							<div class="ttl ctn-main-font ctn-18px">Put your designs on a papers.</div>
 						</li>
 						<li>
 							<div class="icn fas fa-lg fa-lightbulb"></div>
@@ -44,7 +44,7 @@
 			</div>
 			<div class="grid-2">
 				<div class="bl sign col-400px">
-					<div class="image image-all" style="background-image: url('{{ asset('/img/CocaCode/3.png') }}')"></div>
+					<div class="image image-all" style="background-image: url('{{ asset('/img/Pictlr/9.png') }}')"></div>
 					<div class="ttl ctn-main-font ctn-20px ctn-sek-color padding-20px">
 						It's a place for Designers.
 					</div>
