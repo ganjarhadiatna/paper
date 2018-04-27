@@ -18,13 +18,13 @@ class ProfileController extends Controller
 	{
 		$id = Auth::id();
         $profile = ProfileModel::UserData($id);
-        $usepapers = PaperModel::DetailPaper(20, $id);
+        $userPapers = PaperModel::DetailPaper(20, $id);
         return view('profile.papers', [
             'title' => 'User Profile',
             'path' => 'profile',
             'nav' => 'papers',
             'profile' => $profile,
-            'usepapers' => $usepapers
+            'userPapers' => $userPapers
         ]);
 	}
     function designs($id)

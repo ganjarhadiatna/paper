@@ -50,6 +50,7 @@
 		.fail(function(data) {
 			opAlert('open', "there is an error, please try again.");
 			close_progress();
+			console.log(data.responseJSON);
 		})
 		.always(function() {
 			close_progress();
