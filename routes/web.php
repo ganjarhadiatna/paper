@@ -10,11 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', 'MainController@index');
-Route::get('/home', 'MainController@index');
-Route::get('/tags/{ctr}', 'MainController@tagsId');
-Route::get('/category/{ctr}', 'MainController@ctrId');
+Route::get('/', 'MainController@feeds');
+Route::get('/home', 'MainController@feeds');
+Route::get('/tags/{ctr}', 'MainController@tags');
 Route::get('/popular', 'MainController@popular');
 Route::get('/fresh', 'MainController@fresh');
 Route::get('/trending', 'MainController@trending');
@@ -32,18 +30,18 @@ Route::get('/user/{iduser}/saved', 'ProfileController@saved')->where(['iduser' =
 Route::post('/loves/add', 'StoryController@addLoves');
 
 /*comment*/
-Route::get('/get/comment/{idstory}/{offset}/{limit}', 'CommentController@get')->where(['idstory' => '[0-9]+']);
+Route::get('/get/comment/{idimage}/{offset}/{limit}', 'CommentController@read')->where(['idimage' => '[0-9]+']);
 
 /*paper*/
-Route::get('/paper/{idpapers}', 'PaperController@paper')->where(['idpapers' => '[0-9]+']);
-Route::get('/paper/{idpapers}/design/{idimage}', 'PaperController@paperImage')
+Route::get('/paper/{idpapers}', 'PaperController@view')->where(['idpapers' => '[0-9]+']);
+Route::get('/paper/{idpapers}/design/{idimage}', 'DesignController@view')
 ->where(['idpapers' => '[0-9]+','idimage' => '[0-9]+']);
 
 Auth::routes();
 Route::middleware('auth')->group(function() {
     /*user*/
-    Route::get('/user/{iduser}/following', 'FollowController@following')->where(['iduser' => '[0-9]+']);
-    Route::get('/user/{iduser}/followers', 'FollowController@followers')->where(['iduser' => '[0-9]+']);
+    Route::get('/user/{iduser}/following', 'FollowController@readFollowing')->where(['iduser' => '[0-9]+']);
+    Route::get('/user/{iduser}/followers', 'FollowController@readFollowers')->where(['iduser' => '[0-9]+']);
     Route::get('/user/{iduser}/paper', 'ProfileController@paper')->where(['iduser' => '[0-9]+']);
 
 	/*profile*/
@@ -58,30 +56,30 @@ Route::middleware('auth')->group(function() {
     Route::post('/save/password', 'ProfileController@savePassword');
 
     /*compose*/
-    Route::get('/compose', 'MainController@composePaper');
-    Route::get('/compose/paper', 'MainController@composePaper');
-    Route::get('/compose/paper/{idpapers}/designs', 'MainController@composeImage');
+    Route::get('/compose', 'ComposeController@composePaper');
+    Route::get('/compose/paper', 'ComposeController@composePaper');
+    Route::get('/compose/paper/{idpapers}/designs', 'ComposeController@composeDesign');
     
-    Route::post('/paper/image/upload', 'ImageController@upload');
-    Route::post('/paper/image/delete', 'ImageController@delete');
+    Route::post('/paper/image/upload', 'DesignController@publish');
+    Route::post('/paper/image/delete', 'DesignController@delete');
     Route::post('/paper/publish', 'PaperController@publish');
 
     Route::get('/paper/{idstory}/edit', 'PaperController@paperEdit');
-    Route::get('/paper/{idstory}/designs', 'MainController@composeImage');
+    Route::get('/paper/{idstory}/designs', 'ComposeController@composeDesign');
 
-    Route::post('/paper/edit', 'PaperController@editPaper');
-    Route::post('/paper/delete', 'PaperController@deletePaper');
+    Route::post('/paper/edit', 'PaperController@edit');
+    Route::post('/paper/delete', 'PaperController@delete');
 
     /*Follow*/
-    Route::post('/follow/add', 'FollowController@add');
-    Route::post('/follow/remove', 'FollowController@remove');
+    Route::post('/follow/add', 'FollowController@create');
+    Route::post('/follow/remove', 'FollowController@delete');
 
     /*bookmark*/
-    Route::post('/add/bookmark', 'BookmarkController@add');
-    Route::post('/remove/bookmark', 'BookmarkController@remove');
+    Route::post('/add/bookmark', 'BookmarkController@create');
+    Route::post('/remove/bookmark', 'BookmarkController@delete');
 
     /*comment*/
-    Route::post('/add/comment', 'CommentController@add');
+    Route::post('/add/comment', 'CommentController@create');
     Route::post('/delete/comment', 'CommentController@delete');
 
     /*notifications*/

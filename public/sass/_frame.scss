@@ -577,6 +577,7 @@
 					width: 100%;
 					padding: 0 0;
 					font-size: 14px;
+					height: 40px;
 				}
 			}
 		}
@@ -587,9 +588,9 @@
 .frame-comment {
 	position: relative;
 	width: 100%;
-	margin-top: 20px;
-	margin-bottom: 20px;
-	@include grid_2x(70px, 1fr);
+	margin-top: 15px;
+	margin-bottom: 15px;
+	@include grid_2x(55px, 1fr);
 	.dt-1 {
 		@include column_1();
 	}
@@ -822,16 +823,19 @@
 	}
 }
 
-.frame-box {
+.frame-paper {
 	position: relative;
-	width: (($col-full / 4) - 20px);
-	margin: 10px;
+	width: (($col-full / 4) - 25px);
+	padding: 10px 7.5px;
+	margin: 0 5px;
 	background-color: #fff;
-	border-radius: 5px;
+	border-radius: 7.5px;
 	overflow: hidden;
 	@media (max-width: $max-width) {
-		width: calc(100%);
-		margin: 10px 0;
+		width: calc(100% - 25px);
+	}
+	&:hover {
+		background-color: rgba(225,225,225,0.54);
 	}
 	.top {
 		position: relative;
@@ -839,9 +843,7 @@
 	}
 	.mid {
 		position: relative;
-		width: calc(100% - 30px);
-		padding: 15px;
-		text-align: center;
+		width: 100%;
 	}
 	.bot {
 		position: relative;
@@ -867,7 +869,7 @@
 	.pl-image {
 		@include col_masonry(3);
 		overflow: hidden;
-		border-radius: 5px;
+		border-radius: 7.5px;
 	}
 	.pl-icn {
 		position: relative;
@@ -910,6 +912,7 @@
 }
 .frame-more .btn {
 	width: 150px;
+	height: 40px;
 	padding: 0 0;
 }
 

@@ -170,7 +170,7 @@ a {
 				}
 			}
 			.pos {
-				.btn{
+				.btn {
 					&.active {
 						background-color: rgba(225,225,225,0.54);
 						color: $txt-min-color;
@@ -220,6 +220,7 @@ a {
 						.btn {
 							background-color: rgba(225,225,225,0.54);
 							color: $min-color;
+							border-radius: 0;
 						}
 					}
 					.txt {

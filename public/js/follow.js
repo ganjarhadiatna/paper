@@ -27,9 +27,10 @@ function addFollow(iduser, server) {
 			opAlert('open', 'Failed to Follow this user.');
 		}
 	})
-	.fail(function() {
+	.fail(function(data) {
 		$('#add-follow-'+iduser).val('Follow').attr('class', 'btn btn-sekunder-color');
 		opAlert('open', 'There is an error, please try again.');
+		console.log(data.responseJSON);
 	});
 	
 }

@@ -202,7 +202,7 @@
 				<div class="pos mid" id="main-search">
 					<div class="main-search bdr-all">
 						<form id="place-search" action="javascript:void(0)" method="get">
-							<button type="submit" class="btn btn-main4-color">
+							<button type="submit" class="btn btn-circle btn-main4-color">
 								<span class="fa fa-lg fa-search"></span>
 							</button>
 							<input type="text" name="q" class="txt txt-main-color txt-no-shadow" id="txt-search" placeholder="Search.." required="true">

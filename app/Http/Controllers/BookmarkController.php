@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\BookmarkModel;
-use App\ImageModel;
+use App\DesignModel;
 use App\NotifModel;
 
 class BookmarkController extends Controller
 {
-	function add(Request $request)
+	function create(Request $request)
     {
     	$id = Auth::id();
     	$idimage = $request['idimage'];
@@ -30,10 +30,10 @@ class BookmarkController extends Controller
 	    	$rest = BookmarkModel::Add($data);
 	    	if ($rest) {
 	    		//get user id
-	    		$iduser = ImageModel::GetIduser($idimage);
+	    		$iduser = DesignModel::GetIduser($idimage);
 	    		if ($id != $iduser) {
 					//get papers id GetIdpaper
-					$idpapers = ImageModel::GetIdpaper($idimage);
+					$idpapers = DesignModel::GetIdpaper($idimage);
 	    			//get bookmark id
 		    		$idbookmark = BookmarkModel::GetIduser($iduser);
 		    		//add notif bookmark
@@ -53,39 +53,7 @@ class BookmarkController extends Controller
 	    	}
     	}
     }
-	function save(Request $req)
-    {
-		$id = Auth::id();
-        $idstory = $req['idstory'];
-        $idboxs = $req['idboxs'];
-        $data = array(
-			'id' => $id,
-            'idstory' => $idstory,
-            'idboxs' => $idboxs
-        );
-        $rest = BookmarkModel::Add($data);
-	    if ($rest) {
-			//get user id
-			$ch = BookmarkModel::Check($idstory, $id);
-	    	$iduser = PaperModel::GetIduser($idstory);
-	    	if ($id != $iduser) {
-		   		//add notif bookmark
-		   		$notif = array(
-		   			'idstory' => $idstory,
-		   			'idbookmark' => $ch,
-		   			'id' => $id,
-		   			'iduser' => $iduser,
-		   			'title' => 'Saved your Story',
-		  			'type' => 'bookmark'
-		  		);
-				NotifModel::AddNotifS($notif);
-			}
-			echo $ch;
-		} else {
-			echo 0;
-		}
-    }
-    function remove(Request $request)
+    function delete(Request $request)
     {
     	$idbookmark = $request['idbookmark'];
 	    $rest = BookmarkModel::Remove($idbookmark);

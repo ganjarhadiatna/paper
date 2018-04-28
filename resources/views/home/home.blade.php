@@ -28,7 +28,7 @@
 				<div class="bl detail col-400px">
 					<ul>
 						<li>
-							<div class="icn far fa-lg fa-images"></div>
+							<div class="icn fas fa-lg fa-th-large"></div>
 							<div class="ttl ctn-main-font ctn-18px">Put your designs on a papers.</div>
 						</li>
 						<li>

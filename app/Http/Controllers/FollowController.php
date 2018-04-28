@@ -9,41 +9,8 @@ use App\FollowModel;
 use App\NotifModel;
 
 class FollowController extends Controller
-{
-    function following($iduser)
-    {
-        if (Auth::id()) {
-            $id = Auth::id();   
-        } else {
-            $id = 0;
-        }
-        $profile = FollowModel::GetUserFollowing($iduser, $id);
-        $ttl_following = FollowModel::GetTotalFollowing($iduser);
-        return view('profile.follow.following', [
-            'title' => 'Following',
-            'path' => 'profile',
-            'profile' => $profile,
-            'ttl_following' => $ttl_following
-        ]);
-    }
-    function followers($iduser)
-    {
-        if (Auth::id()) {
-            $id = Auth::id();   
-        } else {
-            $id = 0;
-        }
-        $profile = FollowModel::GetUserFollowers($iduser, $id);
-        $ttl_followers = FollowModel::GetTotalFollowers($iduser);
-        return view(
-            'profile.follow.followers', [
-            'title' => 'Followers',
-            'path' => 'profile',
-            'profile' => $profile,
-            'ttl_followers' => $ttl_followers
-        ]);
-    }
-    function add(Request $request)
+{    
+    function create(Request $request)
     {
     	$id = Auth::id();
     	$iduser = $request['iduser'];
@@ -63,8 +30,7 @@ class FollowController extends Controller
                 //add notif
                 $notif = array(
                     'id' => $id,
-                    'iduser' => $iduser,
-                    'title' => 'Started following you'
+                    'iduser' => $iduser
                 );
                 NotifModel::AddNotifF($notif);
                 //
@@ -74,8 +40,40 @@ class FollowController extends Controller
 	    	}
     	}
     }
-    
-    function remove(Request $request)
+    function readFollowing($iduser)
+    {
+        if (Auth::id()) {
+            $id = Auth::id();   
+        } else {
+            $id = 0;
+        }
+        $profile = FollowModel::GetUserFollowing($iduser, $id);
+        $ttl_following = FollowModel::GetTotalFollowing($iduser);
+        return view('profile.follow.following', [
+            'title' => 'Following',
+            'path' => 'profile',
+            'profile' => $profile,
+            'ttl_following' => $ttl_following
+        ]);
+    }
+    function readFollowers($iduser)
+    {
+        if (Auth::id()) {
+            $id = Auth::id();   
+        } else {
+            $id = 0;
+        }
+        $profile = FollowModel::GetUserFollowers($iduser, $id);
+        $ttl_followers = FollowModel::GetTotalFollowers($iduser);
+        return view(
+            'profile.follow.followers', [
+            'title' => 'Followers',
+            'path' => 'profile',
+            'profile' => $profile,
+            'ttl_followers' => $ttl_followers
+        ]);
+    }
+    function delete(Request $request)
     {
     	$id = Auth::id();
     	$iduser = $request['iduser'];

@@ -10,77 +10,11 @@ use App\PaperModel;
 use App\TagModel;
 use App\FollowModel;
 use App\BookmarkModel;
-use App\ImageModel;
+use App\DesignModel;
 
 class PaperController extends Controller
 {
-    function paper($idpapers)
-    {
-        PaperModel::UpdateViewsPaper($idpapers);
-        $id = Auth::id();
-        $getPaper = PaperModel::GetPaper($idpapers);
-        $paperImage = PaperModel::pagImagePaper(20, $idpapers);
-        $tags = TagModel::GetTags($idpapers);
-        return view('papers.index', [
-            'title' => 'Paper',
-            'path' => 'none',
-            'getPaper' => $getPaper,
-            'paperImage' => $paperImage,
-            'tags' => $tags,
-            'idpapers' => $idpapers,
-            'id' => $id
-        ]);
-    }
-    function paperImage($id, $idimage)
-    {
-        $check = PaperModel::CheckPaper($id);
-        if (is_int($check)) {
-            PaperModel::UpdateViewsPaper($id);
-            $iduserMe = Auth::id();
-            $iduser = PaperModel::GetIduser($id);
-            
-            $getStory = PaperModel::GetPaper($id);
-            $getImage = ImageModel::GetImage($idimage);
-            $getAllImage = ImageModel::GetAllImage($id,'desc');
-            
-            $newStory = PaperModel::PagRelatedPaper(20, $id);
-
-            $check = BookmarkModel::Check($idimage, $iduserMe);
-            return view('designs.index', [
-                'title' => 'Paper',
-                'path' => 'none',
-                'getStory' => $getStory,
-                'getImage' => $getImage,
-                'getAllImage' => $getAllImage,
-                'newStory' => $newStory,
-                'check' => $check,
-                'idpapers' => $id,
-                'idimage' => $idimage
-            ]);
-        } else {
-            return view('papers.empty', [
-                'title' => 'Paper Not Finded',
-                'path' => 'none',
-            ]);
-        }
-    }
-    function paperEdit($idpapers)
-    {
-        $getStory = PaperModel::GetPaper($idpapers);
-        $restTags = TagModel::GetTags($idpapers);
-        $temp = [];
-        foreach ($restTags as $tag) {
-            array_push($temp, $tag->tag);
-        }
-        $tags = implode(", ", $temp);
-        return view('compose.edit-paper', [
-            'title' => 'Edit Paper',
-            'path' => 'none',
-            'getStory' => $getStory,
-            'tags' => $tags
-        ]);
-    }
-    function mentions($tags, $idpapers)
+    protected function mentions($tags, $idpapers)
     {
         $replace = array('[',']','@','+','-','*','<','>','-','(',')',';','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
         $str1 = str_replace($replace, '', $tags);
@@ -99,16 +33,25 @@ class PaperController extends Controller
             }
         }
     }
-    function addLoves(Request $request)
-    {
-        $idstory = $request['idstory'];
-        $ttl = $request['ttl-loves'];
-        PaperModel::UpdateLoves($idstory, $ttl);
-        $rest = PaperModel::GetLoves($idstory);
-        echo $rest;
-    }
 
-    /*Setting Papers*/
+    /*CRUD Papers*/
+    function view($idpapers)
+    {
+        PaperModel::UpdateViewsPaper($idpapers);
+        $id = Auth::id();
+        $getPaper = PaperModel::GetPaper($idpapers);
+        $paperImage = PaperModel::pagImagePaper(20, $idpapers);
+        $tags = TagModel::GetTags($idpapers);
+        return view('papers.index', [
+            'title' => 'Paper',
+            'path' => 'none',
+            'getPaper' => $getPaper,
+            'paperImage' => $paperImage,
+            'tags' => $tags,
+            'idpapers' => $idpapers,
+            'id' => $id
+        ]);
+    }
     function publish(Request $request)
     {
     	$id = Auth::id();
@@ -132,7 +75,7 @@ class PaperController extends Controller
     		echo 0;
         }
     }
-    function editPaper(Request $request)
+    function edit(Request $request)
     {
         $idpapers = $request['idpapers'];
         $title = $request['title'];
@@ -156,13 +99,13 @@ class PaperController extends Controller
             echo "failed";
         }
     }
-    function deletePaper(Request $request)
+    function delete(Request $request)
     {
         $iduser = Auth::id();
         $idpapers = $request['idpapers'];
 
         //deleting cover
-        $cover = ImageModel::GetAllImage($idpapers);
+        $cover = DesignModel::GetAllDesign($idpapers);
         foreach ($cover as $dt) {
             unlink(public_path('story/covers/'.$dt->image));
 			unlink(public_path('story/thumbnails/'.$dt->image));
@@ -175,5 +118,22 @@ class PaperController extends Controller
         } else {
             echo "failed";
         }
+    }
+
+    function paperEdit($idpapers)
+    {
+        $getStory = PaperModel::GetPaper($idpapers);
+        $restTags = TagModel::GetTags($idpapers);
+        $temp = [];
+        foreach ($restTags as $tag) {
+            array_push($temp, $tag->tag);
+        }
+        $tags = implode(", ", $temp);
+        return view('compose.edit-paper', [
+            'title' => 'Edit Paper',
+            'path' => 'none',
+            'getStory' => $getStory,
+            'tags' => $tags
+        ]);
     }
 }

@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\CommentModel;
 use App\NotifModel;
-use App\ImageModel;
+use App\DesignModel;
 
 class CommentController extends Controller
 {
-    function add(Request $req)
+    function create(Request $req)
     {
     	if (Auth::id()) {
     		$id = Auth::id();
@@ -27,10 +27,10 @@ class CommentController extends Controller
     	$rest = CommentModel::Add($data);
     	if ($rest) {
             //get user id
-            $iduser = ImageModel::GetIduser($idimage);
+            $iduser = DesignModel::GetIduser($idimage);
             if ($id != $iduser) {
 				//get papers id GetIdpaper
-				$idpapers = ImageModel::GetIdpaper($idimage);
+				$idpapers = DesignModel::GetIdpaper($idimage);
                 //get idcomment
                 $idcomment = CommentModel::GetIdcomment($idimage, $id);
                 //add notif comment
@@ -48,6 +48,11 @@ class CommentController extends Controller
     	} else {
     		echo "failed";
     	}
+	}
+	function read($idimage, $offset, $limit)
+    {
+    	$rest = CommentModel::GetID($idimage, $offset, $limit);
+    	echo json_encode($rest);
     }
     function delete(Request $req)
     {
@@ -58,10 +63,5 @@ class CommentController extends Controller
     	} else {
     		echo "failed";
     	}
-    }
-    function get($idimage, $offset, $limit)
-    {
-    	$rest = CommentModel::GetID($idimage, $offset, $limit);
-    	echo json_encode($rest);
     }
 }

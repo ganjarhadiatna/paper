@@ -62,7 +62,8 @@
 			}
 		})
 		.fail(function(data) {
-			console.log(data.responseJSON);
+			//console.log(data.responseJSON);
+			opAlert('show', 'There is an error, please try again.');
 		});
 		
 	}
@@ -119,7 +120,8 @@
 			}
 		})
 		.fail(function(data) {
-			console.log(data.responseJSON);
+			//console.log(data.responseJSON);
+			opAlert('show', 'There is an error, please try again.');
 		});
 		
 	}

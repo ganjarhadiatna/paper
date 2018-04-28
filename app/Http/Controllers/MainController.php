@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Auth;
 use App\PaperModel;
 use App\ProfileModel;
 use App\TagModel;
-use App\ImageModel;
+use App\DesignModel;
 use App\FollowModel;
 use App\BookmarkModel;
 
 class MainController extends Controller
 {
-    function index()
+    function feeds()
     {
         if (Auth::id()) {
             $id = Auth::id();
@@ -32,44 +32,11 @@ class MainController extends Controller
             ]);
         }
     }
-    function collections()
-    {
-        if (Auth::id()) {
-            $id = Auth::id();
-        } else {
-            $id = 0;
-        }
-        $topStory = PaperModel::PagAllStory(20);
-        $topTags = TagModel::TopTags();
-        $allTags = TagModel::AllTags();
-        $topUsers = ProfileModel::TopUsers($id, 7);
-        return view('collections.index', [
-            'title' => 'Collections',
-            'path' => 'collections',
-            'topStory' => $topStory,
-            'topTags' => $topTags,
-            'allTags' => $allTags,
-            'topUsers' => $topUsers
-        ]);
-    }
-    function collectionsId($ctr)
-    {
-        return view('others.index', ['title' => 'Collections', 'path' => 'collections']);
-    }
-    function tagsId($ctr)
+    function tags($ctr)
     {
         $topStory = PaperModel::PagTagPaper($ctr, 12);
         return view('others.index', [
             'title' => $ctr,
-            'path' => 'none',
-            'topStory' => $topStory
-        ]);
-    }
-    function ctrId($ctr)
-    {
-        $topStory = PaperModel::PagCtrPaper($ctr, 12);
-        return view('others.index', [
-            'title' => 'Category '.$ctr,
             'path' => 'none',
             'topStory' => $topStory
         ]);
@@ -92,23 +59,6 @@ class MainController extends Controller
             'title' => 'Popular',
             'path' => 'popular',
             'topStory' => $topStory
-        ]);
-    }
-    function composeImage($idpapers)
-    {
-        $image = ImageModel::GetAllImage($idpapers,'asc');
-        return view('compose.image', [
-            'title' => 'Add Designs',
-            'path' => 'compose',
-            'idpapers' => $idpapers,
-            'image' => $image
-        ]);
-    }
-    function composePaper()
-    {
-        return view('compose.paper', [
-            'title' => 'Add Paper',
-            'path' => 'compose'
         ]);
     }
     function fresh()
@@ -165,13 +115,5 @@ class MainController extends Controller
             'topUsers' => $topUsers,
             'topTags' => $topTags
         ]);
-    }
-    function login()
-    {
-        return view('sign.in', ['title' => 'Login', 'path' => 'none']);
-    }
-    function signup()
-    {
-        return view('sign.up', ['title' => 'Signup', 'path' => 'none']);
     }
 }

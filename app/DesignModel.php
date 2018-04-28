@@ -5,28 +5,28 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class ImageModel extends Model
+class DesignModel extends Model
 {
 	protected $table = 'image';
 
-    function scopeAddImage($query, $data)
+    function scopeAddDesign($query, $data)
     {
         return DB::table('image')
         ->insert($data);
     }
-    function scopeDeleteImage($query, $idimage)
+    function scopeDeleteDesign($query, $idimage)
     {
         return DB::table('image')
         ->where('idimage', $idimage)
         ->delete();
     }
-    function scopeGetImage($query, $idimage)
+    function scopeGetDesign($query, $idimage)
     {
         return DB::table('image')
         ->where('idimage', $idimage)
         ->value('image');
     }
-    function scopeGetAllImage($query, $idpapers, $stt)
+    function scopeGetAllDesign($query, $idpapers, $stt)
     {
         return DB::table('image')
         ->select(
@@ -48,7 +48,7 @@ class ImageModel extends Model
         ->orderBy('idimage','desc')
         ->value('idimage');
     }
-    function scopeGetIdImage($query, $idpapers, $stt)
+    function scopeGetIdDesign($query, $idpapers, $stt)
     {
         return DB::table('image')
         ->where('idpapers',$idpapers)

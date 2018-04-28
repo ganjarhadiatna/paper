@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class NotifModel extends Model
 {
-    function scopeCekNotifimage($query, $iduser)
+    function scopeCekNotifStory($query, $iduser)
     {
         return DB::table('notif_s')
         ->where('notif_s.iduser', $iduser)

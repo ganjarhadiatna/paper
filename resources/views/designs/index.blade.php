@@ -33,7 +33,7 @@
 					<div class="frame-comment comment-owner">\
 						<div class="dt-1">\
 							<a href="'+server_user+'" title="'+data[i].name+'">\
-								<div class="image image-50px image-radius" style="background-image: url('+server_foto+')"></div>\
+								<div class="image image-40px image-radius" style="background-image: url('+server_foto+')"></div>\
 							</a>\
 						</div>\
 						<div class="dt-2">\
@@ -157,13 +157,6 @@
 						<span class="fas fa-lg fa-ellipsis-h"></span>
 					</button>
 				</div>
-				<!--
-				<div class="sc-col-2 txt-center">
-					<h3 class="ttl ttl-head-2 ttl-sekunder-color">
-						Design
-					</h3>
-				</div>
-				-->
 				<div class="sc-col-2 txt-right">
 					<button class="btn btn-main-color btn-no-border" onclick="addBookmark('{{ $idimage }}')">
 						@if (is_int($check))
@@ -246,15 +239,8 @@
 							<form method="post" action="javascript:void(0)" id="comment-publish">
 								<div class="comment-head">
 									<div>
-										<input type="text" class="txt txt-sekunder-color" id="comment-description" placeholder="Type comment here..">
+										<input type="text" class="txt txt-primary-color" id="comment-description" placeholder="Type comment here..">
 									</div>
-									<!--
-									<div class="place-btn">
-										<button type="submit" name="btn-comment" class="btn btn-sekunder-color">
-											<span>Send</span>
-										</button>
-									</div>
-									-->
 								</div>
 							</form>
 							@endif

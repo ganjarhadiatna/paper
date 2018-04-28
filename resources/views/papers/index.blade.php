@@ -69,9 +69,9 @@
 						<div class="val">{{ $dt->ttl_image }}</div>
 						<div class="ttl">Designs</div>
 					</li>
-					<li>
+					<li class="right">
 						<a href="{{ url('/user/'.$dt->id) }}">
-							<div class="image image-50px image-circle" style="background-image: url({{ asset('/profile/photos/'.$dt->foto) }});"></div>
+							<div class="image image-40px image-circle" style="background-image: url({{ asset('/profile/photos/'.$dt->foto) }});"></div>
 						</a>
 					</li>
 				</ul>

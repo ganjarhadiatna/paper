@@ -8,11 +8,46 @@ use Image;
 use Storage;
 
 use App\StoryModel;
-use App\ImageModel;
+use App\DesignModel;
+use App\PaperModel;
+use App\BookmarkModel;
 
-class ImageController extends Controller
+class DesignController extends Controller
 {
-    function upload(Request $request)
+	function view($id, $idimage)
+    {
+        $check = PaperModel::CheckPaper($id);
+        if (is_int($check)) {
+            PaperModel::UpdateViewsPaper($id);
+            $iduserMe = Auth::id();
+            $iduser = PaperModel::GetIduser($id);
+            
+            $getStory = PaperModel::GetPaper($id);
+            $getImage = DesignModel::GetDesign($idimage);
+            $getAllImage = DesignModel::GetAllDesign($id,'desc');
+            
+            $newStory = PaperModel::PagRelatedPaper(20, $id);
+
+            $check = BookmarkModel::Check($idimage, $iduserMe);
+            return view('designs.index', [
+                'title' => 'Paper',
+                'path' => 'none',
+                'getStory' => $getStory,
+                'getImage' => $getImage,
+                'getAllImage' => $getAllImage,
+                'newStory' => $newStory,
+                'check' => $check,
+                'idpapers' => $id,
+                'idimage' => $idimage
+            ]);
+        } else {
+            return view('papers.empty', [
+                'title' => 'Paper Not Finded',
+                'path' => 'none',
+            ]);
+        }
+    }
+    function publish(Request $request)
     {
     	$id = Auth::id();
 		$image = $request->file('image');
@@ -34,7 +69,7 @@ class ImageController extends Controller
 					'id' => $id,
 					'idpapers' => $idpapers
 				);
-				$rest = ImageModel::AddImage($data);
+				$rest = DesignModel::AddDesign($data);
 				if ($rest) {
 					//save image to server
 					//creating thumbnail and save to server
@@ -49,7 +84,7 @@ class ImageController extends Controller
 					$image->move($destination, $filename);
 
 					//getting last idimage
-					$idimage = ImageModel::GetId($id, $idpapers);
+					$idimage = DesignModel::GetId($id, $idpapers);
 					$final = array(
 						'filename' => $filename,
 						'id' => $id,
@@ -70,10 +105,10 @@ class ImageController extends Controller
 	function delete(Request $request)
 	{
 		$idimage = $request['idimage'];
-		$filename = ImageModel::GetImage($idimage);
+		$filename = DesignModel::GetDesign($idimage);
 		if ($filename) {
 			//delete from database
-			$del = ImageModel::DeleteImage($idimage);
+			$del = DesignModel::DeleteDesign($idimage);
 			if ($del) {
 				//delete from server
 				unlink(public_path('story/covers/'.$filename));
