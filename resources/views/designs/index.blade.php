@@ -184,7 +184,7 @@
 				</div>
 				<div class="grid-2">
 					<div class="pos mid bdr-bottom" key="more design">
-						<div class="ctn-main-font ctn-14px ctn-sek-color ctn-bold padding-bottom-15px">More Designs</div>
+						<div class="ctn-main-font ctn-14px ctn-sek-color ctn-bold padding-bottom-15px">More Designs on Paper</div>
 						<div class="place-search-tag">
 							<div class="st-lef">
 								<div class="btn btn-circle btn-sekunder-color btn-no-border hg-100px" onclick="toLeft()">
