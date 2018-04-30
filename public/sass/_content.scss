@@ -115,10 +115,10 @@
 	}
 	.place-collect {
 		margin-bottom: 15px;
-		height: calc(100vh - 350px);
+		height: 435px;/*calc(100vh - 215px);*/
 		overflow-y: auto;
 		@media (max-width: $max-width) {
-			height: calc(100vh - 250px);
+			height: calc(100vh - 140px);
 		}
 	}
 	li.icn-mobile {
@@ -184,7 +184,7 @@
 		.put {
 			position: relative;
 			width: 100%;
-			height: calc(100vh - 250px);
+			height: 400px;
 			overflow-y: auto;
 			@media (max-width: $max-width) {
 				height: calc(100vh - 170px);

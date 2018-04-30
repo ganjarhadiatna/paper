@@ -36,54 +36,31 @@
 <div class="more-menu" id="more-menu">
 	<div class="block">
 		<div class="ttl-ctr">
-			Top Choice
-		</div>
-		<div class="column">
-			<div class="frame-more-menu">
-				<div class="fm-side">
-					<a href="{{ url('/fresh') }}">
-						<div class="icn btn btn-circle btn-main-color">
-							<span class="fas fa-lg fa-clock"></span>
-						</div>
-					</a>
-				</div>
-				<div class="fm-main">
-					<div class="ttl">Fresh</div>
-				</div>
-			</div>
-			<div class="frame-more-menu">
-				<div class="fm-side">
-					<a href="{{ url('/popular') }}">
-						<div class="icn btn btn-circle btn-main-color">
-							<span class="fas fa-lg fa-fire"></span>
-						</div>
-					</a>
-				</div>
-				<div class="fm-main">
-					<div class="ttl">Popular</div>
-				</div>
-			</div>
-			<div class="frame-more-menu">
-				<div class="fm-side">
-					<a href="{{ url('/trending') }}">
-						<div class="icn btn btn-circle btn-main-color">
-							<span class="fas fa-lg fa-bolt"></span>
-						</div>
-					</a>
-				</div>
-				<div class="fm-main">
-					<div class="ttl">Trending</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="block">
-		<div class="ttl-ctr">
 			All Collections
 		</div>
 		<div class="place-collect">
 			<div class="column-2">
 				<ul class="mn">
+					<li>
+						<a href="{{ url('/') }}" id="home">
+							Home Feeds
+						</a>
+					</li>
+					<li>
+						<a href="{{ url('/fresh') }}" id="fresh">
+							Fresh
+						</a>
+					</li>
+					<li>
+						<a href="{{ url('/popular') }}" id="popular">
+							Popular
+						</a>
+					</li>
+					<li>
+						<a href="{{ url('/trending') }}" id="trending">
+							Trending
+						</a>
+					</li>
 					@foreach (TagModel::AllTags() as $tag)
 						<?php 
 							$replace = array('[',']','@',',','.','#','+','-','*','<','>','-','(',')',';','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');

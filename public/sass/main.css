@@ -1233,11 +1233,12 @@
     color: rgba(0, 0, 0, 0.54); }
   .more-menu .place-collect {
     margin-bottom: 15px;
-    height: calc(100vh - 350px);
+    height: 435px;
+    /*calc(100vh - 215px);*/
     overflow-y: auto; }
     @media (max-width: 768px) {
       .more-menu .place-collect {
-        height: calc(100vh - 250px); } }
+        height: calc(100vh - 140px); } }
   .more-menu li.icn-mobile {
     width: 90%;
     padding: 0 5%;
@@ -1305,7 +1306,7 @@
     .notifications .main .put {
       position: relative;
       width: 100%;
-      height: calc(100vh - 250px);
+      height: 400px;
       overflow-y: auto; }
       @media (max-width: 768px) {
         .notifications .main .put {
