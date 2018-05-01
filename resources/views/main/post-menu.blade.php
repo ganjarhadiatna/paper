@@ -3,6 +3,10 @@
 		var server_post = '{{ url("/paper/") }}'+'/'+idpapers+'/design/'+idimage;
 		window.location = server_post;
 	}
+	function editDesign(idpapers, idimage) {
+		var server_post = '{{ url("/paper/") }}'+'/'+idpapers+'/design/'+idimage+'/edit';
+		window.location = server_post;
+	}
 	function viewPost(idpapers, title='') {
 		var server_post = '{{ url("/paper/") }}'+'/'+idpapers+'/'+title;
 		window.location = server_post;
@@ -67,14 +71,13 @@
 			if (id === iduser) {
 				var menu = '\
 				<li onclick="organizedPost('+idpapers+')">Organized Designs</li>\
-				<li onclick="viewPost('+idpapers+')">View Paper</li>\
-				<li onclick="editPost('+idpapers+')">Edit Paper</li>\
-				<li onclick="opQuestionPost('+idpapers+')">Delete Paper</li>\
+				<li onclick="viewPost('+idpapers+')">View</li>\
+				<li onclick="editPost('+idpapers+')">Edit</li>\
+				<li onclick="opQuestionPost('+idpapers+')">Delete</li>\
 				';
 			} else {
 				var menu = '\
-				<li onclick="viewPost('+idpapers+')">View Paper</li>\
-				<li>Report</li>\
+				<li onclick="viewPost('+idpapers+')">View</li>\
 				';
 			}
 			$('.content-popup .place-popup #val').html(menu);
@@ -88,15 +91,14 @@
 			$('#'+path).show();
 			if (id === iduser) {
 				var menu = '\
-				<li onclick="viewDesign('+idpapers+','+idimage+')">View Design</li>\
-				<li onclick="addBookmark('+idimage+')">Save Design</li>\
-				<li onclick="pictZoom('+idimage+')">Zoomed</li>\
+				<li onclick="pictZoom('+idimage+')">View</li>\
+				<li onclick="addBookmark('+idimage+')">Save</li>\
+				<li onclick="editDesign('+idpapers+','+idimage+')">Edit</li>\
 				';
 			} else {
 				var menu = '\
-				<li onclick="viewDesign('+idpapers+','+idimage+')">View Design</li>\
-				<li onclick="addBookmark('+idimage+')">Save Design</li>\
-				<li onclick="pictZoom('+idimage+')">Zoomed</li>\
+				<li onclick="pictZoom('+idimage+')">View</li>\
+				<li onclick="addBookmark('+idimage+')">Save</li>\
 				<li>Report</li>\
 				';
 			}

@@ -5,6 +5,13 @@
 				<button class="zoom btn btn-circle btn-sekunder-color btn-no-border" onclick="pictZoom({{ $story->idimage }})">
 					<span class="fas fa-lg fa-search-plus"></span>
 				</button>
+				@if ($story->id == Auth::id())
+					<a href="{{ url('/paper/'.$story->idpapers.'/design/'.$story->idimage.'/edit') }}">
+						<button class="zoom btn btn-circle btn-sekunder-color btn-no-border">
+							<span class="fas fa-lg fa-pencil-alt"></span>
+						</button>
+						</a>
+				@endif
 			</div>
 			<div class="bok">
 				<button class="btn btn-main-color btn-no-border" key="{{ $story->idimage }}" onclick="addBookmark('{{ $story->idimage }}')">

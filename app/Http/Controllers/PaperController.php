@@ -146,7 +146,7 @@ class PaperController extends Controller
         $iduser = PaperModel::GetIduser($idpapers);
         if ($iduser == Auth::id()) {
             $getStory = PaperModel::GetPaper($idpapers);
-            $restTags = TagModel::GetTags($idpapers);
+            $restTags = TagModel::GetTags($idpapers,'paper');
             $temp = [];
             foreach ($restTags as $tag) {
                 array_push($temp, $tag->tag);

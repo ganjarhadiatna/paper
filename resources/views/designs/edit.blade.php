@@ -161,7 +161,8 @@
                                         name="tags" 
                                         id="tags-design" 
                                         class="tg txt txt-main-color txt-box-shadow" 
-                                        placeholder="Tags1, Tags2, Tags N..." >
+                                        placeholder="Tags1, Tags2, Tags N..."
+										value="{{ $tags }}">
 								</div>
 							</div>
 						</div>

@@ -79,12 +79,19 @@ class DesignController extends Controller
 		$check = DesignModel::GetIdImage($id, $idpapers, $idimage);
         if (is_int($check)) {
 			$getImage = DesignModel::GetDetailDesign($idimage);
+			$restTags = TagModel::GetTags($idimage,'design');
+            $temp = [];
+            foreach ($restTags as $tag) {
+                array_push($temp, $tag->tag);
+            }
+            $tags = implode(", ", $temp);
 			return view('designs.edit', [
                 'title' => 'Edit Design',
 				'path' => 'none',
 				'idpapers' => $idpapers,
 				'idimage' => $idimage,
-				'getImage' => $getImage
+				'getImage' => $getImage,
+				'tags' => $tags
 			]);
 		} else {
 			return view('main.denied', [
