@@ -8,7 +8,7 @@ use Image;
 
 use App\PaperModel;
 use App\TagModel;
-use App\FollowModel;
+use App\WatchModel;
 use App\BookmarkModel;
 use App\DesignModel;
 
@@ -42,6 +42,7 @@ class PaperController extends Controller
         $getPaper = PaperModel::GetPaper($idpapers);
         $paperImage = PaperModel::pagImagePaper(20, $idpapers);
         $tags = TagModel::GetTags($idpapers);
+        $watchStatus = WatchModel::Check($idpapers, $id);
         return view('papers.index', [
             'title' => 'Paper',
             'path' => 'none',
@@ -49,7 +50,8 @@ class PaperController extends Controller
             'paperImage' => $paperImage,
             'tags' => $tags,
             'idpapers' => $idpapers,
-            'id' => $id
+            'id' => $id,
+            'watchStatus' => $watchStatus
         ]);
     }
     function publish(Request $request)

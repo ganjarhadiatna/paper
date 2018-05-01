@@ -295,7 +295,7 @@ class PaperModel extends Model
         ->orderBy('papers.idpapers', 'desc')
         ->paginate($limit);
     }
-    function scopePagTimelinesStory($query, $limit, $profile)
+    function scopePagTimelinesStory($query, $limit, $paper)
     {
         if (Auth::id()) {
             $id = Auth::id();
@@ -322,10 +322,10 @@ class PaperModel extends Model
         ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
         ->where('papers.id', $id)
-        ->orWhere(function ($q) use ($profile)
+        ->orWhere(function ($q) use ($paper)
         {
-            foreach ($profile as $value) {
-                $q->orWhere('papers.id', $value->following);
+            foreach ($paper as $value) {
+                $q->orWhere('papers.idpapers', $value->idpapers);
             }
         })
         ->orderBy('image.idimage', 'desc')

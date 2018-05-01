@@ -9,7 +9,6 @@ use Image;
 
 use App\PaperModel;
 use App\ProfileModel;
-use App\FollowModel;
 use App\TagModel;
 
 class ProfileController extends Controller
@@ -37,14 +36,12 @@ class ProfileController extends Controller
 		}
         $profile = ProfileModel::UserData($id);
         $userStory = PaperModel::PagUserPaper(20, $id);
-        $statusFolow = FollowModel::Check($id, $iduser);
         return view('profile.designs', [
             'title' => 'User Profile',
             'path' => $pathProfile,
             'nav' => 'design',
             'profile' => $profile,
-            'userStory' => $userStory,
-            'statusFolow' => $statusFolow
+            'userStory' => $userStory
         ]);
 	}
 	function Paper($id)
@@ -57,14 +54,12 @@ class ProfileController extends Controller
 		}
         $profile = ProfileModel::UserData($id);
         $userPapers = PaperModel::DetailPaper(20, $id);
-        $statusFolow = FollowModel::Check($id, $iduser);
         return view('profile.papers', [
             'title' => 'User Profile',
             'path' => $pathProfile,
             'nav' => 'papers',
             'profile' => $profile,
-            'userPapers' => $userPapers,
-            'statusFolow' => $statusFolow
+            'userPapers' => $userPapers
         ]);
 	}
 	function saved($id)
@@ -77,14 +72,12 @@ class ProfileController extends Controller
 		}
         $profile = ProfileModel::UserData($id);
         $userStory = PaperModel::PagUserBookmark(20, $id);
-        $statusFolow = FollowModel::Check($id, $iduser);
         return view('profile.saved', [
             'title' => 'User Profile',
             'path' => $pathProfile,
             'nav' => 'saved',
             'profile' => $profile,
-            'userStory' => $userStory,
-            'statusFolow' => $statusFolow
+            'userStory' => $userStory
         ]);
 	}
 	function profileSetting()

@@ -49,26 +49,6 @@ class NotifModel extends Model
         ->insert($data);
     }
 
-    function scopeGetNotifF($query, $id, $limit, $offset)
-    {
-        return DB::table('notif_f')
-        ->select(
-            'notif_f.idnotif_f',
-            'notif_f.id',
-            'notif_f.iduser',
-            'notif_f.created',
-            'users.name',
-            'users.username',
-            'users.foto',
-            'users.about'
-        )
-        ->where('notif_f.iduser', $id)
-        ->join('users','users.id','=','notif_f.id')
-        ->orderBy('notif_f.idnotif_f', 'desc')
-        ->limit($limit)
-        ->offset($offset)
-        ->get();
-    }
     function scopeGetNotifS($query, $id, $limit, $offset)
     {
         return DB::table('notif_s')
@@ -90,9 +70,9 @@ class NotifModel extends Model
             'comment.description'
         )
         ->where('notif_s.iduser', $id)
-        ->join('users','users.id','=','notif_s.id')
-        ->join('image','image.idimage','=','notif_s.idimage')
-        ->join('papers','papers.idpapers','=','notif_s.idpapers')
+        ->leftJoin('users','users.id','=','notif_s.id')
+        ->leftJoin('image','image.idimage','=','notif_s.idimage')
+        ->leftJoin('papers','papers.idpapers','=','notif_s.idpapers')
         ->leftJoin('comment','comment.idcomment','=','notif_s.idcomment')
         ->orderBy('notif_s.idnotif_s', 'desc')
         ->limit($limit)

@@ -23,30 +23,53 @@
 				var server_design = server+'/paper/'+data[i].idpapers+'/design/'+data[i].idimage;
 				var server_papers = server+'/paper/'+data[i].idpapers;
 				var server_user = server+'/user/'+data[i].id;
-				if (data[i].type == 'bookmark') {
-					var title = 'Saved a design from <a href="'+server_papers+'"><strong>'+data[i].title+'</strong></a>.';
-				} else {
-					var title = 'Comented "'+data[i].description+'" on your design.';
-				}
-				dt += '\
-					<div class="frame-notif">\
-						<div class="notif-sid">\
-							<a href="'+server_design+'">\
-								<div class="image image-35px image-radius" style="background-image: url('+server_cover+');"></div>\
-							</a>\
-						</div>\
-						<div class="notif-mid">\
-							<div class="ntf-mid">\
-								<div class="desc">\
-									<a href="'+server_user+'"><strong>'+data[i].username+'</strong></a>\
-									'+title+'\
-								</div>\
-								<div class="desc date">\
-									'+data[i].created+'\
+				if (data[i].type == 'paper') {
+					var title = 'Watch on your paper <a href="'+server_papers+'"><strong>'+data[i].title+'</strong></a>.';
+					dt += '\
+						<div class="frame-notif grid-2x">\
+							<div class="notif-sid">\
+								<a href="'+server_user+'">\
+									<div class="image image-35px image-radius" style="background-image: url('+server_foto+');"></div>\
+								</a>\
+							</div>\
+							<div class="notif-mid">\
+								<div class="ntf-mid">\
+									<div class="desc">\
+										<a href="'+server_user+'"><strong>'+data[i].username+'</strong></a>\
+										'+title+'\
+									</div>\
+									<div class="desc date">\
+										'+data[i].created+'\
+									</div>\
 								</div>\
 							</div>\
-						</div>\
-					</div>';
+						</div>';
+				} else {
+					if (data[i].type == 'bookmark') {
+						var title = 'Saved a design from <a href="'+server_papers+'"><strong>'+data[i].title+'</strong></a>.';
+					} else {
+						var title = 'Comented "'+data[i].description+'" on your design.';
+					}
+					dt += '\
+						<div class="frame-notif grid-2x">\
+							<div class="notif-sid">\
+								<a href="'+server_design+'">\
+									<div class="image image-35px image-radius" style="background-image: url('+server_cover+');"></div>\
+								</a>\
+							</div>\
+							<div class="notif-mid">\
+								<div class="ntf-mid">\
+									<div class="desc">\
+										<a href="'+server_user+'"><strong>'+data[i].username+'</strong></a>\
+										'+title+'\
+									</div>\
+									<div class="desc date">\
+										'+data[i].created+'\
+									</div>\
+								</div>\
+							</div>\
+						</div>';
+				}
 			}
 			if (stt === 'new') {
 				$('#val-storys').html(dt);
@@ -60,67 +83,10 @@
 			} else {
 				$('#btn-story').hide();
 			}
+			console.log(data);
 		})
 		.fail(function(data) {
-			//console.log(data.responseJSON);
-			opAlert('show', 'There is an error, please try again.');
-		});
-		
-	}
-	function getNotifFollowing(stt) {
-		if (stt === 'new') {
-			var limit = $('#offset-notif-following').val();
-		} else {
-			var limit = off;
-		}
-		var offset = $('#offset-notif-following').val();
-		$.ajax({
-			url: '{{ url("/notif/following") }}',
-			type: 'post',
-			data: {'limit': limit, 'offset': offset},
-			dataType: 'json',
-		})
-		.done(function(data) {
-			var dt = '';
-			for (var i = 0; i < data.length; i++) {
-				var server_foto = server+'/profile/thumbnails/'+data[i].foto;
-				var server_user = server+'/user/'+data[i].id;
-				dt += '\
-					<div class="frame-notif">\
-						<div class="notif-sid">\
-							<a href="'+server_user+'">\
-								<div class="image image-35px image-radius" style="background-image: url('+server_foto+');"></div>\
-							</a>\
-						</div>\
-						<div class="notif-mid">\
-							<div class="desc">\
-								<a href="'+server_user+'">\
-									<strong>'+data[i].username+'</strong>\
-								</a>\
-								Started following you.\
-							</div>\
-							<div class="desc date">\
-								'+data[i].created+'\
-							</div>\
-						</div>\
-					</div>';
-			}
-			if (stt === 'new') {
-				$('#val-following').html(dt);
-			} else {
-				$('#val-following').append(dt);
-				var x = parseInt(off) + parseInt($('#offset-notif-following').val());
-				$('#offset-notif-following').val(x);
-			}
-
-			if (data.length >= off) {
-				$('#btn-following').show();
-			} else {
-				$('#btn-following').hide();
-			}
-		})
-		.fail(function(data) {
-			//console.log(data.responseJSON);
+			console.log(data.responseJSON);
 			opAlert('show', 'There is an error, please try again.');
 		});
 		
@@ -144,15 +110,6 @@
 			}
 		});
 	}
-	function cekNotifFollowing() {
-		$.get('{{ url("/notif/cek/following") }}', function(data) {
-			if (data != 0) {
-				$('#following-notif-sign').show();
-			} else {
-				$('#following-notif-sign').hide();
-			}
-		});
-	}
 	$(document).on('click', function(event) {
 		$('#op-notif').removeClass('active');
 		$('#op-notif').attr('key', 'hide');
@@ -161,7 +118,6 @@
 	});
 	$(document).ready(function() {
 		$('#offset-notif-story').val(0);
-		$('#offset-notif-following').val(0);
 		$('#place-storys').show();
 		//getNotifStory('none');
 
@@ -178,7 +134,6 @@
 				$('#more-menu').hide();
 				$(this).attr('key', 'open');
 				cekNotifStory();
-				cekNotifFollowing('none');
 				if ($('#val-storys').html() == '') {
 					getNotifStory('none');
 				}
@@ -209,45 +164,19 @@
 			$(this).addClass('choose');
 			$('.notifications .main .put .val').hide();
 
-			var tr = $(this).attr('id');
-			$('#place-'+tr).show();
-			if (tr === 'storys') {
-				if ($('#val-storys').html() == '') {
-					getNotifStory('none');
-				}
-			} else {
-				if ($('#val-following').html() == '') {
-					getNotifFollowing('none');
-				}
+			if ($('#val-storys').html() == '') {
+				getNotifStory('none');
 			}
 		});
 	});
 </script>
 <div class="notifications" id="notifications">
 	<div class="main">
-		<div class="post-nav width-all" id="notif-nav">
-			<ol>
-				<li id="following">
-					Following
-					<span class="notif-icn fa fa-lg fa-circle" id="following-notif-sign"></span>
-				</li>
-				<li class="choose" id="storys">
-					Story
-					<span class="notif-icn fa fa-lg fa-circle" id="story-notif-sign"></span>
-				</li>
-			</ol>
+		<div class="ttl-ctr">
+			Notifications
 		</div>
 		<div class="put">
-			<div class="val" id="place-following">
-				<input type="hidden" name="offset-notif-following" id="offset-notif-following" value="0">
-				<div id="val-following"></div>
-				<div class="frame-more padding-15px" id="btn-following">
-					<button class="btn btn-main2-color btn-radius" id="load-more-notif-following" onclick="getNotifFollowing('none')">
-						<span class="Load More Comment">Load More</span>
-					</button>
-				</div>
-			</div>
-			<div class="val" id="place-storys">
+			<div class="val">
 				<input type="hidden" name="offset-notif-story" id="offset-notif-story" value="0">
 				<div id="val-storys"></div>
 				<div class="frame-more padding-15px" id="btn-story">

@@ -9,7 +9,7 @@ use App\PaperModel;
 use App\ProfileModel;
 use App\TagModel;
 use App\DesignModel;
-use App\FollowModel;
+use App\WatchModel;
 use App\BookmarkModel;
 
 class MainController extends Controller
@@ -18,8 +18,8 @@ class MainController extends Controller
     {
         if (Auth::id()) {
             $id = Auth::id();
-            $profile = FollowModel::GetAllFollowing($id);
-            $topStory = PaperModel::PagTimelinesStory(20, $profile, $id);
+            $papers = WatchModel::GetAllWatch($id);
+            $topStory = PaperModel::PagTimelinesStory(20, $papers);
             return view('home.index', [
                 'title' => 'Official Site',
                 'path' => 'home',
@@ -44,8 +44,8 @@ class MainController extends Controller
     function timelines()
     {
         $id = Auth::id();
-        $profile = FollowModel::GetAllFollowing($id);
-        $topStory = PaperModel::PagTimelinesPaper(20, $profile);
+        $papers = WatchModel::GetAllWatch($id);
+        $topStory = PaperModel::PagTimelinesPaper(20, $papers);
         return view('others.index', [
             'title' => 'Timelines',
             'path' => 'timelines',

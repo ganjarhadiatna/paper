@@ -21,7 +21,7 @@
 	<!-- JS -->
 	<script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/jquery-ui.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/follow.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/watch.js') }}"></script>
 	<script type="text/javascript">
 		var iduser = '{{ Auth::id() }}';
 
@@ -226,8 +226,9 @@
 							</button>
 						</a>
 						<a href="{{ url('/register') }}">
-							<button class="create btn btn-circle btn-main-color">
+							<button class="create btn btn-main-color">
 								<span class="fas fa-lg fa-plus"></span>
+								<span>Register</span>
 							</button>
 						</a>
 					@else
@@ -244,8 +245,9 @@
 							</a>
 						@endforeach
 						<a href="{{ url('/compose') }}">
-							<button class="create btn btn-circle btn-main-color" key="hide">
+							<button class="create btn btn-main-color" key="hide">
 								<span class="fas fa-lg fa-plus"></span>
+								<span>Create Paper</span>
 							</button>
 						</a>
 					@endif

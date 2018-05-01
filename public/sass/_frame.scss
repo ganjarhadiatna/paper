@@ -70,6 +70,9 @@
 		}
 		.mid-tool {
 			position: relative;
+			max-height: 400px;
+			overflow: hidden;
+			border-radius: 7.5px;
 			&:hover {
 				.zoom {
 					display: block;
@@ -85,7 +88,6 @@
 				line-height: 35px;
 				background-color: rgba(0,0,0,0.84);
 				color: $sek-color;
-				z-index: 1;
 				display: none;
 			}
 			.cover {
@@ -113,7 +115,6 @@
 		left: 0;
 		width: calc(100% - 25px);
 		padding: 5px 12.5px;
-		z-index: 1;
 		opacity: 0;
 		cursor: pointer;
 		@include grid_2x(1fr, 1fr);
@@ -133,6 +134,9 @@
 		.zoom {
 			background-color: rgba(0,0,0,0.54);
 			color: #fff;
+		}
+		.btn {
+			z-index: 2;
 		}
 	}
 }
@@ -421,11 +425,17 @@
 	position: relative;
 	width: calc(100% - 30px);
 	padding: 15px;
-
-	@include grid_2x(50px, 1fr);
-
 	&:hover {
 		background-color: #f0f0f0;
+	}
+	&.grid-2x {
+		@include grid_2x(50px, 1fr);
+		.notif-sid {
+			@include column_1();
+		}
+		.notif-mid {
+			@include column_2();
+		}
 	}
 	a {
 		color: $txt-min-color;
@@ -433,11 +443,7 @@
 			color: $min-color;
 		}
 	}
-	.notif-sid {
-		@include column_1();
-	}
 	.notif-mid {
-		@include column_2();
 		line-height: 1.5;
 		.desc {
 			font-size: 14px;

@@ -7,58 +7,50 @@
 	});
 </script>
 @foreach ($profile as $p)
-<div class="sc-header">
-	<div class="sc-place pos-fix">
-		<div class="col-700px">
-			<div class="sc-grid sc-grid-3x">
-				<div class="sc-col-1">
-					@if (Auth::id() == $p->id)
-						<a href="{{ url('/me/setting') }}">
-							<button class="btn btn-circle btn-primary-color btn-focus">
-								<span class="fas fa-lg fa-cog"></span>
-							</button>
-						</a>
-						<a href="{{ url('/me/setting/profile') }}">
-							<button class="btn btn-circle btn-primary-color btn-focus">
-								<span class="fas fa-lg fa-pencil-alt"></span>
-							</button>
-						</a>
-					@else
-						<h3 class="ttl-head-2 ttl-sekunder-color">
-							{{ $p->username }}
-						</h3>
-					@endif
-				</div>
-				<div class="sc-col-2 txt-center">
-					<h3 class="ttl ttl-head-2 ttl-sekunder-color">
-						Profile
-					</h3>
-				</div>
-				<div class="sc-col-3 txt-right">
-					@if (Auth::id() == $p->id)
-						<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-							{{ csrf_field() }}
-						</form>
-						<a href="{{ route('logout') }}" 
-							onclick="event.preventDefault();
-							document.getElementById('logout-form').submit();">
-							<button class="btn btn-sekunder-color btn-focus">
-								<span class="fas fa-lg fa-power-off"></span>
-								<span class="">Logout</span>
-							</button>
-						</a>
-					@else
-						@if (!is_int($statusFolow))
-							<input type="button" name="follow" class="btn btn-sekunder-color" id="add-follow-{{ $p->id }}" value="Follow" onclick="opFollow('{{ $p->id }}', '{{ url("/") }}', '{{ Auth::id() }}')">
-						@else
-							<input type="button" name="follow" class="btn btn-main3-color" id="add-follow-{{ $p->id }}" value="Unfollow" onclick="opFollow('{{ $p->id }}', '{{ url("/") }}', '{{ Auth::id() }}')">
+@if (Auth::id() == $p->id)
+	<div class="sc-header">
+		<div class="sc-place pos-fix">
+			<div class="col-700px">
+				<div class="sc-grid sc-grid-3x">
+					<div class="sc-col-1">
+						@if (Auth::id() == $p->id)
+							<a href="{{ url('/me/setting') }}">
+								<button class="btn btn-circle btn-primary-color btn-focus">
+									<span class="fas fa-lg fa-cog"></span>
+								</button>
+							</a>
+							<a href="{{ url('/me/setting/profile') }}">
+								<button class="btn btn-circle btn-primary-color btn-focus">
+									<span class="fas fa-lg fa-pencil-alt"></span>
+								</button>
+							</a>
 						@endif
-					@endif
+					</div>
+					<div class="sc-col-2 txt-center">
+						<h3 class="ttl ttl-head-2 ttl-sekunder-color">
+							Profile
+						</h3>
+					</div>
+					<div class="sc-col-3 txt-right">
+						@if (Auth::id() == $p->id)
+							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+								{{ csrf_field() }}
+							</form>
+							<a href="{{ route('logout') }}" 
+								onclick="event.preventDefault();
+								document.getElementById('logout-form').submit();">
+								<button class="btn btn-sekunder-color btn-focus">
+									<span class="fas fa-lg fa-power-off"></span>
+									<span class="">Logout</span>
+								</button>
+							</a>
+						@endif
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+@endif
 <div class="padding-20px">
 	<div class="frame-profile">
 		<div class="profile col-700px">
@@ -80,15 +72,21 @@
 					<div class="menu-val">
 						<ul>
 							<li>
-								<a href="{{ url('/user/'.$p->id.'/following') }}">
-									<div class="val">{{ $p->ttl_following }}</div>
-									<div class="ttl">Following</div>
+								<a href="{{ url('/user/'.$p->id.'/papers') }}">
+									<div class="val">{{ $p->ttl_papers }}</div>
+									<div class="ttl">Papers</div>
 								</a>
 							</li>
 							<li>
-								<a href="{{ url('/user/'.$p->id.'/followers') }}">
-									<div class="val">{{ $p->ttl_followers }}</div>
-									<div class="ttl">Followers</div>
+								<a href="{{ url('/user/'.$p->id.'/designs') }}">
+									<div class="val">{{ $p->ttl_designs }}</div>
+									<div class="ttl">Designs</div>
+								</a>
+							</li>
+							<li>
+								<a href="{{ url('/user/'.$p->id.'/saved') }}">
+									<div class="val">{{ $p->ttl_saved }}</div>
+									<div class="ttl">Saved</div>
 								</a>
 							</li>
 						</ul>
