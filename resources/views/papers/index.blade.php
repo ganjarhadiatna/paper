@@ -75,6 +75,10 @@
 						<div class="val">{{ $dt->ttl_image }}</div>
 						<div class="ttl">Designs</div>
 					</li>
+					<li>
+						<div class="val">{{ $dt->ttl_watch }}</div>
+						<div class="ttl">Watchs</div>
+					</li>
 					@if ($dt->id != Auth::id())
 						<li class="right">
 							@if (!is_int($watchStatus))

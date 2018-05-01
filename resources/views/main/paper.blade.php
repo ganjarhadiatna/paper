@@ -30,6 +30,10 @@
 					<div class="val">{{ $bx->ttl_image }}</div>
 					<div class="ttl">Designs</div>
 				</li>
+                <li>
+					<div class="val">{{ $bx->ttl_watch }}</div>
+					<div class="ttl">Watchs</div>
+				</li>
                 <li class="right">
 					<a href="{{ url('/user/'.$bx->id) }}">
 						<div class="image image-40px image-circle" style="background-image: url({{ asset('/profile/photos/'.$bx->foto) }});"></div>

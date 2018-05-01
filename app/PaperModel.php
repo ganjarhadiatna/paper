@@ -75,7 +75,8 @@ class PaperModel extends Model
             'users.created_at',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(image.idimage) from image where image.idpapers = papers.idpapers) as ttl_image')
+            DB::raw('(select count(image.idimage) from image where image.idpapers = papers.idpapers) as ttl_image'),
+            DB::raw('(select count(watchs.idwatchs) from watchs where watchs.idpapers = papers.idpapers) as ttl_watch')
         )
         ->join('users','users.id', '=', 'papers.id')
         ->where('papers.idpapers', $idpapers)
@@ -440,7 +441,8 @@ class PaperModel extends Model
             DB::raw('(select image.image from image where image.idpapers = papers.idpapers limit 1 offset 0) as cover1'),
             DB::raw('(select image.image from image where image.idpapers = papers.idpapers limit 1 offset 1) as cover2'),
             DB::raw('(select image.image from image where image.idpapers = papers.idpapers limit 1 offset 2) as cover3'),
-            DB::raw('(select count(image.idimage) from image where image.idpapers = papers.idpapers) as ttl_image')
+            DB::raw('(select count(image.idimage) from image where image.idpapers = papers.idpapers) as ttl_image'),
+            DB::raw('(select count(watchs.idwatchs) from watchs where watchs.idpapers = papers.idpapers) as ttl_watch')
         )
         ->join('users','users.id', '=', 'papers.id')
         ->where('papers.id', $id)
