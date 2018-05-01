@@ -71,8 +71,7 @@ class ProfileModel extends Model
             'users.about',
             'users.visitor',
             'users.foto',
-            'users.website',
-            DB::raw('(select idfollow from follow where following=users.id and followers='.$iduser.') as is_following')
+            'users.website'
         )
         ->orderBy('users.visitor', 'desc')
         ->limit($limit)
@@ -91,8 +90,7 @@ class ProfileModel extends Model
             'users.about',
             'users.visitor',
             'users.foto',
-            'users.website',
-            DB::raw('(select idfollow from follow where following=users.id and followers='.$iduser.') as is_following')
+            'users.website'
         )
         ->where(function ($q) use ($searchValues)
         {

@@ -87,13 +87,11 @@ class MainController extends Controller
             $id = 0;
         }
         $topStory = PaperModel::PagSearchPaper($ctr, 20);
-        $topUsers = ProfileModel::SearchUsers($ctr, $id);
         $topTags = TagModel::SearchTags($ctr);
         return view('search.index', [
             'title' => $ctr,
             'path' => 'home-search',
             'topStory' => $topStory,
-            'topUsers' => $topUsers,
             'topTags' => $topTags
         ]);
     }

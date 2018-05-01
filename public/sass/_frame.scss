@@ -42,25 +42,6 @@
 	}
 	.mid {
 		.top-tool {
-			position: relative;
-			.main-ttl {
-				@include post_top();
-				font-size: $txt-size-desc;
-				font-weight: 600;
-				color: $txt-sek-color;
-				&:hover {
-					color: $min-color;
-				}
-			}
-			.ttl-story a {
-				@include post_top();
-				font-size: $txt-size-desc;
-				font-weight: 600;
-				color: $txt-sek-color;
-				&:hover {
-					color: $min-color;
-				}
-			}
 			.icn {
 				width: 35px;
 				height: 35px;
@@ -108,6 +89,12 @@
 		font-weight: 600;
 		line-height: 1.5;
 		color: $txt-sek-color;
+		a {
+			color: $txt-sek-color;
+			&:hover {
+				color: $min-color;
+			}
+		}
 	}
 	.bot-tool {
 		position: absolute;

@@ -79,63 +79,81 @@ class PaperController extends Controller
     }
     function edit(Request $request)
     {
+        $id = Auth::id();
         $idpapers = $request['idpapers'];
         $title = $request['title'];
         $content = $request['content'];
         $tags = $request['tags'];
 
-        $data = array(
-            'title' => $title,
-            'description' => $content
-        );
+        $iduser = PaperModel::GetIduser($idpapers);
+        if ($iduser == $id) {
+            $data = array(
+                'title' => $title,
+                'description' => $content
+            );
 
-        $rest = PaperModel::UpdatePaper($idpapers, $data);
-        if ($rest) {
-            //remove tags
-            TagModel::DeleteTags($idpapers);
+            $rest = PaperModel::UpdatePaper($idpapers, $id, $data);
+            if ($rest) {
+                //remove tags
+                TagModel::DeleteTags($idpapers);
 
-            //editting tags
-            $this->mentions($request['tags'], $idpapers);
-            echo $idpapers;
+                //editting tags
+                $this->mentions($request['tags'], $idpapers);
+                echo $idpapers;
+            } else {
+                echo "failed";
+            }
         } else {
-            echo "failed";
+            echo "denied";
         }
     }
     function delete(Request $request)
     {
-        $iduser = Auth::id();
+        $id = Auth::id();
         $idpapers = $request['idpapers'];
+        $iduser = PaperModel::GetIduser($idpapers);
+        if ($id == $iduser) {
+            //deleting cover
+            $cover = DesignModel::GetAllDesign($idpapers);
+            foreach ($cover as $dt) {
+                unlink(public_path('story/covers/'.$dt->image));
+                unlink(public_path('story/thumbnails/'.$dt->image));
+            }
 
-        //deleting cover
-        $cover = DesignModel::GetAllDesign($idpapers);
-        foreach ($cover as $dt) {
-            unlink(public_path('story/covers/'.$dt->image));
-			unlink(public_path('story/thumbnails/'.$dt->image));
-        }
-
-        //deleting story
-        $rest = PaperModel::DeletePaper($idpapers, $iduser);
-        if ($rest) {
-            echo "success";
+            //deleting story
+            $rest = PaperModel::DeletePaper($idpapers, $id);
+            if ($rest) {
+                echo "success";
+            } else {
+                echo "failed";
+            }
         } else {
-            echo "failed";
+            echo "denied";
         }
     }
 
     function paperEdit($idpapers)
     {
-        $getStory = PaperModel::GetPaper($idpapers);
-        $restTags = TagModel::GetTags($idpapers);
-        $temp = [];
-        foreach ($restTags as $tag) {
-            array_push($temp, $tag->tag);
+        $iduser = PaperModel::GetIduser($idpapers);
+        if ($iduser == Auth::id()) {
+            $getStory = PaperModel::GetPaper($idpapers);
+            $restTags = TagModel::GetTags($idpapers);
+            $temp = [];
+            foreach ($restTags as $tag) {
+                array_push($temp, $tag->tag);
+            }
+            $tags = implode(", ", $temp);
+            return view('compose.edit-paper', [
+                'title' => 'Edit Paper',
+                'path' => 'none',
+                'getStory' => $getStory,
+                'tags' => $tags
+            ]);   
+        } else {
+            return view('main.denied', [
+                'title' => 'Denied',
+                'path' => 'none'
+            ]);
         }
-        $tags = implode(", ", $temp);
-        return view('compose.edit-paper', [
-            'title' => 'Edit Paper',
-            'path' => 'none',
-            'getStory' => $getStory,
-            'tags' => $tags
-        ]);
     }
 }

@@ -14,10 +14,11 @@ class DesignModel extends Model
         return DB::table('image')
         ->insert($data);
     }
-    function scopeDeleteDesign($query, $idimage)
+    function scopeDeleteDesign($query, $idimage, $id)
     {
         return DB::table('image')
         ->where('idimage', $idimage)
+        ->where('id', $id)
         ->delete();
     }
     function scopeGetDesign($query, $idimage)

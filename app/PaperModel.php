@@ -27,9 +27,12 @@ class PaperModel extends Model
     {
         return DB::table('papers')->insert($data);
     }
-    function scopeUpdatePaper($query, $idpapers, $data)
+    function scopeUpdatePaper($query, $idpapers, $id, $data)
     {
-        return DB::table('papers')->where('papers.idpapers', $idpapers)->update($data);
+        return DB::table('papers')
+        ->where('papers.idpapers', $idpapers)
+        ->where('papers.id', $id)
+        ->update($data);
     }
     function scopeDeletePaper($query, $idpapers, $id)
     {

@@ -53,7 +53,8 @@ class DesignController extends Controller
 		$image = $request->file('image');
 		$idpapers = $request['idpapers'];
 
-		if (csrf_token()) {
+		$iduser = PaperModel::GetIduser($idpapers);
+        if ($iduser == $id) {
 			if ($image) {
 				//validate
 				$this->validate($request, [
@@ -104,11 +105,12 @@ class DesignController extends Controller
 	}
 	function delete(Request $request)
 	{
+		$id = Auth::id();
 		$idimage = $request['idimage'];
 		$filename = DesignModel::GetDesign($idimage);
 		if ($filename) {
 			//delete from database
-			$del = DesignModel::DeleteDesign($idimage);
+			$del = DesignModel::DeleteDesign($idimage, $id);
 			if ($del) {
 				//delete from server
 				unlink(public_path('story/covers/'.$filename));
