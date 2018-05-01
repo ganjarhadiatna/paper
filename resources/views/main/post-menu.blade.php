@@ -99,7 +99,6 @@
 				var menu = '\
 				<li onclick="pictZoom('+idimage+')">View</li>\
 				<li onclick="addBookmark('+idimage+')">Save</li>\
-				<li>Report</li>\
 				';
 			}
 			$('.content-popup .place-popup #val').html(menu);
