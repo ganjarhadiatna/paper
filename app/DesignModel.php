@@ -27,6 +27,13 @@ class DesignModel extends Model
         ->where('idimage', $idimage)
         ->value('image');
     }
+    function scopeUpdateViewsImage($query, $idimage)
+    {
+        $no = (DB::table('image')->where('idimage', $idimage)->value('views'))+1;
+        return DB::table('image')
+        ->where('image.idimage', $idimage)
+        ->update(['image.views' => $no]);
+    }
     function scopeGetAllDesign($query, $idpapers, $stt)
     {
         return DB::table('image')
@@ -47,6 +54,14 @@ class DesignModel extends Model
         ->where('idpapers',$idpapers)
         ->limit(1)
         ->orderBy('idimage','desc')
+        ->value('idimage');
+    }
+    function scopeGetIdImage($query, $id, $idpapers, $idimage)
+    {
+        return DB::table('image')
+        ->where('idimage',$idimage)
+        ->where('id',$id)
+        ->where('idpapers',$idpapers)
         ->value('idimage');
     }
     function scopeGetIdDesign($query, $idpapers, $stt)

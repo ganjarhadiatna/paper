@@ -130,7 +130,7 @@
 		<div class="frame-empty">
 			<div class="icn fa fa-lg fa-thermometer-empty btn-main-color"></div>
 			<div class="ttl padding-15px">
-				Design Empty.
+				Designs Empty.
 			</div>
 			@if ($id == Auth::id())
 				<div class="desc ctn-main-font ctn-bold ctn-14px ctn-sek-color padding-bottom-20px">

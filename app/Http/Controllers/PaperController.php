@@ -27,7 +27,8 @@ class PaperController extends Controller
                 $data = array([
                     'tag' => $tag[$i],
                     'link' => '',
-                    'idpapers' => $idpapers
+                    'idtarget' => $idpapers,
+                    'type' => 'paper'
                 ]);
                 TagModel::AddTags($data);
             }
@@ -37,22 +38,30 @@ class PaperController extends Controller
     /*CRUD Papers*/
     function view($idpapers)
     {
-        PaperModel::UpdateViewsPaper($idpapers);
-        $id = Auth::id();
-        $getPaper = PaperModel::GetPaper($idpapers);
-        $paperImage = PaperModel::pagImagePaper(20, $idpapers);
-        $tags = TagModel::GetTags($idpapers);
-        $watchStatus = WatchModel::Check($idpapers, $id);
-        return view('papers.index', [
-            'title' => 'Paper',
-            'path' => 'none',
-            'getPaper' => $getPaper,
-            'paperImage' => $paperImage,
-            'tags' => $tags,
-            'idpapers' => $idpapers,
-            'id' => $id,
-            'watchStatus' => $watchStatus
-        ]);
+		$check = PaperModel::CheckPaper($idpapers);
+        if (is_int($check)) {
+            PaperModel::UpdateViewsPaper($idpapers);
+            $id = Auth::id();
+            $getPaper = PaperModel::GetPaper($idpapers);
+            $paperImage = PaperModel::pagImagePaper(20, $idpapers);
+            $tags = TagModel::GetTags($idpapers);
+            $watchStatus = WatchModel::Check($idpapers, $id);
+            return view('papers.index', [
+                'title' => 'Paper',
+                'path' => 'none',
+                'getPaper' => $getPaper,
+                'paperImage' => $paperImage,
+                'tags' => $tags,
+                'idpapers' => $idpapers,
+                'id' => $id,
+                'watchStatus' => $watchStatus
+            ]);
+        } else {
+            return view('papers.empty', [
+                'title' => 'Empty Paper',
+                'path' => 'none',
+            ]);
+        }
     }
     function publish(Request $request)
     {
@@ -143,7 +152,7 @@ class PaperController extends Controller
                 array_push($temp, $tag->tag);
             }
             $tags = implode(", ", $temp);
-            return view('compose.edit-paper', [
+            return view('papers.edit', [
                 'title' => 'Edit Paper',
                 'path' => 'none',
                 'getStory' => $getStory,

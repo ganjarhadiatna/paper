@@ -14,39 +14,57 @@ use App\BookmarkModel;
 
 class DesignController extends Controller
 {
-	function view($id, $idimage)
+	function view($idpapers, $idimage)
     {
-        $check = PaperModel::CheckPaper($id);
+		$iduser = PaperModel::GetIduser($idpapers);
+		$check = DesignModel::GetIdImage($iduser, $idpapers, $idimage);
         if (is_int($check)) {
-            PaperModel::UpdateViewsPaper($id);
-            $iduserMe = Auth::id();
-            $iduser = PaperModel::GetIduser($id);
+            DesignModel::UpdateViewsImage($idimage);
+			$iduserMe = Auth::id();
             
-            $getStory = PaperModel::GetPaper($id);
+            $getStory = PaperModel::GetPaper($idpapers);
             $getImage = DesignModel::GetDesign($idimage);
-            $getAllImage = DesignModel::GetAllDesign($id,'desc');
+            $getAllImage = DesignModel::GetAllDesign($idpapers,'desc');
             
-            $newStory = PaperModel::PagRelatedPaper(20, $id);
+            $newStory = PaperModel::PagRelatedPaper(20, $idpapers);
 
             $check = BookmarkModel::Check($idimage, $iduserMe);
             return view('designs.index', [
-                'title' => 'Paper',
+                'title' => 'Design',
                 'path' => 'none',
                 'getStory' => $getStory,
                 'getImage' => $getImage,
                 'getAllImage' => $getAllImage,
                 'newStory' => $newStory,
                 'check' => $check,
-                'idpapers' => $id,
+                'idpapers' => $idpapers,
                 'idimage' => $idimage
             ]);
         } else {
-            return view('papers.empty', [
-                'title' => 'Paper Not Finded',
+            return view('designs.empty', [
+                'title' => 'Empty',
                 'path' => 'none',
             ]);
         }
-    }
+	}
+	function viewEdit($idpapers, $idimage)
+	{
+		//check design
+		$id = Auth::id();
+		$check = DesignModel::GetIdImage($id, $idpapers, $idimage);
+        if (is_int($check)) {
+			return view('designs.edit', [
+                'title' => 'Edit Design',
+				'path' => 'none',
+				'idimage' => $idimage
+			]);
+		} else {
+			return view('main.denied', [
+                'title' => 'Denied',
+                'path' => 'none'
+            ]);
+		}
+	}
     function publish(Request $request)
     {
     	$id = Auth::id();

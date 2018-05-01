@@ -70,6 +70,9 @@ Route::middleware('auth')->group(function() {
     Route::post('/paper/edit', 'PaperController@edit');
     Route::post('/paper/delete', 'PaperController@delete');
 
+    Route::get('/paper/{idpapers}/design/{idimage}/edit', 'DesignController@viewEdit')
+    ->where(['idpapers' => '[0-9]+','idimage' => '[0-9]+']);
+
     /*watch*/
     Route::post('/watch/add', 'WatchController@create');
     Route::post('/watch/remove', 'WatchController@delete');

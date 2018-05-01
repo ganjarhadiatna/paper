@@ -143,19 +143,23 @@
 		<div class="col-900px">
 			<div class="sc-grid sc-grid-2x">
 				<div class="sc-col-1">
-					<button class="btn btn-circle btn-main2-color btn-focus">
-						<span class="fab fa-lg fa-twitter"></span>
-					</button>
-					<button class="btn btn-circle btn-main2-color btn-focus">
-						<span class="fab fa-lg fa-facebook-f"></span>
+					<button class="btn btn-circle btn-main2-color btn-focus"
+						onclick="opPostSmallPopup('open', 'menu-popup', '{{ $idpapers }}', '{{ $story->id }}', '{{ $idimage }}')">
+						<span class="fas fa-lg fa-ellipsis-h"></span>
 					</button>
 					<button class="btn btn-circle btn-main2-color" onclick="pictZoom({{ $idimage }})">
 						<span class="fas fa-lg fa-search-plus"></span>
 					</button>
-					<button class="btn btn-circle btn-main2-color btn-focus"
-					onclick="opPostSmallPopup('open', 'menu-popup', '{{ $idpapers }}', '{{ $story->id }}', '{{ $idimage }}')">
-						<span class="fas fa-lg fa-ellipsis-h"></span>
-					</button>
+					@if ($story->id == Auth::id())
+						<a href="{{ url('/paper/'.$idpapers.'/design/'.$idimage.'/edit') }}">
+							<button class="btn btn-circle btn-main2-color">
+								<span class="fas fa-lg fa-pencil-alt"></span>
+							</button>
+						</a>
+						<button class="btn btn-circle btn-main2-color">
+							<span class="fas fa-lg fa-trash-alt"></span>
+						</button>
+					@endif
 				</div>
 				<div class="sc-col-2 txt-right">
 					<button class="btn btn-main-color btn-no-border" onclick="addBookmark('{{ $idimage }}')">

@@ -909,32 +909,45 @@
 	padding: 0 0;
 }
 
-$width-review: calc((700px / 4) - 16px);
+$width-review: calc((1000px / 4) - 17px);
 .frame-review {
 	position: relative;
 	width: $width-review;
-	height: $width-review;
 	text-align: center;
-	background-color: #f0f0f0;
-	margin: 5px;
-	border-radius: 10px;
+	margin: 0 5px;
+	padding: 2.5px;
 	overflow: hidden;
-	border: 2.5px rgba(0,0,0,0.1) dashed;
-	&:hover {
-		.del {
-			display: block;
+	@media (max-width: $max-width) {
+		width: calc((100% / 2) - 17px);
+	}
+	.image {
+		border-radius: 7.5px;
+		padding-bottom: 100%;
+	}
+	.desc {
+		.bt {
+			text-align: right;
+		}
+		.edit-text {
+			min-width: calc(100% - 10px);
+			max-width: calc(100% - 10px);
+			min-height: 50px;
+			max-height: 50px;
+			padding: 5px;
 		}
 	}
 	.del {
-		position: absolute;
-		top: 5px;
-		right: 5px;
-		width: 30px;
-		height: 30px;
-		line-height: 30px;
-		font-size: 12px;
-		z-index: 1;
-		display: none;
+		position: relative;
+		right: 0;
+		width: 100%;
+		padding: 10px 0;
+		text-align: right;
+		.btn {
+			width: 35px;
+			height: 35px;
+			line-height: 35px;
+			font-size: 12px;
+		}
 	}
 	.load {
 		@include post_center();

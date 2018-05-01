@@ -60,12 +60,12 @@ class NotifModel extends Model
             'notif_s.idimage',
             'notif_s.created',
             'notif_s.type',
+            'notif_s.idpapers',
             'users.name',
             'users.username',
             'users.foto',
             'users.about',
             'image.image',
-            'image.idpapers',
             'papers.title',
             'comment.description'
         )

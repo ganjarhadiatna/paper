@@ -18,14 +18,14 @@ class TagModel extends Model
     {
         return DB::table('tags')
         ->select('idtags', 'tag')
-        ->where('tags.idpapers', $idpapers)
+        ->where('tags.idtarget', $idpapers)
         ->orderBy('tags.idtags', 'asc')
         ->get();
     }
     function scopeDeleteTags($query, $idpapers)
     {
         return DB::table('tags')
-        ->where('tags.idpapers', $idpapers)
+        ->where('tags.idtarget', $idpapers)
         ->delete();
     }
     function scopeTopTags($query, $limit)

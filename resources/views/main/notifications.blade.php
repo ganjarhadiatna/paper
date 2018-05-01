@@ -24,7 +24,6 @@
 				var server_papers = server+'/paper/'+data[i].idpapers;
 				var server_user = server+'/user/'+data[i].id;
 				if (data[i].type == 'paper') {
-					var title = 'Watch on your paper <a href="'+server_papers+'"><strong>'+data[i].title+'</strong></a>.';
 					dt += '\
 						<div class="frame-notif grid-2x">\
 							<div class="notif-sid">\
@@ -36,7 +35,7 @@
 								<div class="ntf-mid">\
 									<div class="desc">\
 										<a href="'+server_user+'"><strong>'+data[i].username+'</strong></a>\
-										'+title+'\
+										Watch on your paper <a href="'+server_papers+'"><strong>'+data[i].title+'</strong></a>.\
 									</div>\
 									<div class="desc date">\
 										'+data[i].created+'\

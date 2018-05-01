@@ -25,12 +25,20 @@
 	function rvImage(url, idimage) {
 		var review = '\
 		<div class="frame-review" id="fr-'+idimage+'">\
-			<button class="del btn btn-circle btn-black-color btn-focus"\
-				title="delete this picture"\
-				onclick="opQuestionDesign('+idimage+')">\
-				<span class="fa fa-lg fa-times"></span>\
-			</button>\
 			<div class="image image-all" style="background-image: url('+url+')"></div>\
+			<div class="del">\
+				<a href="'+server+'/paper/'+idpapers+'/design/'+idimage+'/edit">\
+					<button class="btn btn-circle btn-primary-color"\
+						title="edit this design">\
+						<span class="fa fa-lg fa-pencil-alt"></span>\
+					</button>\
+				</a>\
+				<button class="btn btn-circle btn-primary-color"\
+					title="delete this design"\
+					onclick="opQuestionDesign('+idimage+')">\
+					<span class="fa fa-lg fa-trash-alt"></span>\
+				</button>\
+			</div>\
 		</div>';
 		return review;
 	}
@@ -124,7 +132,7 @@
 <div>
     <div class="sc-header">
         <div class="sc-place pos-fix">
-            <div class="col-700px">
+            <div class="col-1000px">
                 <div class="sc-grid sc-grid-2x">
                     <div class="sc-col-1">
 						<span>
@@ -151,7 +159,7 @@
         </div>
     </div>
     <div class="compose" id="create">
-        <div class="main col-700px">
+        <div class="main col-1000px">
             <div class="create-body edit">
                 <div class="create-mn">
 					<div class="create-block">
@@ -166,13 +174,21 @@
 							@else
 								@foreach ($image as $dt)
 									<div class="frame-review" id="fr-{{ $dt->idimage }}">
-										<button class="del btn btn-circle btn-black-color btn-focus"
-											title="delete this picture"
-											onclick="opQuestionDesign({{ $dt->idimage }})">
-											<span class="fa fa-lg fa-times"></span>
-										</button>
 										<div class="image image-all"
 											style="background-image: url({{ asset('/story/thumbnails/'.$dt->image) }})"></div>
+										<div class="del">
+											<a href="{{ url('/paper/'.$idpapers.'/design/'.$dt->idimage.'/edit') }}">
+												<button class="btn btn-circle btn-primary-color"
+													title="edit this design">
+													<span class="fa fa-lg fa-pencil-alt"></span>
+												</button>
+											</a>
+											<button class="btn btn-circle btn-primary-color"
+												title="delete this design"
+												onclick="opQuestionDesign({{ $dt->idimage }})">
+												<span class="fa fa-lg fa-trash-alt"></span>
+											</button>
+										</div>
 									</div>
 								@endforeach
 							@endif

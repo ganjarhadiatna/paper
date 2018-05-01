@@ -31,7 +31,8 @@
 		})
 		.done(function(data) {
 		   	if (data === 'failed') {
-		   		opAlert('open', 'failed to saving paper, your paper still the same with previous content. To fix problem try with edit content paper.');
+		   		opAlert('open', 'failed to saving paper, your paper still the same with previous content.\
+                   To fix problem try with edit content paper.');
 		   		close_progress();
 		   	} else {
 				$('#title-story').val('');
@@ -67,7 +68,6 @@
 	});
 </script>
 
-@foreach ($getStory as $story)
 <form id="form-publish" method="post" action="javascript:void(0)" enctype="multipart/form-data" onsubmit="publish()">
 	<div class="sc-header">
 		<div class="sc-place pos-fix">
@@ -79,7 +79,7 @@
 						</button>
 					</div>
 					<div class="sc-col-2">
-						<h3 class="ttl-head ttl-sekunder-color">Edit Information</h3>
+						<h3 class="ttl-head ttl-sekunder-color">Edit Design</h3>
 					</div>
 					<div class="sc-col-3 txt-right">
 						<input type="submit" name="save" class="btn btn-main-color" value="Save" id="btn-publish">
@@ -95,30 +95,7 @@
 					<div class="create-block no-pad">
 						<!--progress bar-->
 						<div class="loading mrg-bottom" id="progressbar"></div>
-						<input type="hidden" name="idpapers" id="id-story" required="required" value="{{ $story->idpapers }}">
-						<div class="block-field">
-							<div class="pan">
-								<div class="left">
-									<p class="ttl">Title</p>
-								</div>
-								<div class="right">
-									<div class="count">
-										<span id="title-lg">0</span>/50
-									</div>
-								</div>
-							</div>
-							<div class="block-field">
-								<input type="text"
-									name="title" 
-									id="title-story" 
-									class="tg txt txt-main-color txt-box-shadow" 
-									placeholder="Such as Robot, Mobile Design etc." 
-									required="true" 
-									maxlength="50"
-									value="{{ $story->title }}">
-							</div>
-						</div>
-						<div class="padding-5px"></div>
+						<input type="hidden" name="idpapers" id="id-story" required="required" >
 						<div class="block-field">
 							<div class="pan">
 								<div class="left">
@@ -130,7 +107,11 @@
 									</div>
 								</div>
 							</div>
-							<textarea name="write-story" id="write-story" class="txt edit-text txt-main-color txt-box-shadow ctn ctn-main ctn-sans-serif" maxlength="250"><?php echo $story->description; ?></textarea>
+							<textarea
+                                name="write-story" 
+                                id="write-story" 
+                                class="txt edit-text txt-main-color txt-box-shadow ctn ctn-main ctn-sans-serif" 
+                                maxlength="250"></textarea>
 						</div>
 						<div class="padding-5px"></div>
 						<div class="block-field">
@@ -141,7 +122,12 @@
 							</div>
 							<div class="place-tags">
 								<div class="block-field">
-									<input type="text" name="tags" id="tags-story" class="tg txt txt-main-color txt-box-shadow" placeholder="Tags1, Tags2, Tags N..." value="{{ $tags }}">
+									<input 
+                                        type="text" 
+                                        name="tags" 
+                                        id="tags-story" 
+                                        class="tg txt txt-main-color txt-box-shadow" 
+                                        placeholder="Tags1, Tags2, Tags N..." >
 								</div>
 							</div>
 						</div>
@@ -151,5 +137,4 @@
 		</div>
 	</div>
 </form>
-@endforeach
 @endsection
