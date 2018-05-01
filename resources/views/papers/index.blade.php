@@ -116,7 +116,7 @@
 						$replace = array('[',']','@',',','.','#','+','-','*','<','>','-','(',')',';','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
 						$title = str_replace($replace, '', $tag->tag); 
 					?>
-					<a href="{{ url('/tags/'.$title) }}" class="frame-top-tag">
+					<a href="{{ url('/tags/paper/'.$title) }}" class="frame-top-tag">
 						<div>{{ $tag->tag }}</div>
 					</a>
 				@endforeach

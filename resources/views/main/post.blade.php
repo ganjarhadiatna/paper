@@ -31,7 +31,7 @@
 			<div class="grid grid-2x">
 				<div class="grid-1">
 					<div class="desc ctn-main-font">
-						Design on <a href="{{ url('/paper/'.$story->idpapers) }}">{{ $story->title }}</a>
+						{{ $story->description }}
 					</div>
 				</div>
 				<div class="grid-2 right">

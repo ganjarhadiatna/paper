@@ -11,9 +11,31 @@ use App\StoryModel;
 use App\DesignModel;
 use App\PaperModel;
 use App\BookmarkModel;
+use App\TagModel;
 
 class DesignController extends Controller
 {
+	protected function mentions($tags, $idimage)
+    {
+        $replace = array('[',']','@','+','-','*','<','>','-','(',')',';','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
+        $str1 = str_replace($replace, '', $tags);
+        $str2 = str_replace(array(', ', ' , ', ' ,'), ',', $str1);
+        $tag = explode(',', $str2);
+        $count_tag = count($tag);
+
+        for ($i = 0; $i < $count_tag; $i++) {
+            if ($tag[$i] != '') {
+                $data = array([
+                    'tag' => $tag[$i],
+                    'link' => '',
+                    'idtarget' => $idimage,
+                    'type' => 'design'
+                ]);
+                TagModel::AddTags($data);
+            }
+        }
+	}
+	
 	function view($idpapers, $idimage)
     {
 		$iduser = PaperModel::GetIduser($idpapers);
@@ -22,21 +44,24 @@ class DesignController extends Controller
             DesignModel::UpdateViewsImage($idimage);
 			$iduserMe = Auth::id();
             
-            $getStory = PaperModel::GetPaper($idpapers);
-            $getImage = DesignModel::GetDesign($idimage);
+            $getPaper = PaperModel::GetPaper($idpapers);
+            $getImage = DesignModel::GetDetailDesign($idimage);
             $getAllImage = DesignModel::GetAllDesign($idpapers,'desc');
             
-            $newStory = PaperModel::PagRelatedPaper(20, $idpapers);
+			$newStory = DesignModel::PagRelatedDesign(20, $idpapers);
+			
+			$tags = TagModel::GetTags($idimage, 'design');
 
             $check = BookmarkModel::Check($idimage, $iduserMe);
             return view('designs.index', [
                 'title' => 'Design',
                 'path' => 'none',
-                'getStory' => $getStory,
+                'getPaper' => $getPaper,
                 'getImage' => $getImage,
                 'getAllImage' => $getAllImage,
                 'newStory' => $newStory,
-                'check' => $check,
+				'check' => $check,
+				'tags' => $tags,
                 'idpapers' => $idpapers,
                 'idimage' => $idimage
             ]);
@@ -53,10 +78,13 @@ class DesignController extends Controller
 		$id = Auth::id();
 		$check = DesignModel::GetIdImage($id, $idpapers, $idimage);
         if (is_int($check)) {
+			$getImage = DesignModel::GetDetailDesign($idimage);
 			return view('designs.edit', [
                 'title' => 'Edit Design',
 				'path' => 'none',
-				'idimage' => $idimage
+				'idpapers' => $idpapers,
+				'idimage' => $idimage,
+				'getImage' => $getImage
 			]);
 		} else {
 			return view('main.denied', [
@@ -108,7 +136,9 @@ class DesignController extends Controller
 						'filename' => $filename,
 						'id' => $id,
 						'idpapers' => $idpapers,
-						'idimage' => $idimage
+						'idimage' => $idimage,
+						'description' => '',
+						'created' => ''
 					);
 					echo json_encode($final);
 				} else {
@@ -121,12 +151,36 @@ class DesignController extends Controller
 			echo "no-token";
 		}
 	}
+	function edit(Request $request)
+	{
+		$id = Auth::id();
+		$idimage = $request['idimage'];
+		$description = $request['content'];
+		$data = array(
+			'idimage' => $idimage,
+			'description' => $description
+		);
+		$rest = DesignModel::EditDesign($idimage, $id, $data);
+		if (is_int($rest)) {
+			//remove tags
+			TagModel::DeleteTags($idimage, 'design');
+
+			//editting tags
+			$this->mentions($request['tags'], $idimage);
+			echo 'success';
+		} else {
+			echo 'failed';
+		}
+	}
 	function delete(Request $request)
 	{
 		$id = Auth::id();
 		$idimage = $request['idimage'];
 		$filename = DesignModel::GetDesign($idimage);
 		if ($filename) {
+			//remove tags
+			TagModel::DeleteTags($idimage, 'design');
+
 			//delete from database
 			$del = DesignModel::DeleteDesign($idimage, $id);
 			if ($del) {

@@ -43,8 +43,8 @@ class PaperController extends Controller
             PaperModel::UpdateViewsPaper($idpapers);
             $id = Auth::id();
             $getPaper = PaperModel::GetPaper($idpapers);
-            $paperImage = PaperModel::pagImagePaper(20, $idpapers);
-            $tags = TagModel::GetTags($idpapers);
+            $paperImage = DesignModel::pagImagePaper(20, $idpapers);
+            $tags = TagModel::GetTags($idpapers, 'paper');
             $watchStatus = WatchModel::Check($idpapers, $id);
             return view('papers.index', [
                 'title' => 'Paper',
@@ -104,7 +104,7 @@ class PaperController extends Controller
             $rest = PaperModel::UpdatePaper($idpapers, $id, $data);
             if ($rest) {
                 //remove tags
-                TagModel::DeleteTags($idpapers);
+                TagModel::DeleteTags($idpapers, 'paper');
 
                 //editting tags
                 $this->mentions($request['tags'], $idpapers);

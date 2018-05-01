@@ -543,8 +543,6 @@
 			}
 		}
 		.profile {
-			padding: 15px 0;
-			@include bdr_top_bottom();
 			@include grid_3x(55px, 1fr, 90px);
 			.foto {
 				@include column_1();

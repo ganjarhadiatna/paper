@@ -82,319 +82,6 @@ class PaperModel extends Model
         ->where('papers.idpapers', $idpapers)
         ->get();
     }
-    function scopePagAllPaper($query, $limit)
-    {
-        if (Auth::id()) {
-            $id = Auth::id();
-        } else {
-            $id = 0;
-        }
-        return DB::table('image')
-        ->select(
-            'image.idimage',
-            'image.image as cover',
-            'papers.idpapers',
-            'papers.created',
-            'papers.title',
-            'papers.description',
-            'papers.views',
-            'users.id',
-            'users.name',
-            'users.username',
-            'users.visitor',
-            'users.foto',
-            DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
-            DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
-        )
-        ->join('papers','papers.idpapers', '=', 'image.idpapers')
-        ->join('users','users.id', '=', 'image.id')
-        ->orderBy('papers.idpapers', 'desc')
-        ->paginate($limit);
-    }
-    function scopePagRelatedPaper($query, $limit, $idpapers)
-    {
-        if (Auth::id()) {
-            $id = Auth::id();
-        } else {
-            $id = 0;
-        }
-        return DB::table('image')
-        ->select(
-            'image.idimage',
-            'image.image as cover',
-            'papers.idpapers',
-            'papers.created',
-            'papers.title',
-            'papers.description',
-            'papers.views',
-            'users.id',
-            'users.name',
-            'users.username',
-            'users.visitor',
-            'users.foto',
-            DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
-            DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
-        )
-        ->join('papers','papers.idpapers', '=', 'image.idpapers')
-        ->join('users','users.id', '=', 'image.id')
-        ->orderBy('papers.idpapers', 'desc')
-        ->paginate($limit);
-    }
-    function scopePagPopularPaper($query, $limit)
-    {
-        if (Auth::id()) {
-            $id = Auth::id();
-        } else {
-            $id = 0;
-        }
-        return DB::table('image')
-        ->select(
-            'image.idimage',
-            'image.image as cover',
-            'papers.idpapers',
-            'papers.created',
-            'papers.title',
-            'papers.description',
-            'papers.views',
-            'users.id',
-            'users.name',
-            'users.username',
-            'users.visitor',
-            'users.foto',
-            DB::raw('(select count(comment.idcomment) from comment where comment.idimage = image.idimage) as ttl_comment'),
-            DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
-        )
-        ->join('papers','papers.idpapers', '=', 'image.idpapers')
-        ->join('users','users.id', '=', 'image.id')
-        ->orderBy('ttl_comment', 'desc')
-        ->paginate($limit);
-    }
-    function scopePagTrendingPaper($query, $limit)
-    {
-        if (Auth::id()) {
-            $id = Auth::id();
-        } else {
-            $id = 0;
-        }
-        return DB::table('image')
-        ->select(
-            'image.idimage',
-            'image.image as cover',
-            'papers.idpapers',
-            'papers.created',
-            'papers.title',
-            'papers.description',
-            'papers.views',
-            'users.id',
-            'users.name',
-            'users.username',
-            'users.visitor',
-            'users.foto',
-            DB::raw('(select count(comment.idcomment) from comment where comment.idimage = image.idimage) as ttl_comment'),
-            DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
-        )
-        ->join('papers','papers.idpapers', '=', 'image.idpapers')
-        ->join('users','users.id', '=', 'image.id')
-        ->orderBy('ttl_comment', 'desc')
-        ->paginate($limit);
-    }
-    function scopePagSearchPaper($query, $ctr, $limit)
-    {
-        if (Auth::id()) {
-            $id = Auth::id();
-        } else {
-            $id = 0;
-        }
-        $searchValues = preg_split('/\s+/', $ctr, -1, PREG_SPLIT_NO_EMPTY);
-        return DB::table('image')
-        ->select(
-            'image.idimage',
-            'image.image as cover',
-            'papers.idpapers',
-            'papers.created',
-            'papers.title',
-            'papers.description',
-            'papers.views',
-            'users.id',
-            'users.name',
-            'users.username',
-            'users.visitor',
-            'users.foto',
-            DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
-            DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
-        )
-        ->join('papers','papers.idpapers', '=', 'image.idpapers')
-        ->join('users','users.id', '=', 'image.id')
-        ->where('papers.description','like',"%$ctr%")
-        ->orWhere('users.name','like',"%$ctr%")
-        ->orWhere(function ($q) use ($searchValues)
-        {
-            foreach ($searchValues as $value) {
-                $q->orWhere('papers.description','like',"%$value%");
-            }
-        })
-        ->paginate($limit);
-    }
-    function scopePagTagPaper($query, $ctr, $limit)
-    {
-        if (Auth::id()) {
-            $id = Auth::id();
-        } else {
-            $id = 0;
-        }
-        return DB::table('tags')
-        ->select(
-            'tags.idtags',
-            'image.idimage',
-            'image.image as cover',
-            'papers.idpapers',
-            'papers.created',
-            'papers.title',
-            'papers.description',
-            'papers.views',
-            'users.id',
-            'users.name',
-            'users.username',
-            'users.visitor',
-            'users.foto',
-            DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
-            DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
-        )
-        ->join('papers','papers.idpapers', '=', 'tags.idpapers')
-        ->join('image','image.idpapers', '=', 'tags.idpapers')
-        ->join('users','users.id', '=', 'image.id')
-        ->where('tags.tag', 'like', "%{$ctr}%")
-        ->orderBy('tags.idtags', 'desc')
-        ->paginate($limit);
-    }
-    function scopePagCtrPaper($query, $ctr, $limit)
-    {
-        if (Auth::id()) {
-            $id = Auth::id();
-        } else {
-            $id = 0;
-        }
-        return DB::table('category')
-        ->select(
-            'category.idcategory',
-            'image.idimage',
-            'image.image as cover',
-            'papers.idpapers',
-            'papers.created',
-            'papers.title',
-            'papers.description',
-            'papers.views',
-            'users.id',
-            'users.name',
-            'users.username',
-            'users.visitor',
-            'users.foto',
-            DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
-            DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
-        )
-        ->join('papers','papers.idcategory', '=', 'category.idcategory')
-        ->join('papers','papers.idpapers', '=', 'image.idpapers')
-        ->join('users','users.id', '=', 'image.id')
-        ->where('category.title', $ctr)
-        ->orderBy('papers.idpapers', 'desc')
-        ->paginate($limit);
-    }
-    function scopePagTimelinesStory($query, $limit, $paper)
-    {
-        if (Auth::id()) {
-            $id = Auth::id();
-        } else {
-            $id = 0;
-        }
-        return DB::table('image')
-        ->select(
-            'image.idimage',
-            'image.image as cover',
-            'papers.idpapers',
-            'papers.created',
-            'papers.title',
-            'papers.description',
-            'papers.views',
-            'users.id',
-            'users.name',
-            'users.username',
-            'users.visitor',
-            'users.foto',
-            DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
-            DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
-        )
-        ->join('papers','papers.idpapers', '=', 'image.idpapers')
-        ->join('users','users.id', '=', 'image.id')
-        ->where('papers.id', $id)
-        ->orWhere(function ($q) use ($paper)
-        {
-            foreach ($paper as $value) {
-                $q->orWhere('papers.idpapers', $value->idpapers);
-            }
-        })
-        ->orderBy('image.idimage', 'desc')
-        ->paginate($limit);
-    }
-    function scopePagUserPaper($query, $limit, $iduser)
-    {
-        if (Auth::id()) {
-            $id = Auth::id();
-        } else {
-            $id = 0;
-        }
-        return DB::table('image')
-        ->select(
-            'image.idimage',
-            'image.image as cover',
-            'papers.idpapers',
-            'papers.created',
-            'papers.title',
-            'papers.description',
-            'papers.views',
-            'users.id',
-            'users.name',
-            'users.username',
-            'users.visitor',
-            'users.foto',
-            DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
-            DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
-        )
-        ->join('papers','papers.idpapers', '=', 'image.idpapers')
-        ->join('users','users.id', '=', 'image.id')
-        ->where('papers.id', $iduser)
-        ->orderBy('papers.idpapers', 'desc')
-        ->paginate($limit);
-    }
-    function scopePagImagePaper($query, $limit, $idpapers)
-    {
-        if (Auth::id()) {
-            $id = Auth::id();
-        } else {
-            $id = 0;
-        }
-        return DB::table('image')
-        ->select(
-            'image.idimage',
-            'image.image as cover',
-            'papers.idpapers',
-            'papers.created',
-            'papers.title',
-            'papers.description',
-            'papers.views',
-            'users.id',
-            'users.name',
-            'users.username',
-            'users.visitor',
-            'users.foto',
-            DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
-            DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
-        )
-        ->join('papers','papers.idpapers', '=', 'image.idpapers')
-        ->join('users','users.id', '=', 'image.id')
-        ->where('papers.idpapers', $idpapers)
-        ->orderBy('image.idimage', 'desc')
-        ->paginate($limit);
-    }
     function scopePagUserBookmark($query, $limit, $iduser)
     {
         if (Auth::id()) {
@@ -406,10 +93,10 @@ class PaperModel extends Model
         ->select(
             'image.idimage',
             'image.image as cover',
+            'image.description',
             'papers.idpapers',
             'papers.created',
             'papers.title',
-            'papers.description',
             'papers.views',
             'users.id',
             'users.name',
@@ -447,6 +134,31 @@ class PaperModel extends Model
         ->join('users','users.id', '=', 'papers.id')
         ->where('papers.id', $id)
         ->orderBy('papers.title','asc')
+        ->paginate($limit);
+    }
+    function scopeTagPaper($query, $ctr, $limit)
+    {
+        return DB::table('papers')
+        ->select(
+            'papers.idpapers',
+            'papers.title',
+            'papers.description',
+            'papers.created',
+            'papers.id',
+            'papers.views',
+            'users.username',
+            'users.foto',
+            DB::raw('(select image.image from image where image.idpapers = papers.idpapers limit 1 offset 0) as cover1'),
+            DB::raw('(select image.image from image where image.idpapers = papers.idpapers limit 1 offset 1) as cover2'),
+            DB::raw('(select image.image from image where image.idpapers = papers.idpapers limit 1 offset 2) as cover3'),
+            DB::raw('(select count(image.idimage) from image where image.idpapers = papers.idpapers) as ttl_image'),
+            DB::raw('(select count(watchs.idwatchs) from watchs where watchs.idpapers = papers.idpapers) as ttl_watch')
+        )
+        ->join('tags','tags.idtarget', '=', 'papers.idpapers')
+        ->join('users','users.id', '=', 'papers.id')
+        ->where('tags.type', 'paper')
+        ->where('tags.tag', 'like', '%'.$ctr.'%')
+        ->orderBy('tags.idtags', 'desc')
         ->paginate($limit);
     }
 }

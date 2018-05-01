@@ -19,7 +19,7 @@ class MainController extends Controller
         if (Auth::id()) {
             $id = Auth::id();
             $papers = WatchModel::GetAllWatch($id);
-            $topStory = PaperModel::PagTimelinesStory(20, $papers);
+            $topStory = DesignModel::PagTimelinesDesign(20, $papers);
             return view('home.index', [
                 'title' => 'Official Site',
                 'path' => 'home',
@@ -32,20 +32,31 @@ class MainController extends Controller
             ]);
         }
     }
-    function tags($ctr)
+    function tagsDesign($ctr)
     {
-        $topStory = PaperModel::PagTagPaper($ctr, 12);
-        return view('others.index', [
+        $topStory = DesignModel::PagTagDesign($ctr, 12);
+        return view('tags.design', [
             'title' => $ctr,
             'path' => 'none',
+            'ctr' => $ctr,
             'topStory' => $topStory
+        ]);
+    }
+    function tagsPaper($ctr)
+    {
+        $topPaper = paperModel::TagPaper($ctr, 12);
+        return view('tags.paper', [
+            'title' => $ctr,
+            'path' => 'none',
+            'ctr' => $ctr,
+            'topPaper' => $topPaper
         ]);
     }
     function timelines()
     {
         $id = Auth::id();
         $papers = WatchModel::GetAllWatch($id);
-        $topStory = PaperModel::PagTimelinesPaper(20, $papers);
+        $topStory = DesignModel::PagTimelinesDesign(20, $papers);
         return view('others.index', [
             'title' => 'Timelines',
             'path' => 'timelines',
@@ -54,7 +65,7 @@ class MainController extends Controller
     }
     function popular()
     {
-        $topStory = PaperModel::PagPopularPaper(20);
+        $topStory = DesignModel::PagPopularDesign(20);
         return view('others.index', [
             'title' => 'Popular',
             'path' => 'popular',
@@ -63,7 +74,7 @@ class MainController extends Controller
     }
     function fresh()
     {
-        $topStory = PaperModel::PagAllPaper(20);
+        $topStory = DesignModel::PagAllDesign(20);
         return view('others.index', [
             'title' => 'Fresh',
             'path' => 'fresh',
@@ -72,7 +83,7 @@ class MainController extends Controller
     }
     function trending()
     {
-        $topStory = PaperModel::PagTrendingPaper(20);
+        $topStory = DesignModel::PagTrendingDesign(20);
         return view('others.index', [
             'title' => 'Trending',
             'path' => 'trending',
@@ -86,7 +97,7 @@ class MainController extends Controller
         } else {
             $id = 0;
         }
-        $topStory = PaperModel::PagSearchPaper($ctr, 20);
+        $topStory = DesignModel::PagSearchDesign($ctr, 20);
         $topTags = TagModel::SearchTags($ctr);
         return view('search.index', [
             'title' => $ctr,
@@ -103,7 +114,7 @@ class MainController extends Controller
             $id = 0;
         }
         $ctr = $_GET['q'];
-        $topStory = PaperModel::PagSearchPaper($ctr, 20);
+        $topStory = DesignModel::PagSearchDesign($ctr, 20);
         $topUsers = ProfileModel::SearchUsers($ctr, $id);
         $topTags = TagModel::SearchTags($ctr);
         return view('search.index', [

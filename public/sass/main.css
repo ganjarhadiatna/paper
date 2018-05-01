@@ -730,9 +730,6 @@
         width: 80px;
         padding: 0 0; }
     .frame-story .bot .profile {
-      padding: 15px 0;
-      border-top: 1px rgba(0, 0, 0, 0.1) solid;
-      border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
       display: grid;
       display: -ms-grid;
       grid-template-columns: 55px 1fr 90px;

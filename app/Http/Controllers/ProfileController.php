@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Image;
 
 use App\PaperModel;
+use App\DesignModel;
 use App\ProfileModel;
 use App\TagModel;
 
@@ -35,7 +36,7 @@ class ProfileController extends Controller
 			$pathProfile = 'none';
 		}
         $profile = ProfileModel::UserData($id);
-        $userStory = PaperModel::PagUserPaper(20, $id);
+        $userStory = DesignModel::PagUserDesign(20, $id);
         return view('profile.designs', [
             'title' => 'User Profile',
             'path' => $pathProfile,

@@ -137,28 +137,25 @@
 
 	});
 </script>
-@foreach ($getStory as $story)
+@foreach ($getPaper as $paper)
 <div class="sc-header">
 	<div class="sc-place pos-fix">
 		<div class="col-900px">
 			<div class="sc-grid sc-grid-2x">
 				<div class="sc-col-1">
 					<button class="btn btn-circle btn-main2-color btn-focus"
-						onclick="opPostSmallPopup('open', 'menu-popup', '{{ $idpapers }}', '{{ $story->id }}', '{{ $idimage }}')">
+						onclick="opPostSmallPopup('open', 'menu-popup', '{{ $idpapers }}', '{{ $paper->id }}', '{{ $idimage }}')">
 						<span class="fas fa-lg fa-ellipsis-h"></span>
 					</button>
 					<button class="btn btn-circle btn-main2-color" onclick="pictZoom({{ $idimage }})">
 						<span class="fas fa-lg fa-search-plus"></span>
 					</button>
-					@if ($story->id == Auth::id())
+					@if ($paper->id == Auth::id())
 						<a href="{{ url('/paper/'.$idpapers.'/design/'.$idimage.'/edit') }}">
 							<button class="btn btn-circle btn-main2-color">
 								<span class="fas fa-lg fa-pencil-alt"></span>
 							</button>
 						</a>
-						<button class="btn btn-circle btn-main2-color">
-							<span class="fas fa-lg fa-trash-alt"></span>
-						</button>
 					@endif
 				</div>
 				<div class="sc-col-2 txt-right">
@@ -182,13 +179,59 @@
 				<div class="grid-1">
 					<div class="mid padding-top-10px">
 						<div class="pict">
-							<img src="{{ asset('/story/covers/'.$getImage) }}" id="pict-{{ $idimage }}" alt="pict">
+							@foreach ($getImage as $ds)
+								<img src="{{ asset('/story/covers/'.$ds->image) }}" id="pict-{{ $idimage }}" alt="pict">
+							@endforeach
 						</div>
 					</div>
 				</div>
 				<div class="grid-2">
+					<div class="bot">
+						@foreach ($getImage as $ds)
+							@if (count($ds->description) != 0)
+								<div class="ctn-main-font ctn-16px padding-top-10px">{{ $ds->description }}</div>
+							@endif
+						@endforeach
+						@if (count($tags) > 0)
+						<div class="padding-10px">
+							@foreach($tags as $tag)
+								<?php 
+									$replace = array('[',']','@',',','.','#','+','-','*','<','>','-','(',')',';','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
+									$title = str_replace($replace, '', $tag->tag); 
+								?>
+								<a href="{{ url('/tags/design/'.$title) }}" class="frame-top-tag">
+									<div>{{ $tag->tag }}</div>
+								</a>
+							@endforeach
+						</div>
+						@endif
+					</div>
+					<div class="bot">
+						<div class="profile padding-10px">
+							<div class="foto">
+								<a href="{{ url('/user/'.$paper->id) }}">
+									<div class="image image-40px image-circle" style="background-image: url({{ asset('/profile/thumbnails/'.$paper->foto) }});"></div>
+								</a>
+							</div>
+							<div class="info">
+								<div class="name">
+									<div>
+										Design on <a href="{{ url('/paper/'.$paper->idpapers) }}">{{ $paper->title }}</a>
+									</div>
+									<div>
+										By <a href="{{ url('/user/'.$paper->id) }}">{{ $paper->username }}</a>
+									</div>
+								</div>
+							</div>
+							<div class="tool">
+								<a href="{{ url('/paper/'.$paper->idpapers) }}">
+									<input type="button" name="visit" class="btn btn-sekunder-color" value="Visit">
+								</a>
+							</div>
+						</div>
+					</div>
 					<div class="pos mid bdr-bottom" key="more design">
-						<div class="ctn-main-font ctn-14px ctn-sek-color ctn-bold padding-bottom-15px">More Designs on Paper</div>
+						<div class="ctn-main-font ctn-14px ctn-sek-color ctn-bold padding-bottom-15px">More designs</div>
 						<div class="place-search-tag">
 							<div class="st-lef">
 								<div class="btn btn-circle btn-sekunder-color btn-no-border hg-100px" onclick="toLeft()">
@@ -209,30 +252,6 @@
 								<div class="btn btn-circle btn-sekunder-color btn-no-border hg-100px" onclick="toRight()">
 									<span class="fa fa-lg fa-angle-right"></span>
 								</div>
-							</div>
-						</div>
-					</div>
-					<div class="pos bot">
-						<div class="profile">
-							<div class="foto">
-								<a href="{{ url('/user/'.$story->id) }}">
-									<div class="image image-40px image-circle" style="background-image: url({{ asset('/profile/thumbnails/'.$story->foto) }});"></div>
-								</a>
-							</div>
-							<div class="info">
-								<div class="name">
-									<div>
-										Design on <a href="{{ url('/paper/'.$story->idpapers) }}">{{ $story->title }}</a>
-									</div>
-									<div>
-										By <a href="{{ url('/user/'.$story->id) }}">{{ $story->username }}</a>
-									</div>
-								</div>
-							</div>
-							<div class="tool">
-								<a href="{{ url('/paper/'.$story->idpapers) }}">
-									<input type="button" name="visit" class="btn btn-sekunder-color" value="Visit">
-								</a>
 							</div>
 						</div>
 					</div>

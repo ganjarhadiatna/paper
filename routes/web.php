@@ -12,7 +12,9 @@
 */
 Route::get('/', 'MainController@feeds');
 Route::get('/home', 'MainController@feeds');
-Route::get('/tags/{ctr}', 'MainController@tags');
+Route::get('/tags/{ctr}', 'MainController@tagsDesign');
+Route::get('/tags/design/{ctr}', 'MainController@tagsDesign');
+Route::get('/tags/paper/{ctr}', 'MainController@tagsPaper');
 Route::get('/popular', 'MainController@popular');
 Route::get('/fresh', 'MainController@fresh');
 Route::get('/trending', 'MainController@trending');
@@ -72,6 +74,8 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/paper/{idpapers}/design/{idimage}/edit', 'DesignController@viewEdit')
     ->where(['idpapers' => '[0-9]+','idimage' => '[0-9]+']);
+    Route::post('/design/edit', 'DesignController@edit');
+    Route::post('/design/delete', 'DesignController@delete');
 
     /*watch*/
     Route::post('/watch/add', 'WatchController@create');
