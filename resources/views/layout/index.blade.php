@@ -145,8 +145,10 @@
 				var top = $(this).scrollTop();
 				if (top > hg) {
 					$('#main-search').addClass('hide');
+					$('.sc-header .pos-fix').addClass('mob-fix');
 				} else {
 					$('#main-search').removeClass('hide');
+					$('.sc-header .pos-fix').removeClass('mob-fix');
 				}
 			});
 

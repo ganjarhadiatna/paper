@@ -1869,8 +1869,8 @@
     .sc-header .sc-place .sc-grid-2x {
       display: grid;
       display: -ms-grid;
-      grid-template-columns: 1fr 120px;
-      -ms-grid-columns: 1fr 120px; }
+      grid-template-columns: 1fr 110px;
+      -ms-grid-columns: 1fr 110px; }
     .sc-header .sc-place .sc-grid-1x {
       display: grid;
       display: -ms-grid;
@@ -1927,7 +1927,12 @@
       @media (max-width: 768px) {
         .sc-header .sc-place.pos-fix {
           position: relative;
-          top: 0; } }
+          top: 0; }
+          .sc-header .sc-place.pos-fix.mob-fix {
+            position: fixed;
+            top: 0;
+            z-index: 300;
+            opacity: 1; } }
 
 .post-nav {
   position: relative;
