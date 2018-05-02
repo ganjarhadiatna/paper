@@ -24,22 +24,31 @@
 			}
 		});
 
+		$('#close-collect').on('click', function(event) {
+			$('#nav-more-target').removeClass('active').attr('key', 'hide');
+			$('#more-menu').hide();
+			setScrollMobile('show');
+		});
+
 		$('#more-menu *').on('click', function(event) {
 			event.stopPropagation();
-			$('#more-menu').show();
-			$('#notifications').hide();
-			$('#nav-more-target').addClass('active');
-			$('#nav-more-target').attr('key', 'open');
 		});
 	});
 </script>
-<div class="more-menu" id="more-menu">
-	<div class="block">
-		<div class="ttl-ctr">
-			All Collections
+<div class="more-menu thing-popup" id="more-menu">
+	<div class="main">
+		<div class="ttl-ctr grid-2x">
+			<div class="grid-1">
+				Collections
+			</div>
+			<div class="grid-2">
+				<button class="btn btn-circle btn-primary-color" id="close-collect">
+					<span class="fa fa-lg fa-times"></span>
+				</button>
+			</div>
 		</div>
-		<div class="place-collect">
-			<div class="column-2">
+		<div class="put">
+			<div class="val column-2">
 				<ul class="mn">
 					<li>
 						<a href="{{ url('/') }}" id="home">

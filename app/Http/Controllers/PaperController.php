@@ -156,7 +156,8 @@ class PaperController extends Controller
                 'title' => 'Edit Paper',
                 'path' => 'none',
                 'getStory' => $getStory,
-                'tags' => $tags
+                'tags' => $tags,
+                'idpapers' => $idpapers
             ]);   
         } else {
             return view('main.denied', [

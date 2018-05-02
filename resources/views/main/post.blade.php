@@ -2,12 +2,12 @@
 	<div class="mid">
 		<div class="bot-tool">
 			<div class="nts">
-				<button class="zoom btn btn-circle btn-sekunder-color btn-no-border" onclick="pictZoom({{ $story->idimage }})">
+				<button class="zoom btn btn-circle btn-sekunder-color" onclick="pictZoom({{ $story->idimage }})">
 					<span class="fas fa-lg fa-search-plus"></span>
 				</button>
 				@if ($story->id == Auth::id())
 					<a href="{{ url('/paper/'.$story->idpapers.'/design/'.$story->idimage.'/edit') }}">
-						<button class="zoom btn btn-circle btn-sekunder-color btn-no-border">
+						<button class="zoom btn btn-circle btn-sekunder-color">
 							<span class="fas fa-lg fa-pencil-alt"></span>
 						</button>
 						</a>

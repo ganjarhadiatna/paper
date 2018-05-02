@@ -77,6 +77,13 @@
 						<button class="btn btn-circle btn-primary-color btn-focus" onclick="goBack()" type="button">
 							<span class="fa fa-lg fa-arrow-left"></span>
 						</button>
+						<button 
+							class="btn btn-circle btn-main2-color btn-focus" 
+							onclick="opQuestionPost('{{ $idpapers }}')"
+							type="button"
+							title="delete this paper">
+							<span class="far fa-lg fa-trash-alt"></span>
+						</button>
 					</div>
 					<div class="sc-col-2">
 						<h3 class="ttl-head ttl-sekunder-color">Edit Paper</h3>

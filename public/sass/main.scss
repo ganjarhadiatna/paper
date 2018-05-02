@@ -41,6 +41,12 @@ a {
 		display: none;
 	}
 }
+.desktop {
+	display: none;
+	@media (max-width: $max-width) {
+		display: block;
+	}
+}
 
 .hide-input-file {
 	display: none;

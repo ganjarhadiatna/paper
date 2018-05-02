@@ -150,8 +150,9 @@
 		});
 
 		$('#close-notif').on('click', function(event) {
-			$('#op-notif').removeClass('active');
-			$('.notifications').hide();
+			$('#op-notif').removeClass('active').attr('key', 'hide');;
+			$('#notifications').hide();
+			setScrollMobile('show');
 		});
 
 		$('#notif-nav ol li').on('click', function(event) {
@@ -169,10 +170,17 @@
 		});
 	});
 </script>
-<div class="notifications" id="notifications">
+<div class="notifications thing-popup" id="notifications">
 	<div class="main">
-		<div class="ttl-ctr">
-			Notifications
+		<div class="ttl-ctr grid-2x">
+			<div class="grid-1">
+				Notifications
+			</div>
+			<div class="grid-2">
+				<button class="btn btn-circle btn-primary-color desktop" id="close-notif">
+					<span class="fa fa-lg fa-times"></span>
+				</button>
+			</div>
 		</div>
 		<div class="put">
 			<div class="val">

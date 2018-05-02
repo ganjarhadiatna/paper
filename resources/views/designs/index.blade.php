@@ -143,16 +143,19 @@
 		<div class="col-900px">
 			<div class="sc-grid sc-grid-2x">
 				<div class="sc-col-1">
-					<button class="btn btn-circle btn-main2-color btn-focus"
+					<button class="btn btn-circle btn-primary-color btn-focus" onclick="goBack()" type="button">
+						<span class="fa fa-lg fa-arrow-left"></span>
+					</button>
+					<button class="btn btn-circle btn-primary-color btn-focus"
 						onclick="opPostSmallPopup('open', 'menu-popup', '{{ $idpapers }}', '{{ $paper->id }}', '{{ $idimage }}')">
 						<span class="fas fa-lg fa-ellipsis-h"></span>
 					</button>
-					<button class="btn btn-circle btn-main2-color" onclick="pictZoom({{ $idimage }})">
+					<button class="btn btn-circle btn-primary-color" onclick="pictZoom({{ $idimage }})">
 						<span class="fas fa-lg fa-search-plus"></span>
 					</button>
 					@if ($paper->id == Auth::id())
 						<a href="{{ url('/paper/'.$idpapers.'/design/'.$idimage.'/edit') }}">
-							<button class="btn btn-circle btn-main2-color">
+							<button class="btn btn-circle btn-primary-color">
 								<span class="fas fa-lg fa-pencil-alt"></span>
 							</button>
 						</a>

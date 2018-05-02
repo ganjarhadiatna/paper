@@ -71,7 +71,6 @@
 			if (id === iduser) {
 				var menu = '\
 				<li onclick="organizedPost('+idpapers+')">Organized Designs</li>\
-				<li onclick="viewPost('+idpapers+')">View</li>\
 				<li onclick="editPost('+idpapers+')">Edit</li>\
 				<li onclick="opQuestionPost('+idpapers+')">Delete</li>\
 				';
@@ -89,7 +88,7 @@
 		var id = '{{ Auth::id() }}';
 		if (stt === 'open') {
 			$('#'+path).show();
-			if (id === iduser) {
+			if (id == iduser) {
 				var menu = '\
 				<li onclick="pictZoom('+idimage+')">View</li>\
 				<li onclick="addBookmark('+idimage+')">Save</li>\

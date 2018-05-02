@@ -252,7 +252,7 @@
 						</a>
 					@endif
 				</div>
-				@include('main.category')
+				@include('main.collections')
 				@include('main.notifications')
 			</div>
 		</div>

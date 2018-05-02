@@ -146,7 +146,7 @@
 							<label for="get-image">
 								<span class="btn btn-div btn-sekunder-color btn-focus">
 									<span class="fa fa-lg fa-plus"></span>
-									<span>Browse Design</span>
+									<span>Add Design</span>
 								</span>
 							</label>
 						</span>
