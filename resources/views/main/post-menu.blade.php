@@ -70,7 +70,6 @@
 			$('#'+path).show();
 			if (id === iduser) {
 				var menu = '\
-				<li onclick="organizedPost('+idpapers+')">Organized Designs</li>\
 				<li onclick="editPost('+idpapers+')">Edit</li>\
 				<li onclick="opQuestionPost('+idpapers+')">Delete</li>\
 				';

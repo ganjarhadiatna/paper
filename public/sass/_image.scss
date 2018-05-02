@@ -46,6 +46,9 @@
 	&.image-circle {
 		border-radius: 100%;
 	}
+	&.image-pointer {
+		cursor: pointer;
+	}
 	.icn {
 		@include post_center();
 		color: $txt-sek-color;

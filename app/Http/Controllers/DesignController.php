@@ -100,6 +100,63 @@ class DesignController extends Controller
             ]);
 		}
 	}
+	function publishDesign(Request $request)
+	{
+		$id = Auth::id();
+		$image = $request->file('image');
+		$idpapers = $request['idpapers'];
+		$content = $request['content'];
+		$tags = $request['tags'];
+		$check = PaperModel::CheckMyPaper($id, $idpapers);
+        if (is_int($check)) {
+			if ($image) {
+				//validate
+				$this->validate($request, [
+					'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1000000',
+				]);
+
+				//rename file
+				$chrc = array('[',']','@',' ','+','-','#','*','<','>','_','(',')',';',',','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
+				$filename = $id.time().str_replace($chrc, '', $image->getClientOriginalName());
+
+				$data = array(
+					'image' => $filename,
+					'id' => $id,
+					'idpapers' => $idpapers,
+					'description' => $content,
+				);
+				$rest = DesignModel::AddDesign($data);
+				if ($rest) {
+					//save image to server
+					//creating thumbnail and save to server
+					$destination = public_path('story/thumbnails/'.$filename);
+					$img = Image::make($image->getRealPath());
+					$img->resize(400, 400, function ($constraint) {
+						$constraint->aspectRatio();
+					})->save($destination); 
+
+					//saving image real to server
+					$destination = public_path('story/covers/');
+					$image->move($destination, $filename);
+
+					//getting last idimage
+					$idimage = DesignModel::GetId($id, $idpapers);
+
+					//save tags
+					$this->mentions($request['tags'], $idimage);
+
+					//success
+					echo $idimage;
+				} else {
+					echo 'no-save';
+				}
+			} else {
+				echo 'no-image';
+			}
+		} else {
+			echo 'no-paper';
+		}
+	}
     function publish(Request $request)
     {
     	$id = Auth::id();

@@ -135,7 +135,7 @@
             <div class="col-1000px">
                 <div class="sc-grid sc-grid-2x">
                     <div class="sc-col-1">
-						<span>
+						<div class="padding-top-10px">
 							<form id="form-publish"
 								method="post"
 								action="javascript:void(0)"
@@ -144,12 +144,12 @@
 								<input type="file" name="get-image" accept="image/*" class="hide-input-file" id="get-image" onchange="getImage()">
 							</form>
 							<label for="get-image">
-								<span class="btn btn-div btn-sekunder-color btn-focus">
+								<span class="btn btn-sekunder-color btn-focus">
 									<span class="fa fa-lg fa-plus"></span>
 									<span>Add Design</span>
 								</span>
 							</label>
-						</span>
+						</div>
 					</div>
                     <div class="sc-col-2 txt-right">
                         <input type="button" name="save" class="btn btn-main-color" value="Done" id="btn-publish" onclick="rvDone()">

@@ -47,6 +47,13 @@ class PaperModel extends Model
         ->where('papers.idpapers', $idpapers)
         ->value('papers.idpapers');
     }
+    function scopeCheckMyPaper($query, $id, $idpapers)
+    {
+        return DB::table('papers')
+        ->where('papers.id', $id)
+        ->where('papers.idpapers', $idpapers)
+        ->value('papers.idpapers');
+    }
     function scopeUpdateViewsPaper($query, $idpapers)
     {
         $no = (DB::table('papers')->where('idpapers', $idpapers)->value('views'))+1;

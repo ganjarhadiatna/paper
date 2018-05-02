@@ -14,13 +14,6 @@ class NotifModel extends Model
         ->where('notif_s.status','=','unread')
         ->count();
     }
-    function scopeCekNotifFollowing($query, $iduser)
-    {
-        return DB::table('notif_f')
-        ->where('notif_f.iduser', $iduser)
-        ->where('notif_f.status','=','unread')
-        ->count();
-    }
 
     function scopeUpdateNotifS($query, $iduser)
     {
@@ -28,20 +21,6 @@ class NotifModel extends Model
         ->where('iduser', $iduser)
         ->where('status', '=' ,'unread')
         ->update(array('status' => 'read'));
-    }
-
-    function scopeUpdateNotifF($query, $iduser)
-    {
-        return DB::table('notif_f')
-        ->where('iduser', $iduser)
-        ->where('status', '=' ,'unread')
-        ->update(array('status' => 'read'));
-    }
-
-    function scopeAddNotifF($query, $data)
-    {
-        return DB::table('notif_f')
-        ->insert($data);
     }
     function scopeAddNotifS($query, $data)
     {

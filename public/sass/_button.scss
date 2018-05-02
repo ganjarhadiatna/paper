@@ -2,7 +2,7 @@
 .btn {
 	position: relative;
 	width: auto;
-	padding: 10px 14px;
+	padding: 12.5px 14px;
 	border-radius: 5px;
 	font-size: 14px;
 	font-weight: 600;
@@ -13,6 +13,9 @@
 	&.btn-focus:focus {
 		box-shadow: 0 0 0 4px $pos-color;
 	}
+	&.btn-no-focus:focus {
+		box-shadow: 0 0 0 0 rgba(0,0,0,0);
+	}
 	&.btn-no-pad {
 		padding: 0 0;
 	}
@@ -20,17 +23,17 @@
 		text-transform: uppercase;
 	}
 	&.btn-radius {
-		border-radius: 40px;
+		border-radius: 45px;
 	}
 	&.btn-div {
 		padding: 10px 15px;
-		height: 40px;
-		line-height: 40px;
+		height: 45px;
+		line-height: 45px;
 	}
 	&.btn-circle {
-		width: 40px;
-		height: 40px;
-		line-height: 40px;
+		width: 45px;
+		height: 45px;
+		line-height: 45px;
 		padding: 0 0;
 		border-radius: 100%;
 		text-align: center;
@@ -79,6 +82,10 @@
 	}
 	&.btn-primary-color:hover {
 		@include rgba_black(0.1, #555);
+	}
+	&.btn-no-color {
+		background-color: rgba(0,0,0,0);
+		color: $txt-sek-color;
 	}
 	&.btn-color-fb {
 		background-color: #44749d;

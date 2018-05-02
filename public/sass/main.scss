@@ -116,6 +116,9 @@ a {
 	&.ctn-14px {
 		font-size: 14px;
 	}
+	&.ctn-12px {
+		font-size: 12px;
+	}
 	&.ctn-upp {
 		text-transform: uppercase;
 	}
@@ -143,7 +146,7 @@ a {
 	&.ctn-middle {
 		@include post_top();
 	}
-	&.ctn-center {
+	&.ctn-post-center {
 		@include post_center();
 	}
 }
@@ -165,6 +168,9 @@ a {
 		z-index: 100;;
 		background-color: $sek-color;
 		@include bdr_bottom();
+		@media (max-width: $max-width) {
+			border-bottom: 0 #fff solid;
+		}
 		.menu {
 			position: relative;
 			padding: 10px 0;
@@ -193,8 +199,8 @@ a {
 				@include column_1();
 				.logo {
 					position: relative;
-					width: 90px;
-					height: 40px;
+					width: 100px;
+					height: 45px;
 					overflow: hidden;
 					img {
 						@include post_top();
@@ -212,11 +218,10 @@ a {
 					width: calc(100% - 20px);
 					padding: 7.5px 10px;
 					background-color: $sek-color;
-					@include bdr_bottom();
 				}
 				.main-search {
 					width: 450px;
-					height: 40px;
+					height: 45px;
 					overflow: hidden;
 					background-color: rgba(225,225,225,0.44);
 					border-radius: 5px;
@@ -285,16 +290,16 @@ a {
 				}
 				.pp {
 					padding: 0 5px;
-					height: 40px;
+					height: 45px;
 					vertical-align: top;
 					text-align: center;
 					overflow: hidden;
 					@media (max-width: $max-width) {
-						height: 40px;
+						height: 45px;
 					}
 					@media (max-width: $std-width) {
-						width: 40px;
-						height: 40px;
+						width: 45px;
+						height: 45px;
 					}
 					.image {
 						position: relative;
@@ -306,7 +311,7 @@ a {
 					}
 					.username {
 						position: relative;
-						top: 7.5px;
+						top: 10px;
 						vertical-align: top;
 						padding: 0 5px;
 					}

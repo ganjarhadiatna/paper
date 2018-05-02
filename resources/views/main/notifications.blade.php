@@ -82,30 +82,20 @@
 			} else {
 				$('#btn-story').hide();
 			}
-			console.log(data);
+			//console.log(data);
 		})
 		.fail(function(data) {
-			console.log(data.responseJSON);
+			//console.log(data.responseJSON);
 			opAlert('show', 'There is an error, please try again.');
 		});
 		
 	}
 	function cekNotif() {
 		$.get('{{ url("/notif/cek") }}', function(data) {
-			//console.log('notif: '+data);
 			if (data != 0) {
 				$('#main-notif-sign').show();
 			} else {
 				$('#main-notif-sign').hide();
-			}
-		});
-	}
-	function cekNotifStory() {
-		$.get('{{ url("/notif/cek/story") }}', function(data) {
-			if (data != 0) {
-				$('#story-notif-sign').show();
-			} else {
-				$('#story-notif-sign').hide();
 			}
 		});
 	}
@@ -121,7 +111,7 @@
 		//getNotifStory('none');
 
 		if (iduser) {
-			setInterval('cekNotif()', 5000);
+			setInterval('cekNotif()', 2500);
 		}
 
 		$('#op-notif').on('click', function(event) {
@@ -132,7 +122,6 @@
 				$('#notifications').show();
 				$('#more-menu').hide();
 				$(this).attr('key', 'open');
-				cekNotifStory();
 				if ($('#val-storys').html() == '') {
 					getNotifStory('none');
 				}

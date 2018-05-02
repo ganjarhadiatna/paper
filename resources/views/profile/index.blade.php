@@ -26,7 +26,7 @@
 							</a>
 						@endif
 					</div>
-					<div class="sc-col-2 txt-center">
+					<div class="sc-col-2 txt-center mobile">
 						<h3 class="ttl ttl-head-2 ttl-sekunder-color">
 							Profile
 						</h3>
@@ -39,7 +39,7 @@
 							<a href="{{ route('logout') }}" 
 								onclick="event.preventDefault();
 								document.getElementById('logout-form').submit();">
-								<button class="btn btn-sekunder-color btn-focus">
+								<button class="btn btn-primary-color btn-radius btn-focus">
 									<span class="fas fa-lg fa-power-off"></span>
 									<span class="">Logout</span>
 								</button>

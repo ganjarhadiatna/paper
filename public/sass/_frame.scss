@@ -18,7 +18,7 @@
 	}
 	@media (max-width: $max-width) {
 		width: calc(100% - 15px);
-		margin: 0 0 15px 0;
+		margin: 0 0;
 	}
 	.grid {
 		&.grid-3x {
@@ -57,7 +57,6 @@
 			max-height: 400px;
 			overflow: hidden;
 			border-radius: 7.5px;
-			margin-bottom: 5px;
 			&:hover {
 				.zoom {
 					display: block;
@@ -616,6 +615,9 @@
 	.profile {
 		position: relative;
 		@include grid_2x(175px, 1fr);
+		@media (max-width: $std-width) {
+			@include grid_none();
+		}
 		.foto {
 			@include column_1();
 			margin-bottom: 20px;
@@ -723,9 +725,9 @@
 .frame-top-tag {
 	position: relative;
 
-	padding: 0 15px;
-	height: 40px;
-	line-height: 40px;
+	padding: 0 14px;
+	height: 45px;
+	line-height: 45px;
 	margin: 2.5px;
 	display: inline-block;
 
@@ -734,7 +736,7 @@
 	font-size: $txt-size-desc;
 
 	font-weight: 600;
-	border-radius: 3px;
+	border-radius: 5px;
 	&:hover {
 		color: $txt-min-color;
 	}
@@ -760,7 +762,8 @@
 	}
 	.mid {
 		.block {
-			width: 90%;
+			position: relative;
+			width: 100%;
 			margin: auto;
 			color: $txt-sek-color;
 			&.center {
@@ -926,6 +929,7 @@ $width-review: calc((1000px / 4) - 17px);
 	overflow: hidden;
 	@media (max-width: $max-width) {
 		width: calc((100% / 2) - 17px);
+		height: calc((100% / 2) - 17px);
 	}
 	.image {
 		border-radius: 7.5px;

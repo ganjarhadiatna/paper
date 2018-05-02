@@ -122,11 +122,6 @@
 							<span class="fas fa-lg fa-ellipsis-h"></span>
 						</button>
 						@if ($dt->id == Auth::id())
-							<a href="{{ url('/paper/'.$idpapers.'/designs') }}">
-								<button class="btn btn-circle btn-primary-color btn-focus" title="organized designs">
-									<span class="fas fa-lg fa-images"></span>
-								</button>
-							</a>
 							<a href="{{ url('/paper/'.$idpapers.'/edit') }}">
 								<button class="btn btn-circle btn-primary-color btn-focus" title="edit paper">
 									<span class="fas fa-lg fa-pencil-alt"></span>

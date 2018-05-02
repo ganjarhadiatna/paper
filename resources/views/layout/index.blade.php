@@ -77,17 +77,7 @@
 		function toLink(path) {
 			window.location = path;
 		}
-		function cekNotif() {
-			$.get('{{ url("/notif/cek") }}', function(data) {
-				//console.log('notif: '+data);
-				if (data != 0) {
-					$('#main-notif-sign').show();
-				} else {
-					$('#main-notif-sign').hide();
-				}
-			});
-		}
-		
+
 		function goBack() {
 			window.history.back();
 		}
@@ -131,7 +121,7 @@
 					//console.log(data);
 				})
 				.fail(function(data) {
-					console.log(data.responseJSON);
+					//console.log(data.responseJSON);
 					opAlert('open', 'There is an error, please try again.');
 				});
 			}
@@ -149,10 +139,6 @@
 
 		$(document).ready(function() {
 			var pth = "@yield('path')";
-
-			if (iduser) {
-				setInterval('cekNotif()', 3000);
-			}
 
 			$(window).scroll(function(event) {
 				var hg = $('#header').height();
@@ -239,7 +225,7 @@
 						@foreach (ProfileModel::UserSmallData(Auth::id()) as $dt)
 							<a href="{{ url('/user/'.$dt->id) }}">
 								<button class="btn-icn pp btn btn-main2-color btn-radius" id="profile">
-									<div class="image image-30px image-circle" style="background-image: url({{ asset('/profile/thumbnails/'.$dt->foto) }});" id="profile"></div>
+									<div class="image image-35px image-circle" style="background-image: url({{ asset('/profile/thumbnails/'.$dt->foto) }});" id="profile"></div>
 									<span class="username">{{ $dt->username }}</span>
 								</button>
 							</a>

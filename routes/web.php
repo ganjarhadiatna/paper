@@ -77,6 +77,7 @@ Route::middleware('auth')->group(function() {
     ->where(['idpapers' => '[0-9]+','idimage' => '[0-9]+']);
     Route::post('/design/edit', 'DesignController@edit');
     Route::post('/design/delete', 'DesignController@delete');
+    Route::post('/design/publish', 'DesignController@publishDesign');
 
     /*watch*/
     Route::post('/watch/add', 'WatchController@create');
@@ -92,8 +93,6 @@ Route::middleware('auth')->group(function() {
 
     /*notifications*/
     Route::post('/notif/story', 'NotifController@notifStory');
-    Route::post('/notif/following', 'NotifController@notifFollowing');
     Route::get('/notif/cek', 'NotifController@notifCek');
     Route::get('/notif/cek/story', 'NotifController@notifCekStory');
-    Route::get('/notif/cek/following', 'NotifController@notifCekFollowing');
 });

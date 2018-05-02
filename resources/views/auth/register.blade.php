@@ -26,7 +26,11 @@
         <div class="frame-sign">
             <div class="mid">
                 <div class="block">
-                    <div class="ctn-main-font ctn-small  ctn-center padding-20px">Register</div>
+                    <div class="padding-20px">
+                        <div class="padding-20px">
+                            <h1 class="ctn-main-font ctn-small  ctn-center padding-20px">Register</h1>
+                        </div>
+                    </div>
                 </div>
                 <div class="block center">
                     <div class="padding-bottom-10px">

@@ -26,7 +26,11 @@
         <div class="frame-sign">
             <div class="mid">
                 <div class="block">
-                    <div class="ctn-main-font ctn-small ctn-center padding-20px">Login Here</div>
+                    <div class="padding-20px">
+                        <div class="padding-20px">
+                            <h1 class="ctn-main-font ctn-small ctn-center padding-20px">Login</h1>
+                        </div>
+                    </div>
                 </div>
                 <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                     {{ csrf_field() }}

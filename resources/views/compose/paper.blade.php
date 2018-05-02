@@ -36,7 +36,7 @@
 				$('#write-story').val('');
 				opCreateStory('close');
 				close_progress();
-				window.location = '{{ url("/compose/paper/") }}'+'/'+data+'/designs';
+				window.location = '{{ url("/paper/") }}'+'/'+data;
 		   	}
 		   	//console.log(data);
 		})

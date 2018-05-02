@@ -37,12 +37,12 @@
 		<div class="top-tool">
 			<div class="grid grid-2x">
 				<div class="grid-1">
-					<div class="desc ctn-main-font">
+					<div class="desc ctn-main-font padding-5px">
 						{{ $story->description }}
 					</div>
 				</div>
 				<div class="grid-2 right">
-					<button class="icn btn btn-circle btn-primary-color btn-focus"
+					<button class="icn btn btn-circle btn-no-color btn-no-focus"
 						onclick="opPostSmallPopup('open', 'menu-popup', '{{ $story->idpapers }}', '{{ $story->id }}', '{{ $story->idimage }}')">
 						<span class="fa fa-lg fa-ellipsis-h"></span>
 					</button>

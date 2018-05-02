@@ -166,6 +166,9 @@
 			zoom: 1; /* Fix for IE7 */
 			*display: inline; /* Fix for IE7 */
 			list-style: none;
+			@media (max-width: $max-width) {
+				padding: 5px 10px;
+			}
 		}
 		li {
 			a {
@@ -489,12 +492,22 @@
 	position: relative;
 	border-radius: 5px;
 	background-color: #fff;
+	width: 500px;
+	margin: auto;
+	@media (max-width: $max-width) {
+		border-radius: 0;
+		width: 100%;
+	}
 	&.middle {
 		@include post_center();
 	}
 	.place {
-		max-height: 400px;/*calc(100vh - 100px);*/
+		max-height: calc(100vh - 100px);
 		overflow-y: auto;
+		@media (max-width: $max-width) {
+			height: calc(100vh - 60px);
+			max-height: calc(100vh - 60px);
+		}
 	}
 	.sc-header {
 		width: calc(100% - 20px);
@@ -659,9 +672,6 @@
 			padding: 15px;
 			@include column_2();
 			.block-field {
-				position: relative;	
-				width: 100%;
-				height: auto;
 				.pan {
 					height: 20px;
 					font-size: 12px;
@@ -678,6 +688,12 @@
 				.edit-text {
 					min-height: 85px;
 					max-height: 85px;
+				}
+				.label-image {
+					position: relative;
+					width: 100px;
+					height: 100px;
+					display: block;
 				}
 			}
 			.place-button {

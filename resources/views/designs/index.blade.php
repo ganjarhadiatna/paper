@@ -150,7 +150,7 @@
 						onclick="opPostSmallPopup('open', 'menu-popup', '{{ $idpapers }}', '{{ $paper->id }}', '{{ $idimage }}')">
 						<span class="fas fa-lg fa-ellipsis-h"></span>
 					</button>
-					<button class="btn btn-circle btn-primary-color" onclick="pictZoom({{ $idimage }})">
+					<button class="btn btn-circle btn-primary-color mobile" onclick="pictZoom({{ $idimage }})">
 						<span class="fas fa-lg fa-search-plus"></span>
 					</button>
 					@if ($paper->id == Auth::id())
@@ -290,8 +290,8 @@
 </div>
 @endforeach
 <div class="col-full">
-	<div class="padding-20px">
-		<div class="ctn-main-font ctn-small ctn-sek-color ctn-bold ctn-center">Related Designs</div>
+	<div class="padding-10px">
+		<h2 class="ctn-main-font ctn-small ctn-sek-color ctn-bold ctn-center">Related Designs</h2>
 	</div>
 </div>
 <div class="padding-20px">

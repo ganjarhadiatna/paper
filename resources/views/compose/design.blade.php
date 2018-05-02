@@ -4,81 +4,64 @@
 @section('content')
 <script type="text/javascript">
 	var server = '{{ url("/") }}';
+	function loadCover() {
+		var OFReader = new FileReader();
+		OFReader.readAsDataURL(document.getElementById("get-image").files[0]);
+		OFReader.onload = function (oFREvent) {
+			$("#review-design").css({'background-image': 'url('+oFREvent.target.result+')'}).html('');
+		}
+	}
 	function publish() {
 		var fd = new FormData();
-		var idimage = $('#id-design').val();
+		var image = $('#get-image')[0].files[0];
+		var idpapers = $('#id-paper').val();
 		var content = $('#write-design').val();
 		var tags = $('#tags-design').val();
+		if (!image) {
+			opAlert('open', "Please browse your design first.");
+		} else if (idpapers === '') {
+			opAlert('open', "Please choose your paper first.");
+		} else {
+			fd.append('image', image);
+			fd.append('idpapers', idpapers);
+			fd.append('content', content);
+			fd.append('tags', tags);
+			$.each($('#form-publish').serializeArray(), function(a, b) {
+				fd.append(b.name, b.value);
+			});
 
-		fd.append('idimage', idimage);
-		fd.append('content', content);
-		fd.append('tags', tags);
-		$.each($('#form-publish').serializeArray(), function(a, b) {
-		   	fd.append(b.name, b.value);
-		});
-
-		$.ajax({
-		  	url: '{{ url("/design/edit") }}',
-			data: fd,
-			processData: false,
-			contentType: false,
-			type: 'post',
-			beforeSend: function() {
-				open_progress('Updating your design...');
-			}
-		})
-		.done(function(data) {
-		   	if (data == 'failed') {
-		   		opAlert('open', 'failed to saving design, your design still the same with previous content.\
-                   To fix problem try with edit content design.');
-		   		close_progress();
-		   	} else {
+			$.ajax({
+				url: '{{ url("/design/publish") }}',
+				data: fd,
+				processData: false,
+				contentType: false,
+				type: 'post',
+				beforeSend: function() {
+					open_progress('Publishing your design...');
+				}
+			})
+			.done(function(data) {
+				if (data == 'no-image') {
+					opAlert('open', "Please browse your design first.");
+				} else if (data == 'no-paper') {
+					opAlert('open', "You dont have to access this paper.");
+				} else if (data == 'no-save') {
+					opAlert('open', "Failed to publish, please try again.");
+				} else {
+					window.location = server+'/paper/'+idpapers+'/design/'+data;
+				}
+				//console.log(data);
+			})
+			.fail(function(data) {
+				opAlert('open', "there is an error, please try again.");
+				console.log(data.responseJSON);
+			})
+			.always(function() {
 				close_progress();
-		   	}
-		   	//console.log(data);
-		})
-		.fail(function(data) {
-		  	opAlert('open', "there is an error, please try again.");
-			console.log(data.responseJSON);
-		})
-		.always(function() {
-			close_progress();
-		});
+			});
+		}
 
 		return false;
-	}
-	function delImage(idimage) {
-		$.ajax({
-	    	url: '{{ url("/paper/image/delete") }}',
-			data: {'idimage':idimage},
-			type: 'post',
-			beforeSend: function() {
-				opQuestion('hide');
-				open_progress('Deleting your design...');
-			}
-	    })
-	    .done(function(data) {
-			if (data == 1) {
-				opAlert('open', 'Design has been deleted, please refresh to take effect.');
-			} else if (data == 22) {
-				opAlert('open', 'Failed to delete, please check your file.');
-			} else if (data == 99) {
-				opAlert('open', 'Failed to delete, please try again later.');
-			} else {
-				opAlert('open', 'There is an erro, please try again.');
-			}
-			//console.log(data);
-	    })
-	    .fail(function(data) {
-	    	opAlert('open', 'We can not delete your picture, please try again.');
-			//console.log(data.responseJSON);
-	    })
-		.always(function() {
-			close_progress();
-		});
-	}
-	function opQuestionDesign(idimage) {
-		opQuestion('open','Are you sure you want to delete this design ?', 'delImage("'+idimage+'")');
 	}
     function opPaper(stt) {
         if (stt == 'open') {
@@ -88,6 +71,8 @@
         }
     }
 	$(document).ready(function() {
+		$('#id-paper').val('');
+		$('#get-image').val('');
 		$('#progressbar').progressbar({
 			value: false,
 		});
@@ -96,11 +81,22 @@
 			$('#desc-lg').html(length);
 		});
         $('.frame-small-paper').on('click', function(e) {
+			var id = $(this).attr('key');
+			var cover = $('#frame-small-paper-'+id).find('.grid-1').attr('style');
+			var title = $('#frame-small-paper-'+id).find('.grid-2').find('.ttl').attr('key');
+
             $('#place-paper').each(function () {
                 $('.frame-small-paper').removeClass('selected');
             });
             $(this).addClass('selected');
             $('#paper-popup').hide();
+			if (cover) {
+				$('#cover-paper').attr({'style': cover}).html('');
+			} else {
+				$('#cover-paper').attr({'style': ''}).html('<span class="icn fa fa-lg fa-th-large"></span>');
+			}
+			$('#title-paper').html(title);
+			$('#id-paper').val(id);
         });
 	});
 </script>
@@ -142,13 +138,20 @@
 							</div>
 							<div class="place-design">
 								<div class="block-field">
-									<input 
-                                        type="text" 
-                                        name="image" 
-                                        id="image-design" 
-                                        class="tg txt txt-main-color txt-box-shadow" 
-                                        placeholder="Design"
-										value="">
+									<input type="file" 
+										name="get-image" 
+										accept="image/*" 
+										class="hide-input-file" 
+										id="get-image" 
+										onchange="loadCover()">
+									<label for="get-image" class="label-image">
+										<div class="image image-100px image-radius image-pointer" id="review-design">
+											<span class="icn fa fa-lg fa-image"></span>
+										</div>
+									</label>
+								</div>
+								<div class="ctn-main-font ctn-sek-color ctn-thin ctn-12px padding-top-10px">
+									Click it to change or upload new design.
 								</div>
 							</div>
                         </div>
@@ -159,13 +162,17 @@
 									<p class="ttl">Paper</p>
 								</div>
 							</div>
+							<div class="ctn-main-font ctn-sek-color ctn-thin ctn-12px padding-bottom-10px">
+									If you don't have paper, please create it first.
+								</div>
 							<div class="select place-paper" id="selected-paper">
+								<input type="hidden" name="id-paper" id="id-paper" required="true">
                                 <div class="main-select" onclick="opPaper('open')">
-                                    <div class="grid-1 image image-40px image-radius">
+                                    <div class="grid-1 image image-40px image-radius" id="cover-paper">
                                         <span class="icn fa fa-lg fa-th-large"></span>
                                     </div>
                                     <div class="grid-2">
-                                        <div class="ttl ctn-main-font ctn-14px ctn-sek-color ctn-bold">
+                                        <div class="ttl ctn-main-font ctn-14px ctn-sek-color ctn-bold" id="title-paper">
                                             Choose Paper
                                         </div>
                                     </div>
@@ -221,7 +228,7 @@
 	</div>
 </form>
 <div class="content-popup" id="paper-popup">
-    <div class="place-select col-700px middle">
+    <div class="place-select middle">
         <div class="sc-header">
             <div class="sc-place">
                 <div>
@@ -242,8 +249,14 @@
             </div>
         </div>
         <div class="place" id="place-paper">
+		@if (count($papers) == 0)
+			<div class="frame-empty">
+				<div class="icn fa fa-lg fa-thermometer-empty btn-main-color"></div>
+				<div class="ttl padding-15px">Paper empty</div>
+			</div>
+		@else
             @foreach ($papers as $pp)
-                <div class="frame-small-paper" key="{{ $pp->idpapers }}">
+                <div class="frame-small-paper" id="frame-small-paper-{{ $pp->idpapers }}" key="{{ $pp->idpapers }}">
                     @if (!is_null($pp->cover))
                         <div class="grid-1 image image-40px image-radius"
                             style="background-image: url({{ asset('/story/thumbnails/'.$pp->cover) }})"></div>
@@ -253,7 +266,7 @@
                         </div>
                     @endif
                     <div class="grid-2">
-                        <div class="ttl ctn-main-font ctn-14px ctn-sek-color ctn-bold">
+                        <div class="ttl ctn-main-font ctn-14px ctn-sek-color ctn-bold" key="{{ $pp->title }}">
                             {{ $pp->title }}
                         </div>
                     </div>
@@ -264,6 +277,7 @@
                     </div>
                 </div>
             @endforeach
+		@endif
         </div>
     </div>
 </div>
