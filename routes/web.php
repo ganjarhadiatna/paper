@@ -68,7 +68,7 @@ Route::middleware('auth')->group(function() {
     Route::post('/paper/publish', 'PaperController@publish');
 
     Route::get('/paper/{idstory}/edit', 'PaperController@paperEdit');
-    Route::get('/paper/{idstory}/designs', 'ComposeController@composeDesign');
+    Route::get('/paper/{idstory}/designs', 'ComposeController@composePaperDesign');
 
     Route::post('/paper/edit', 'PaperController@edit');
     Route::post('/paper/delete', 'PaperController@delete');
