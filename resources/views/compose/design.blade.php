@@ -80,7 +80,7 @@
 			var length = $(this).val().length;
 			$('#desc-lg').html(length);
 		});
-        $('.frame-small-paper').on('click', function(e) {
+        $('.paper-list').on('click', function(e) {
 			var id = $(this).attr('key');
 			var cover = $('#frame-small-paper-'+id).find('.grid-1').attr('style');
 			var title = $('#frame-small-paper-'+id).find('.grid-2').find('.ttl').attr('key');
@@ -256,7 +256,7 @@
 			</div>
 		@else
             @foreach ($papers as $pp)
-                <div class="frame-small-paper" id="frame-small-paper-{{ $pp->idpapers }}" key="{{ $pp->idpapers }}">
+                <div class="frame-small-paper paper-list" id="frame-small-paper-{{ $pp->idpapers }}" key="{{ $pp->idpapers }}">
                     @if (!is_null($pp->cover))
                         <div class="grid-1 image image-40px image-radius"
                             style="background-image: url({{ asset('/story/thumbnails/'.$pp->cover) }})"></div>
@@ -278,6 +278,23 @@
                 </div>
             @endforeach
 		@endif
+		</div>
+		<div>
+			<div class="frame-small-paper">
+				<div class="grid-1">
+					<a href="{{ url('/compose/paper') }}">
+						<button class="chk btn btn-circle btn-main-color" type="button">
+							<span class="fa fa-lg fa-plus"></span>
+						</button>
+					</a>
+				</div>
+				<div class="grid-2">
+					<div class="ttl ctn-main-font ctn-14px ctn-sek-color ctn-bold">
+						Create Paper
+					</div>
+				</div>
+				<div class="grid-3"></div>
+            </div>
         </div>
     </div>
 </div>

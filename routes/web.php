@@ -61,14 +61,12 @@ Route::middleware('auth')->group(function() {
     Route::get('/compose', 'ComposeController@composeDesign');
     Route::get('/compose/design', 'ComposeController@composeDesign');
     Route::get('/compose/paper', 'ComposeController@composePaper');
-    Route::get('/compose/paper/{idpapers}/designs', 'ComposeController@composePaperDesign');
     
     Route::post('/paper/image/upload', 'DesignController@publish');
     Route::post('/paper/image/delete', 'DesignController@delete');
     Route::post('/paper/publish', 'PaperController@publish');
 
-    Route::get('/paper/{idstory}/edit', 'PaperController@paperEdit');
-    Route::get('/paper/{idstory}/designs', 'ComposeController@composePaperDesign');
+    Route::get('/paper/{idpapers}/edit', 'PaperController@paperEdit');
 
     Route::post('/paper/edit', 'PaperController@edit');
     Route::post('/paper/delete', 'PaperController@delete');

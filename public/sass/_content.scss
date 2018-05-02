@@ -502,11 +502,11 @@
 		@include post_center();
 	}
 	.place {
-		max-height: calc(100vh - 100px);
+		max-height: calc(100vh - 150px);
 		overflow-y: auto;
 		@media (max-width: $max-width) {
-			height: calc(100vh - 60px);
-			max-height: calc(100vh - 60px);
+			height: calc(100vh - 130px);
+			max-height: calc(100vh - 130px);
 		}
 	}
 	.sc-header {

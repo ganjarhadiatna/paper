@@ -884,8 +884,8 @@
 		.grid-3 {
 			.chk {
 				display: block;
-				background-color: $min-color;
-				color: $sek-color;
+				background-color: rgba(0,0,0,0);
+				color: $min-color;
 			}
 		}
 	}

@@ -20,15 +20,13 @@
 <div class="add-menu" id="add-menu">
     <ul>
         <a href="{{ url('/compose/design') }}">
-            <li>
-                <span class="icn fas fa-lg fa-plus"></span>
+            <li class="bdr-bottom">
                 <span class="ttl">Add Design</span>
             </li>
         </a>
         <a href="{{ url('/compose/paper') }}">
-            <li class="bdr-bottom">
-                <span class="icn fas fa-lg fa-plus"></span>
-                <span class="ttl">Add Paper</span>
+            <li>
+                <span class="ttl">Create Paper</span>
             </li>
         </a>
     </ul>
