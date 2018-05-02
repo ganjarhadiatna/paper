@@ -327,6 +327,57 @@
 				.block-field {
 					position: relative;
 					width: 100%;
+					.select {
+						position: relative;
+						width: 100%;
+						height: 60px;
+						overflow: hidden;
+						border-radius: 5px;
+						border: 1px rgba(0,0,0,0.1) solid;
+						.main-select {
+							position: relative;
+							width: calc(100% - 20px);
+							padding: 10px;
+							@include grid_3x(55px, 1fr, 40px);
+							border-radius: 5px;
+							&:hover {
+								background-color: #f0f0f0;
+								cursor: pointer;
+								.grid-3 {
+									.chk {
+										display: block;
+									}
+								}
+							}
+							&.selected {
+								.grid-3 {
+									.chk {
+										display: block;
+										background-color: $min-color;
+										color: $sek-color;
+									}
+								}
+							}
+							.grid-1 {
+								@include column_1();
+							}
+							.grid-2 {
+								@include column_2();
+								.ttl {
+									@include post_top();
+								}
+							}
+							.grid-3 {
+								@include column_3();
+								.chk {
+									display: none;
+								}
+								.btn {
+									@include post_top();
+								}
+							}
+						}
+					}
 					.pan {
 						position: relative;
 						width: 100%;
@@ -431,6 +482,23 @@
 				margin-left: 15px;
 			}
 		}
+	}
+}
+
+.place-select {
+	position: relative;
+	border-radius: 5px;
+	background-color: #fff;
+	&.middle {
+		@include post_center();
+	}
+	.place {
+		max-height: 400px;/*calc(100vh - 100px);*/
+		overflow-y: auto;
+	}
+	.sc-header {
+		width: calc(100% - 20px);
+		padding: 0 10px;
 	}
 }
 

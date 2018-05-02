@@ -244,14 +244,12 @@
 								</button>
 							</a>
 						@endforeach
-						<a href="{{ url('/compose') }}">
-							<button class="create btn btn-main-color" key="hide">
-								<span class="fas fa-lg fa-plus"></span>
-								<span>Create Paper</span>
-							</button>
-						</a>
+						<button class="create btn btn-circle btn-main-color" key="hide" id="op-add">
+							<span class="fas fa-lg fa-plus"></span>
+						</button>
 					@endif
 				</div>
+				@include('main.add-menu')
 				@include('main.collections')
 				@include('main.notifications')
 			</div>

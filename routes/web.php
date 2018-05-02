@@ -58,9 +58,10 @@ Route::middleware('auth')->group(function() {
     Route::post('/save/password', 'ProfileController@savePassword');
 
     /*compose*/
-    Route::get('/compose', 'ComposeController@composePaper');
+    Route::get('/compose', 'ComposeController@composeDesign');
+    Route::get('/compose/design', 'ComposeController@composeDesign');
     Route::get('/compose/paper', 'ComposeController@composePaper');
-    Route::get('/compose/paper/{idpapers}/designs', 'ComposeController@composeDesign');
+    Route::get('/compose/paper/{idpapers}/designs', 'ComposeController@composePaperDesign');
     
     Route::post('/paper/image/upload', 'DesignController@publish');
     Route::post('/paper/image/delete', 'DesignController@delete');

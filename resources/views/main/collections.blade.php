@@ -42,7 +42,7 @@
 				Collections
 			</div>
 			<div class="grid-2">
-				<button class="btn btn-circle btn-primary-color" id="close-collect">
+				<button class="btn btn-circle btn-primary-color desktop" id="close-collect">
 					<span class="fa fa-lg fa-times"></span>
 				</button>
 			</div>

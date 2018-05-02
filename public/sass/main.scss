@@ -140,6 +140,12 @@ a {
 	&.ctn-thin {
 		font-weight: 500;
 	}
+	&.ctn-middle {
+		@include post_top();
+	}
+	&.ctn-center {
+		@include post_center();
+	}
 }
 
 /*header*/
