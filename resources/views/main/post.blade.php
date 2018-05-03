@@ -18,15 +18,13 @@
 					<div class="grid-1">
 						<button 
 							class="icn btn btn-circle btn-black-color btn-no-focus" 
-							onclick="pictZoom({{ $story->idimage }})"
-							style="float: left; margin-right: 5px;">
+							onclick="pictZoom({{ $story->idimage }})">
 							<span class="fas fa-lg fa-search-plus"></span>
 						</button>
 						@if ($story->id == Auth::id())
 							<a href="{{ url('/paper/'.$story->idpapers.'/design/'.$story->idimage.'/edit') }}">
 								<button 
-									class="icn btn btn-circle btn-black-color btn-no-focus"
-									style="margin-right: 5px;">
+									class="icn btn btn-circle btn-black-color btn-no-focus">
 									<span class="fas fa-lg fa-pencil-alt"></span>
 								</button>
 							</a>

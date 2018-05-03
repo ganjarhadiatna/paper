@@ -12,47 +12,50 @@
 		var review = '\
 		<div class="frame-post">\
 			<div class="mid">\
-				<div class="bot-tool">\
-					<div class="nts">\
-						<button class="zoom btn btn-circle btn-sekunder-color btn-no-border"\
-						onclick="pictZoom('+idimage+')">\
-							<span class="fas fa-lg fa-search-plus"></span>\
-						</button>\
-						<a href="'+srv_design_edit+'">\
-							<button class="zoom btn btn-circle btn-sekunder-color btn-no-border">\
-								<span class="fas fa-lg fa-pencil-alt"></span>\
+				<div class="mid-tool">\
+					<div class="bot-tool">\
+						<div class="nts"></div>\
+						<div class="bok">\
+							<button class="btn btn-main-color btn-no-border" key="'+idimage+'" onclick="addBookmark('+idimage+')">\
+								<span class="bookmark-'+idimage+' far fa-lg fa-bookmark" id="bookmark-'+idimage+'"></span>\
 							</button>\
+						</div>\
+					</div>\
+					<div class="oth-tool">\
+						<div class="grid grid-2x">\
+							<div class="grid-1">\
+								<button class="icn btn btn-circle btn-black-color btn-no-focus"\
+									onclick="pictZoom('+idimage+')">\
+									<span class="fas fa-lg fa-search-plus"></span>\
+								</button>\
+								<a href="'+srv_design_edit+'">\
+									<button class="icn btn btn-circle btn-black-color btn-no-focus">\
+										<span class="fas fa-lg fa-pencil-alt"></span>\
+									</button>\
+								</a>\
+							</div>\
+							<div class="grid-2 right">\
+								<button class="icn btn btn-circle btn-black-color btn-no-focus"\
+									onclick="opPostSmallPopup('+"'open'"+', '+"'menu-popup'"+', '+idpapers+', '+id+', '+idimage+')">\
+									<span class="fa fa-lg fa-ellipsis-h"></span>\
+								</button>\
+							</div>\
+						</div>\
+					</div>\
+					<div>\
+						<a href="'+srv_design+'">\
+							<div class="cover"></div>\
+							<img src="'+url+'"\
+							alt="pict"\
+							id="pict-'+idimage+'"\
+							key="'+idpapers+'">\
 						</a>\
 					</div>\
-					<div class="bok">\
-						<button class="btn btn-main-color btn-no-border" key="'+idimage+'" onclick="addBookmark('+idimage+')">\
-							<span class="bookmark-'+idimage+' far fa-lg fa-bookmark" id="bookmark-'+idimage+'"></span>\
-						</button>\
-					</div>\
-				</div>\
-				<div class="mid-tool">\
-					<a href="'+srv_design+'">\
-						<div class="cover"></div>\
-						<img src="'+url+'"\
-						alt="pict"\
-						id="pict-'+idimage+'"\
-						key="'+idpapers+'">\
-					</a>\
 				</div>\
 			</div>\
 			<div class="mid">\
 				<div class="top-tool">\
-					<div class="grid grid-2x">\
-						<div class="grid-1">\
-							<div class="desc ctn-main-font"></div>\
-						</div>\
-						<div class="grid-2 right">\
-							<button class="icn btn btn-circle btn-primary-color btn-focus"\
-								onclick="opPostSmallPopup('+"'open'"+', '+"'menu-popup'"+', '+idpapers+', '+id+', '+idimage+')">\
-								<span class="fa fa-lg fa-ellipsis-h"></span>\
-							</button>\
-						</div>\
-					</div>\
+					<div class="desc ctn-main-font"></div>\
 				</div>\
 			</div>\
 		</div>';
