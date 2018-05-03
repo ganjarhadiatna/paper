@@ -15,6 +15,12 @@
 				opacity: 0;
 			}
 		}
+		.oth-tool {
+			opacity: 1;
+			@media (max-width: $max-width) {
+				opacity: 0;
+			}
+		}
 	}
 	@media (max-width: $max-width) {
 		width: calc(100% - 15px);
@@ -93,6 +99,7 @@
 		bottom: 10px;
 		width: calc(100% - 10px);
 		padding: 0 5px;
+		opacity: 0;
 		.icn {
 			z-index: 2;
 			width: 30px;
@@ -108,7 +115,6 @@
 		width: calc(100% - 10px);
 		padding: 0 5px;
 		opacity: 0;
-		cursor: pointer;
 		@include grid_2x(1fr, 45px);
 		.nts {
 			@include column_1();
