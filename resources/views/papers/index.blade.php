@@ -14,7 +14,8 @@
 			<div class="mid">\
 				<div class="bot-tool">\
 					<div class="nts">\
-						<button class="zoom btn btn-circle btn-sekunder-color btn-no-border" onclick="pictZoom('+image+')">\
+						<button class="zoom btn btn-circle btn-sekunder-color btn-no-border"\
+						onclick="pictZoom('+idimage+')">\
 							<span class="fas fa-lg fa-search-plus"></span>\
 						</button>\
 						<a href="'+srv_design_edit+'">\

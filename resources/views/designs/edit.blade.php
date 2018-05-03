@@ -7,10 +7,12 @@
 	function publish() {
 		var fd = new FormData();
 		var idimage = $('#id-design').val();
+		var idpaper = $('#id-paper').val();
 		var content = $('#write-design').val();
 		var tags = $('#tags-design').val();
 
 		fd.append('idimage', idimage);
+		fd.append('idpaper', idpaper);
 		fd.append('content', content);
 		fd.append('tags', tags);
 		$.each($('#form-publish').serializeArray(), function(a, b) {
@@ -34,7 +36,8 @@
 		   		close_progress();
 		   	} else {
 				close_progress();
-				window.location = server+'/paper/{{ $idpapers }}/design/{{ $idimage }}';
+				//window.location = server+'/paper/{{ $idpapers }}/design/{{ $idimage }}';
+				goBack();
 		   	}
 		   	//console.log(data);
 		})
@@ -82,7 +85,15 @@
 	function opQuestionDesign(idimage) {
 		opQuestion('open','Are you sure you want to delete this design ?', 'delImage("'+idimage+'")');
 	}
+	function opPaper(stt) {
+        if (stt == 'open') {
+            $('#paper-popup').show();
+        } else {
+            $('#paper-popup').hide();
+        }
+    }
 	$(document).ready(function() {
+		$('#id-paper').val('');
 		$('#progressbar').progressbar({
 			value: false,
 		});
@@ -90,6 +101,24 @@
 			var length = $(this).val().length;
 			$('#desc-lg').html(length);
 		});
+		$('.paper-list').on('click', function(e) {
+			var id = $(this).attr('key');
+			var cover = $('#frame-small-paper-'+id).find('.grid-1').attr('style');
+			var title = $('#frame-small-paper-'+id).find('.grid-2').find('.ttl').attr('key');
+
+            $('#place-paper').each(function () {
+                $('.frame-small-paper').removeClass('selected');
+            });
+            $(this).addClass('selected');
+            $('#paper-popup').hide();
+			if (cover) {
+				$('#cover-paper').attr({'style': cover}).html('');
+			} else {
+				$('#cover-paper').attr({'style': ''}).html('<span class="icn fa fa-lg fa-th-large"></span>');
+			}
+			$('#title-paper').html(title);
+			$('#id-paper').val(id);
+        });
 	});
 </script>
 @foreach ($getImage as $ds)
@@ -133,6 +162,21 @@
 						<div class="block-field">
 							<div class="pan">
 								<div class="left">
+									<p class="ttl">Design</p>
+								</div>
+							</div>
+							<div class="place-design">
+								<div class="block-field">
+									<div 
+										class="image image-100px image-radius image-pointer"
+										style="background-image: url({{ asset('/story/thumbnails/'.$image) }})"></div>
+								</div>
+							</div>
+                        </div>
+						<div class="padding-5px"></div>
+						<div class="block-field">
+							<div class="pan">
+								<div class="left">
 									<p class="ttl">Descriptions</p>
 								</div>
 								<div class="right">
@@ -147,6 +191,39 @@
                                 class="txt edit-text txt-main-color txt-box-shadow ctn ctn-main ctn-sans-serif" 
                                 maxlength="250"><?php echo $ds->description; ?></textarea>
 						</div>
+						<div class="padding-5px"></div>
+						<div class="block-field">
+						@foreach ($selectedPaper as $pp)
+							<div class="pan">
+								<div class="left">
+									<p class="ttl">Paper</p>
+								</div>
+							</div>
+							<div class="ctn-main-font ctn-sek-color ctn-thin ctn-12px padding-bottom-10px">
+								Move to other paper.
+							</div>
+							<div class="select place-paper" id="selected-paper">
+								<input type="hidden" name="id-paper" id="id-paper" required="true" value="{{ $pp->idpapers }}">
+                                <div class="main-select" onclick="opPaper('open')">
+                                    <div 
+										class="grid-1 image image-40px image-radius" 
+										id="cover-paper"
+										style="background-image: url({{ asset('/story/thumbnails/'.$pp->cover) }})">
+                                    </div>
+                                    <div class="grid-2">
+                                        <div class="ttl ctn-main-font ctn-14px ctn-sek-color ctn-bold" id="title-paper">
+                                            {{ $pp->title }}
+                                        </div>
+                                    </div>
+                                    <div class="grid-3">
+                                        <button class="btn btn-circle btn-primary-color" type="button" onclick="opPaper('open')">
+                                            <span class="fa fa-lg fa-arrow-right"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+						@endforeach
+                        </div>
 						<div class="padding-5px"></div>
 						<div class="block-field">
 							<div class="pan">
@@ -173,4 +250,5 @@
 	</div>
 </form>
 @endforeach
+@include('main.paper-list')
 @endsection

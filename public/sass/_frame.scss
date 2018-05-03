@@ -21,6 +21,8 @@
 		margin: 0 0;
 	}
 	.grid {
+		position: relative;
+		width: 100%;
 		&.grid-3x {
 			@include grid_3x(45px, 1fr, 45px);
 		}
@@ -54,9 +56,9 @@
 		}
 		.mid-tool {
 			position: relative;
-			max-height: 400px;
 			overflow: hidden;
 			border-radius: 7.5px;
+			margin-bottom: 2.5px;
 			&:hover {
 				.zoom {
 					display: block;
@@ -86,15 +88,28 @@
 			}
 		}
 	}
+	.oth-tool {
+		position: absolute;
+		bottom: 10px;
+		width: calc(100% - 10px);
+		padding: 0 5px;
+		.icn {
+			z-index: 2;
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			font-size: 12px;
+		}
+	}
 	.bot-tool {
 		position: absolute;
-		top: 10px;
+		top: 5px;
 		left: 0;
-		width: calc(100% - 25px);
-		padding: 5px 12.5px;
+		width: calc(100% - 10px);
+		padding: 0 5px;
 		opacity: 0;
 		cursor: pointer;
-		@include grid_2x(1fr, 1fr);
+		@include grid_2x(1fr, 45px);
 		.nts {
 			@include column_1();
 			.icn {

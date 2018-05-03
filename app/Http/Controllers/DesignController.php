@@ -80,6 +80,9 @@ class DesignController extends Controller
         if (is_int($check)) {
 			$getImage = DesignModel::GetDetailDesign($idimage);
 			$restTags = TagModel::GetTags($idimage,'design');
+			$papers = PaperModel::UserSmallPaper($id);
+			$selectedPaper = PaperModel::UserSelectedPaper($id, $idpapers);
+			$image = DesignModel::GetDesign($idimage);
             $temp = [];
             foreach ($restTags as $tag) {
                 array_push($temp, $tag->tag);
@@ -91,7 +94,10 @@ class DesignController extends Controller
 				'idpapers' => $idpapers,
 				'idimage' => $idimage,
 				'getImage' => $getImage,
-				'tags' => $tags
+				'image' => $image,
+				'tags' => $tags,
+				'papers' => $papers,
+				'selectedPaper' => $selectedPaper
 			]);
 		} else {
 			return view('main.denied', [
@@ -218,11 +224,13 @@ class DesignController extends Controller
 	function edit(Request $request)
 	{
 		$id = Auth::id();
+		$idpaper = $request['idpaper'];
 		$idimage = $request['idimage'];
 		$description = $request['content'];
 		$data = array(
 			'idimage' => $idimage,
-			'description' => $description
+			'description' => $description,
+			'idpapers' => $idpaper
 		);
 		$rest = DesignModel::EditDesign($idimage, $id, $data);
 		if (is_int($rest)) {

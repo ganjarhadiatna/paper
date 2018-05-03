@@ -132,6 +132,19 @@ class PaperModel extends Model
         ->orderBy('papers.title','asc')
         ->get();
     }
+    function scopeUserSelectedPaper($query, $id, $idpapers)
+    {
+        return DB::table('papers')
+        ->select(
+            'papers.idpapers',
+            'papers.title',
+            DB::raw('(select image.image from image where image.idpapers = papers.idpapers limit 1 offset 0) as cover')
+        )
+        ->where('papers.id', $id)
+        ->where('papers.idpapers', $idpapers)
+        ->orderBy('papers.title','asc')
+        ->get();
+    }
     function scopeDetailPaper($query, $limit, $id)
     {
         return DB::table('papers')

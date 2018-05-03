@@ -353,7 +353,7 @@ class DesignModel extends Model
         ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
         ->where('papers.id', $iduser)
-        ->orderBy('papers.idpapers', 'desc')
+        ->orderBy('image.idimage', 'desc')
         ->paginate($limit);
     }
     function scopePagImagePaper($query, $limit, $idpapers)
