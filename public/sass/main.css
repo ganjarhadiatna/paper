@@ -2299,8 +2299,11 @@ a {
   height: 60px;
   background-color: #fff; }
   @media (max-width: 768px) {
-    #header {
+    #header.hed-mobile {
       height: 100px; } }
+  @media (max-width: 768px) {
+    #header {
+      height: 45px; } }
   #header .place {
     position: fixed;
     top: 0;
@@ -2360,12 +2363,17 @@ a {
         text-align: left; }
         @media (max-width: 768px) {
           #header .place .menu .mid {
+            display: none; } }
+        @media (max-width: 768px) {
+          #header .place .menu .mid.mid-mobile {
             position: fixed;
             top: 60px;
             left: 0;
             width: calc(100% - 20px);
             padding: 7.5px 10px;
-            background-color: #fff; } }
+            background-color: #fff;
+            z-index: 100;
+            display: block; } }
         #header .place .menu .mid .main-search {
           width: 450px;
           height: 45px;

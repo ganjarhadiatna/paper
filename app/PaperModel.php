@@ -163,13 +163,14 @@ class PaperModel extends Model
             DB::raw('(select count(image.idimage) from image where image.idpapers = papers.idpapers) as ttl_image'),
             DB::raw('(select count(watchs.idwatchs) from watchs where watchs.idpapers = papers.idpapers) as ttl_watch')
         )
-        ->join('users','users.id', '=', 'papers.id')
+        ->join('users','users.id', '=', 'papers.id')    
         ->where('papers.id', $id)
         ->orderBy('papers.title','asc')
         ->paginate($limit);
     }
     function scopeTagPaper($query, $ctr, $limit)
     {
+        $searchValues = preg_split('/\s+/', $ctr, -1, PREG_SPLIT_NO_EMPTY);
         return DB::table('papers')
         ->select(
             'papers.idpapers',
@@ -186,11 +187,21 @@ class PaperModel extends Model
             DB::raw('(select count(image.idimage) from image where image.idpapers = papers.idpapers) as ttl_image'),
             DB::raw('(select count(watchs.idwatchs) from watchs where watchs.idpapers = papers.idpapers) as ttl_watch')
         )
-        ->join('tags','tags.idtarget', '=', 'papers.idpapers')
         ->join('users','users.id', '=', 'papers.id')
-        ->where('tags.type', 'paper')
+        ->leftJoin('tags','tags.idtarget', '=', 'papers.idpapers')
         ->where('tags.tag', 'like', '%'.$ctr.'%')
-        ->orderBy('tags.idtags', 'desc')
+        ->orWhere('papers.title','like',"%$ctr%")
+        ->orWhere('papers.description','like',"%$ctr%")
+        ->orWhere('users.name','like',"%$ctr%")
+        ->orWhere(function ($q) use ($searchValues)
+        {
+            foreach ($searchValues as $value) {
+                $q->orWhere('papers.title','like',"%$value%");
+                $q->orWhere('papers.description','like',"%$value%");
+            }
+        })
+        ->orderBy('papers.idpapers', 'desc')
+        ->groupBy('papers.idpapers')
         ->paginate($limit);
     }
 }

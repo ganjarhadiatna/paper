@@ -183,7 +183,8 @@ class DesignModel extends Model
             'users.username',
             'users.visitor',
             'users.foto',
-            DB::raw('(select count(comment.idcomment) from comment where comment.idimage = image.idimage) as ttl_comment'),
+            DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_bookmark'),
+            DB::raw('(select (count(comment.idcomment) + ttl_bookmark + image.views)/3 from comment where comment.idimage = image.idimage) as ttl_comment'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
         ->join('papers','papers.idpapers', '=', 'image.idpapers')
@@ -247,14 +248,19 @@ class DesignModel extends Model
         )
         ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
-        ->where('papers.description','like',"%$ctr%")
+        ->orWhere('papers.title','like',"%$ctr%")
+        ->orWhere('papers.description','like',"%$ctr%")
+        ->orWhere('image.description','like',"%$ctr%")
         ->orWhere('users.name','like',"%$ctr%")
         ->orWhere(function ($q) use ($searchValues)
         {
             foreach ($searchValues as $value) {
+                $q->orWhere('papers.title','like',"%$value%");
                 $q->orWhere('papers.description','like',"%$value%");
+                $q->orWhere('image.description','like',"%$value%");
             }
         })
+        ->orderBy('image.idimage', 'desc')
         ->paginate($limit);
     }
     function scopePagTagDesign($query, $ctr, $limit)
@@ -264,9 +270,9 @@ class DesignModel extends Model
         } else {
             $id = 0;
         }
+        $searchValues = preg_split('/\s+/', $ctr, -1, PREG_SPLIT_NO_EMPTY);
         return DB::table('image')
         ->select(
-            'tags.idtags',
             'image.idimage',
             'image.image as cover',
             'image.description',
@@ -282,12 +288,24 @@ class DesignModel extends Model
             DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
             DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
         )
-        ->join('tags','tags.idtarget', '=', 'image.idimage')
         ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
-        ->where('tags.type', 'design')
+        ->leftJoin('tags','tags.idtarget', '=', 'image.idimage')
         ->where('tags.tag', 'like', '%'.$ctr.'%')
-        ->orderBy('tags.idtags', 'desc')
+        ->orWhere('papers.title','like',"%$ctr%")
+        ->orWhere('papers.description','like',"%$ctr%")
+        ->orWhere('image.description','like',"%$ctr%")
+        ->orWhere('users.name','like',"%$ctr%")
+        ->orWhere(function ($q) use ($searchValues)
+        {
+            foreach ($searchValues as $value) {
+                $q->orWhere('image.description','like',"%$value%");
+                $q->orWhere('papers.title','like',"%$value%");
+                $q->orWhere('papers.description','like',"%$value%");
+            }
+        })
+        ->orderBy('image.idimage', 'desc')
+        ->groupBy('image.idimage')
         ->paginate($limit);
     }
     function scopePagTimelinesDesign($query, $limit, $paper)

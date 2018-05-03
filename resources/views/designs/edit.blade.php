@@ -93,7 +93,6 @@
         }
     }
 	$(document).ready(function() {
-		$('#id-paper').val('');
 		$('#progressbar').progressbar({
 			value: false,
 		});

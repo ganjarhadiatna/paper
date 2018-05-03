@@ -157,8 +157,13 @@ a {
 	width: 100%;
 	height: 60px;
 	background-color: $sek-color;
+	&.hed-mobile {
+		@media (max-width: $max-width) {
+			height: 100px;
+		}
+	}
 	@media (max-width: $max-width) {
-		height: 100px;
+		height: 45px;
 	}
 	.place {
 		position: fixed;
@@ -212,12 +217,19 @@ a {
 				@include column_2();
 				text-align: left;
 				@media (max-width: $max-width) {
-					position: fixed;
-					top: 60px;
-					left: 0;
-					width: calc(100% - 20px);
-					padding: 7.5px 10px;
-					background-color: $sek-color;
+					display: none;
+				}
+				&.mid-mobile {
+					@media (max-width: $max-width) {
+						position: fixed;
+						top: 60px;
+						left: 0;
+						width: calc(100% - 20px);
+						padding: 7.5px 10px;
+						background-color: $sek-color;
+						z-index: 100;
+						display: block;
+					}
 				}
 				.main-search {
 					width: 450px;

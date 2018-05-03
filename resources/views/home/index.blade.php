@@ -2,6 +2,21 @@
 @section('title',$title)
 @section('path', $path)
 @section('content')
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#header').addClass('hed-mobile');
+		$('#main-search').addClass('mid-mobile');
+		$(window).scroll(function(event) {
+			var hg = $('#header').height();
+			var top = $(this).scrollTop();
+			if (top > hg) {
+				$('#main-search').addClass('hide');
+			} else {
+				$('#main-search').removeClass('hide');
+			}
+		});
+	});
+</script>
 <div>
 	@if (count($topStory) == 0)
 	<div class="frame-empty">
