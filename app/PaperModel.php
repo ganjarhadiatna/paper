@@ -163,7 +163,7 @@ class PaperModel extends Model
             DB::raw('(select count(image.idimage) from image where image.idpapers = papers.idpapers) as ttl_image'),
             DB::raw('(select count(watchs.idwatchs) from watchs where watchs.idpapers = papers.idpapers) as ttl_watch')
         )
-        ->join('users','users.id', '=', 'papers.id')    
+        ->join('users','users.id', '=', 'papers.id')
         ->where('papers.id', $id)
         ->orderBy('papers.title','asc')
         ->paginate($limit);
