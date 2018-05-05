@@ -22,6 +22,7 @@
 	<script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/jquery-ui.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/watch.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/frame.js') }}"></script>
 	<script type="text/javascript">
 		var iduser = '{{ Auth::id() }}';
 
