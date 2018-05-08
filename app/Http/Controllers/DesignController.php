@@ -176,9 +176,10 @@ class DesignController extends Controller
 
 				for ($i=0; $i < count($image); $i++) {
 					//validate
-					$this->validate($request, [
-						'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1000000',
-					]);
+					/*$this->validate($request, [
+						'image' => 'required',
+						'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1000000',
+					]);*/
 
 					//rename file
 					$chrc = array('[',']','@',' ','+','-','#','*','<','>','_','(',')',';',',','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
