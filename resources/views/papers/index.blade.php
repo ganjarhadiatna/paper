@@ -63,10 +63,14 @@
 	}
 	function getImage() {
 		var fd = new FormData();
-		var image = $('#get-image')[0].files[0];
+		//var image = $('#get-image')[0].files[0];
 		var dt = '';
+		//console.log(image);
 		
-		fd.append('image', image);
+		var ctn = $('#get-image')[0].files.length;
+		for (let i = 0; i < ctn; i++) {
+			fd.append('image[]', $('#get-image')[0].files[i]);
+		}
 		fd.append('idpapers', idpapers);
 		$.each($('#form-image').serializeArray(), function(a, b) {
 	    	fd.append(b.name, b.value);
@@ -93,11 +97,13 @@
 				opAlert('open', 'Uploading failed, please try again later.');
 			} else {
 				dt = JSON.parse(data);
-				//add place review
-				var img = '{{ asset("/story/thumbnails/") }}'+'/'+dt.filename;
-				var idimage = dt.idimage;
-				$('#frame-empty').hide();
-				$('#place-design').prepend(rvImage(img, dt.filename, idimage));
+				for (var i = 0; i < dt.length; i++) {
+					//add place review
+					var img = '{{ asset("/story/thumbnails/") }}'+'/'+dt[i].filename;
+					var idimage = dt[i].idimage;
+					$('#frame-empty').hide();
+					$('#place-design').prepend(rvImage(img, dt[i].filename, idimage));	
+				}
 			}
 			//console.log(data);
 	    })
@@ -141,12 +147,19 @@
 									action="javascript:void(0)"
 									enctype="multipart/form-data"
 									>
-									<input type="file" name="get-image" accept="image/*" class="hide-input-file" id="get-image" onchange="getImage()">
+									<input 
+										type="file" 
+										name="get-image" 
+										accept="image/*" 
+										class="hide-input-file" 
+										id="get-image" 
+										onchange="getImage()"
+										multiple>
 								</form>
 								<label for="get-image">
 									<div class="btn btn-sekunder-color btn-focus" title="add design">
 										<span class="fa fa-lg fa-plus"></span>
-										<span>Design</span>
+										<span>Designs</span>
 									</div>
 								</label>
 							</div>
@@ -234,11 +247,6 @@
 			<div class="ttl padding-15px">
 				Designs Empty.
 			</div>
-			@if ($id == Auth::id())
-				<div class="desc ctn-main-font ctn-bold ctn-14px ctn-sek-color padding-bottom-20px">
-					Try to adding one design.
-				</div>
-			@endif
 		</div>
 		@endif
 		<div class="post" id="place-design">

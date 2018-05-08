@@ -165,57 +165,62 @@ class DesignController extends Controller
 	}
     function publish(Request $request)
     {
-    	$id = Auth::id();
-		$image = $request->file('image');
+		$id = Auth::id();
 		$idpapers = $request['idpapers'];
-
 		$iduser = PaperModel::GetIduser($idpapers);
-        if ($iduser == $id) {
-			if ($image) {
-				//validate
-				$this->validate($request, [
-					'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1000000',
-				]);
+		if ($iduser == $id) {
+			if ($request->hasFile('image')) {
 
-				//rename file
-				$chrc = array('[',']','@',' ','+','-','#','*','<','>','_','(',')',';',',','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
-				$filename = $id.time().str_replace($chrc, '', $image->getClientOriginalName());
+				$image = $request->file('image');
+				$final = array();
 
-				$data = array(
-					'image' => $filename,
-					'id' => $id,
-					'idpapers' => $idpapers
-				);
-				$rest = DesignModel::AddDesign($data);
-				if ($rest) {
-					//save image to server
-					//creating thumbnail and save to server
-					$destination = public_path('story/thumbnails/'.$filename);
-					$img = Image::make($image->getRealPath());
-					$img->resize(400, 400, function ($constraint) {
-						$constraint->aspectRatio();
-					})->save($destination); 
+				for ($i=0; $i < count($image); $i++) {
+					//validate
+					$this->validate($request, [
+						'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1000000',
+					]);
 
-					//saving image real to server
-					$destination = public_path('story/covers/');
-					$image->move($destination, $filename);
+					//rename file
+					$chrc = array('[',']','@',' ','+','-','#','*','<','>','_','(',')',';',',','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
+					$filename = $id.time().str_replace($chrc, '', $image[$i]->getClientOriginalName());
 
-					//getting last idimage
-					$idimage = DesignModel::GetId($id, $idpapers);
-					$final = array(
-						'filename' => $filename,
+					$data = array(
+						'image' => $filename,
 						'id' => $id,
-						'idpapers' => $idpapers,
-						'idimage' => $idimage,
-						'description' => '',
-						'created' => ''
+						'idpapers' => $idpapers
 					);
-					echo json_encode($final);
-				} else {
-					echo "failed-saving";
+					$rest = DesignModel::AddDesign($data);
+					if ($rest) {
+						//save image to server
+						//creating thumbnail and save to server
+						$destination = public_path('story/thumbnails/'.$filename);
+						$img = Image::make($image[$i]->getRealPath());
+						$img->resize(400, 400, function ($constraint) {
+							$constraint->aspectRatio();
+						})->save($destination); 
+
+						//saving image real to server
+						$destination = public_path('story/covers/');
+						$image[$i]->move($destination, $filename);
+
+						//getting last idimage
+						$idimage = DesignModel::GetId($id, $idpapers);
+
+						array_push($final, [
+							'filename' => $filename,
+							'id' => $id,
+							'idpapers' => $idpapers,
+							'idimage' => $idimage,
+							'description' => '',
+							'created' => ''
+						]);
+					} else {
+						echo "failed-saving";
+					}
 				}
+				echo json_encode($final);
 			} else {
-				echo "no-file";
+				echo 'no file';
 			}
 		} else {
 			echo "no-token";

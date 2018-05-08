@@ -130,7 +130,7 @@ class DesignModel extends Model
         )
         ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
-        ->orderBy('papers.idpapers', 'desc')
+        ->orderBy('image.idimage', 'desc')
         ->paginate($limit);
     }
     function scopePagRelatedDesign($query, $limit, $idpapers)
