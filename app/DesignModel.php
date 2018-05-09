@@ -131,7 +131,7 @@ class DesignModel extends Model
         ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
         ->orderBy('image.idimage', 'desc')
-        ->paginate($limit);
+        ->simplePaginate($limit);
     }
     function scopePagRelatedDesign($query, $limit, $idpapers)
     {
@@ -160,7 +160,7 @@ class DesignModel extends Model
         ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
         ->orderBy('papers.idpapers', 'desc')
-        ->paginate($limit);
+        ->simplePaginate($limit);
     }
     function scopePagPopularDesign($query, $limit)
     {
@@ -190,7 +190,7 @@ class DesignModel extends Model
         ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
         ->orderBy('ttl_comment', 'desc')
-        ->paginate($limit);
+        ->simplePaginate($limit);
     }
     function scopePagTrendingDesign($query, $limit)
     {
@@ -219,7 +219,7 @@ class DesignModel extends Model
         ->join('papers','papers.idpapers', '=', 'image.idpapers')
         ->join('users','users.id', '=', 'image.id')
         ->orderBy('ttl_comment', 'desc')
-        ->paginate($limit);
+        ->simplePaginate($limit);
     }
     function scopePagSearchDesign($query, $ctr, $limit)
     {
@@ -261,7 +261,7 @@ class DesignModel extends Model
             }
         })
         ->orderBy('image.idimage', 'desc')
-        ->paginate($limit);
+        ->simplePaginate($limit);
     }
     function scopePagTagDesign($query, $ctr, $limit)
     {
@@ -306,7 +306,7 @@ class DesignModel extends Model
         })
         ->orderBy('image.idimage', 'desc')
         ->groupBy('image.idimage')
-        ->paginate($limit);
+        ->simplePaginate($limit);
     }
     function scopePagTimelinesDesign($query, $limit, $paper)
     {
@@ -342,7 +342,7 @@ class DesignModel extends Model
             }
         })
         ->orderBy('image.idimage', 'desc')
-        ->paginate($limit);
+        ->simplePaginate($limit);
     }
     function scopePagUserDesign($query, $limit, $iduser)
     {
@@ -372,7 +372,7 @@ class DesignModel extends Model
         ->join('users','users.id', '=', 'image.id')
         ->where('papers.id', $iduser)
         ->orderBy('image.idimage', 'desc')
-        ->paginate($limit);
+        ->simplePaginate($limit);
     }
     function scopePagImagePaper($query, $limit, $idpapers)
     {
@@ -402,6 +402,6 @@ class DesignModel extends Model
         ->join('users','users.id', '=', 'image.id')
         ->where('papers.idpapers', $idpapers)
         ->orderBy('image.idimage', 'desc')
-        ->paginate($limit);
+        ->simplePaginate($limit);
     }
 }

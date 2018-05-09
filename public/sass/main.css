@@ -1849,23 +1849,25 @@
     display: inline-block;
     font-size: 14pt;
     font-weight: 600;
-    width: 45px;
+    width: 120px;
     height: 45px;
     line-height: 45px;
+    margin: 0 7.5px;
     text-align: center;
     color: rgba(0, 0, 0, 0.54);
-    border-radius: 100%; }
+    border-radius: 5px; }
   .pagination li.active {
     cursor: not-allowed; }
   .pagination a {
     display: block;
-    width: 45px;
+    width: 120px;
     height: 45px;
     line-height: 45px;
+    margin: 0 7.5px;
     text-align: center;
     background-color: #bd081c;
     color: #fff;
-    border-radius: 100%; }
+    border-radius: 5px; }
 
 .sc-header {
   position: relative;
