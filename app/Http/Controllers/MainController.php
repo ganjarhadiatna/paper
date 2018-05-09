@@ -19,7 +19,7 @@ class MainController extends Controller
         if (Auth::id()) {
             $id = Auth::id();
             $papers = WatchModel::GetAllWatch($id);
-            $topStory = DesignModel::PagTimelinesDesign(20, $papers);
+            $topStory = DesignModel::PagTimelinesDesign(30, $papers);
             return view('home.index', [
                 'title' => 'Official Site',
                 'path' => 'home',
@@ -56,7 +56,7 @@ class MainController extends Controller
     {
         $id = Auth::id();
         $papers = WatchModel::GetAllWatch($id);
-        $topStory = DesignModel::PagTimelinesDesign(20, $papers);
+        $topStory = DesignModel::PagTimelinesDesign(30, $papers);
         return view('others.index', [
             'title' => 'Timelines',
             'path' => 'timelines',
@@ -65,7 +65,7 @@ class MainController extends Controller
     }
     function popular()
     {
-        $topStory = DesignModel::PagPopularDesign(20);
+        $topStory = DesignModel::PagPopularDesign(30);
         return view('others.index', [
             'title' => 'Popular',
             'path' => 'popular',
@@ -74,7 +74,7 @@ class MainController extends Controller
     }
     function fresh()
     {
-        $topStory = DesignModel::PagAllDesign(20);
+        $topStory = DesignModel::PagAllDesign(30);
         return view('others.index', [
             'title' => 'Fresh',
             'path' => 'fresh',
@@ -83,7 +83,7 @@ class MainController extends Controller
     }
     function trending()
     {
-        $topStory = DesignModel::PagTrendingDesign(20);
+        $topStory = DesignModel::PagTrendingDesign(30);
         return view('others.index', [
             'title' => 'Trending',
             'path' => 'trending',
@@ -97,7 +97,7 @@ class MainController extends Controller
         } else {
             $id = 0;
         }
-        $topStory = DesignModel::PagSearchDesign($ctr, 20);
+        $topStory = DesignModel::PagSearchDesign($ctr, 30);
         $topTags = TagModel::SearchTags($ctr);
         return view('search.index', [
             'title' => $ctr,
@@ -114,7 +114,7 @@ class MainController extends Controller
             $id = 0;
         }
         $ctr = $_GET['q'];
-        $topStory = DesignModel::PagSearchDesign($ctr, 20);
+        $topStory = DesignModel::PagSearchDesign($ctr, 30);
         $topUsers = ProfileModel::SearchUsers($ctr, $id);
         $topTags = TagModel::SearchTags($ctr);
         return view('search.index', [
