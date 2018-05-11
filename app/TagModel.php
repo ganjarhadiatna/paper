@@ -14,6 +14,12 @@ class TagModel extends Model
         return DB::table('tags')
         ->insert($data);
     }
+    function scopeGetTagByIdtags($query, $idtags)
+    {
+        return DB::table('tags')
+        ->where('idtags', $idtags)
+        ->value('tag');
+    }
     function scopeGetTags($query, $idpapers, $type)
     {
         return DB::table('tags')

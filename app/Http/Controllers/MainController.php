@@ -63,31 +63,60 @@ class MainController extends Controller
             'topStory' => $topStory
         ]);
     }
+    function explore()
+    {
+        $topStory = DesignModel::PagAllDesign(30);
+        $topTags = TagModel::TopTags(5);
+        return view('explore.index', [
+            'title' => 'Explore',
+            'path' => 'fresh',
+            'topStory' => $topStory,
+            'topTags' => $topTags
+        ]);
+    }
+    function news($idtags)
+    {
+        $ctr = TagModel::GetTagByIdtags($idtags);
+        $topStory = DesignModel::PagTagDesign($ctr, 30);
+        $topTags = TagModel::TopTags(5);
+        return view('explore.index', [
+            'title' => 'Populars',
+            'path' => 'tag-'.$idtags,
+            'topStory' => $topStory,
+            'topTags' => $topTags
+        ]);
+    }
     function popular()
     {
         $topStory = DesignModel::PagPopularDesign(30);
-        return view('others.index', [
-            'title' => 'Popular',
-            'path' => 'popular',
-            'topStory' => $topStory
+        $topTags = TagModel::TopTags(5);
+        return view('explore.index', [
+            'title' => 'Populars',
+            'path' => 'populars',
+            'topStory' => $topStory,
+            'topTags' => $topTags
         ]);
     }
     function fresh()
     {
         $topStory = DesignModel::PagAllDesign(30);
-        return view('others.index', [
+        $topTags = TagModel::TopTags(5);
+        return view('explore.index', [
             'title' => 'Fresh',
             'path' => 'fresh',
-            'topStory' => $topStory
+            'topStory' => $topStory,
+            'topTags' => $topTags
         ]);
     }
     function trending()
     {
         $topStory = DesignModel::PagTrendingDesign(30);
-        return view('others.index', [
-            'title' => 'Trending',
-            'path' => 'trending',
-            'topStory' => $topStory
+        $topTags = TagModel::TopTags(5);
+        return view('explore.index', [
+            'title' => 'Trendings',
+            'path' => 'trendings',
+            'topStory' => $topStory,
+            'topTags' => $topTags
         ]);
     }
     function search($ctr)

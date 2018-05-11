@@ -204,8 +204,13 @@
 							<span class="ttl">Home Feeds</span>
 						</button>
 					</a>
+					<a href="{{ url('/explore') }}">
+						<button class="mobile btn-icn btn btn-main2-color btn-radius" id="explore">
+							<span class="ttl">Explore</span>
+						</button>
+					</a>
 					<button class="btn-icn btn btn-circle btn-main2-color" id="nav-more-target" key="hide">
-						<span class="fas fa-lg fa-th"></span>
+						<span class="fas fa-lg fa-bars"></span>
 					</button>
 
 					@if (!Auth::id())

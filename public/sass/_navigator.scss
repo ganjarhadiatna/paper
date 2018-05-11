@@ -71,6 +71,9 @@
 			.icn {
 				padding: 0 5px;
 			}
+			.txt-left {
+				text-align: left;
+			}
 			.txt-center {
 				text-align: center;
 				.ttl {
@@ -241,7 +244,15 @@
                 cursor: pointer;
             }
         }
-    }
+	}
+	&.nav-all {
+		ul {
+			li {
+				padding: 0 15px;
+				margin-right: 7.5px;
+			}
+		}
+	}
     &.nav-2x {
         ul {
             li {
@@ -313,6 +324,23 @@
             border-radius: 35px;
             &:hover {
                 color: $txt-min-color;
+            }
+            &.active {
+                background-color: rgba(225,225,225,0.54);
+	            color: $txt-min-color;
+            }
+        }
+    }
+}
+.nav-theme-4 {
+    background-color: #fff;
+    ul {
+        li {
+            color: $txt-sek-color;
+            border-radius: 35px;
+            &:hover {
+                background-color: rgba(225,225,225,0.54);
+	            color: $txt-min-color;
             }
             &.active {
                 background-color: rgba(225,225,225,0.54);

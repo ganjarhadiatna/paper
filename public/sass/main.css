@@ -1909,6 +1909,8 @@
       -ms-grid-column: 3; }
     .sc-header .sc-place .sc-grid .icn {
       padding: 0 5px; }
+    .sc-header .sc-place .sc-grid .txt-left {
+      text-align: left; }
     .sc-header .sc-place .sc-grid .txt-center {
       text-align: center; }
       .sc-header .sc-place .sc-grid .txt-center .ttl {
@@ -2059,6 +2061,9 @@
     font-size: 14px; }
     .navigator ul li:hover {
       cursor: pointer; }
+  .navigator.nav-all ul li {
+    padding: 0 15px;
+    margin-right: 7.5px; }
   .navigator.nav-2x ul li {
     width: 50%; }
   .navigator.nav-3x ul li {
@@ -2099,6 +2104,18 @@
     .nav-theme-3 ul li:hover {
       color: rgba(0, 0, 0, 0.84); }
     .nav-theme-3 ul li.active {
+      background-color: rgba(225, 225, 225, 0.54);
+      color: rgba(0, 0, 0, 0.84); }
+
+.nav-theme-4 {
+  background-color: #fff; }
+  .nav-theme-4 ul li {
+    color: rgba(0, 0, 0, 0.54);
+    border-radius: 35px; }
+    .nav-theme-4 ul li:hover {
+      background-color: rgba(225, 225, 225, 0.54);
+      color: rgba(0, 0, 0, 0.84); }
+    .nav-theme-4 ul li.active {
       background-color: rgba(225, 225, 225, 0.54);
       color: rgba(0, 0, 0, 0.84); }
 

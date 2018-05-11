@@ -51,23 +51,13 @@
 			<div class="val column-2">
 				<ul class="mn">
 					<li>
-						<a href="{{ url('/') }}" id="home">
+						<a href="{{ url('/') }}">
 							Home Feeds
 						</a>
 					</li>
 					<li>
-						<a href="{{ url('/fresh') }}" id="fresh">
-							Fresh
-						</a>
-					</li>
-					<li>
-						<a href="{{ url('/popular') }}" id="popular">
-							Popular
-						</a>
-					</li>
-					<li>
-						<a href="{{ url('/trending') }}" id="trending">
-							Trending
+						<a href="{{ url('/fresh') }}">
+							Explore
 						</a>
 					</li>
 					@foreach (TagModel::AllTags() as $tag)
