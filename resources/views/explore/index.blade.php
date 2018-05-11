@@ -11,14 +11,14 @@
         $('#explore-nav ul #'+path).addClass('active');
     });
 </script>
-<div class="col-800px padding-20px">
+<div class="col-900px padding-20px">
     <div class="padding-20px">
         <h1 class="ctn-main-font ctn-big ctn-sek-color">
             Explore Now's
         </h1>
     </div>
     <div class="padding-bottom-20px">
-        <div class="navigator nav-all nav-theme-4" id="explore-nav">
+        <div class="navigator nav-all nav-wrap-mobile nav-theme-4" id="explore-nav">
             <ul>
                 <a href="{{ url('/explore/fresh') }}">
                     <li id="fresh">Fresh</li>

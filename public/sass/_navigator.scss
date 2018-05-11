@@ -335,11 +335,8 @@
 .nav-theme-4 {
 	position: relative;
 	width: 100%;
-	white-space: nowrap;
-	overflow-x: auto;
 	background-color: #fff;
     ul {
-		display: inline-block;
         li {
             color: $txt-sek-color;
             border-radius: 45px;
@@ -353,6 +350,22 @@
             }
         }
     }
+}
+.nav-wrap {
+	white-space: nowrap;
+	overflow-x: auto;
+	* {
+		display: inline-block;
+	}
+}
+.nav-wrap-mobile {
+	@media (max-width: $max-width) {
+		white-space: nowrap;
+		overflow-x: auto;
+		* {
+			display: inline-block;
+		}
+	}
 }
 
 .menu-val {

@@ -2110,20 +2110,29 @@
 .nav-theme-4 {
   position: relative;
   width: 100%;
-  white-space: nowrap;
-  overflow-x: auto;
   background-color: #fff; }
-  .nav-theme-4 ul {
+  .nav-theme-4 ul li {
+    color: rgba(0, 0, 0, 0.54);
+    border-radius: 45px; }
+    .nav-theme-4 ul li:hover {
+      background-color: rgba(225, 225, 225, 0.54);
+      color: rgba(0, 0, 0, 0.84); }
+    .nav-theme-4 ul li.active {
+      background-color: rgba(225, 225, 225, 0.54);
+      color: rgba(0, 0, 0, 0.84); }
+
+.nav-wrap {
+  white-space: nowrap;
+  overflow-x: auto; }
+  .nav-wrap * {
     display: inline-block; }
-    .nav-theme-4 ul li {
-      color: rgba(0, 0, 0, 0.54);
-      border-radius: 45px; }
-      .nav-theme-4 ul li:hover {
-        background-color: rgba(225, 225, 225, 0.54);
-        color: rgba(0, 0, 0, 0.84); }
-      .nav-theme-4 ul li.active {
-        background-color: rgba(225, 225, 225, 0.54);
-        color: rgba(0, 0, 0, 0.84); }
+
+@media (max-width: 768px) {
+  .nav-wrap-mobile {
+    white-space: nowrap;
+    overflow-x: auto; }
+    .nav-wrap-mobile * {
+      display: inline-block; } }
 
 .menu-val a {
   color: rgba(0, 0, 0, 0.54);
