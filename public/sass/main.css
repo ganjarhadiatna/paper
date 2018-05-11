@@ -1847,7 +1847,7 @@
   .pagination li {
     list-style: none;
     display: inline-block;
-    font-size: 14pt;
+    font-size: 12pt;
     font-weight: 600;
     width: 120px;
     height: 45px;
@@ -2108,16 +2108,22 @@
       color: rgba(0, 0, 0, 0.84); }
 
 .nav-theme-4 {
+  position: relative;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
   background-color: #fff; }
-  .nav-theme-4 ul li {
-    color: rgba(0, 0, 0, 0.54);
-    border-radius: 35px; }
-    .nav-theme-4 ul li:hover {
-      background-color: rgba(225, 225, 225, 0.54);
-      color: rgba(0, 0, 0, 0.84); }
-    .nav-theme-4 ul li.active {
-      background-color: rgba(225, 225, 225, 0.54);
-      color: rgba(0, 0, 0, 0.84); }
+  .nav-theme-4 ul {
+    display: inline-block; }
+    .nav-theme-4 ul li {
+      color: rgba(0, 0, 0, 0.54);
+      border-radius: 45px; }
+      .nav-theme-4 ul li:hover {
+        background-color: rgba(225, 225, 225, 0.54);
+        color: rgba(0, 0, 0, 0.84); }
+      .nav-theme-4 ul li.active {
+        background-color: rgba(225, 225, 225, 0.54);
+        color: rgba(0, 0, 0, 0.84); }
 
 .menu-val a {
   color: rgba(0, 0, 0, 0.54);

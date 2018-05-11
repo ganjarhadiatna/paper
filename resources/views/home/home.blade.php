@@ -79,13 +79,16 @@
 					<a href="{{ url('/') }}">Home Feeds</a>
 				</li>
 				<li>
-					<a href="{{ url('/fresh') }}">Fresh</a>
+					<a href="{{ url('/explore') }}">Explore</a>
 				</li>
 				<li>
-					<a href="{{ url('/trending') }}">Trending</a>
+					<a href="{{ url('/explore/fresh') }}">Fresh</a>
 				</li>
 				<li>
-					<a href="{{ url('/popular') }}">Populars</a>
+					<a href="{{ url('/explore/trendings') }}">Trendings</a>
+				</li>
+				<li>
+					<a href="{{ url('/explore/populars') }}">Populars</a>
 				</li>
 				<li>
 					<a href="#">About Us</a>

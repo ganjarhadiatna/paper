@@ -11,7 +11,7 @@
         $('#explore-nav ul #'+path).addClass('active');
     });
 </script>
-<div class="col-900px padding-20px">
+<div class="col-800px padding-20px">
     <div class="padding-20px">
         <h1 class="ctn-main-font ctn-big ctn-sek-color">
             Explore Now's
