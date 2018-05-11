@@ -34,7 +34,7 @@ class MainController extends Controller
     }
     function tagsDesign($ctr)
     {
-        $topStory = DesignModel::PagTagDesign($ctr, 12);
+        $topStory = DesignModel::PagTagDesign($ctr, 30);
         return view('tags.design', [
             'title' => $ctr,
             'path' => 'none',
@@ -44,7 +44,7 @@ class MainController extends Controller
     }
     function tagsPaper($ctr)
     {
-        $topPaper = paperModel::TagPaper($ctr, 12);
+        $topPaper = paperModel::TagPaper($ctr, 30);
         return view('tags.paper', [
             'title' => $ctr,
             'path' => 'none',

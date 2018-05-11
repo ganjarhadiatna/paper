@@ -56,7 +56,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="{{ url('/fresh') }}">
+						<a href="{{ url('/explore') }}">
 							Explore
 						</a>
 					</li>
