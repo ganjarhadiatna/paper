@@ -100,8 +100,8 @@ class DesignController extends Controller
 				'selectedPaper' => $selectedPaper
 			]);
 		} else {
-			return view('main.denied', [
-                'title' => 'Denied',
+			return view('designs.empty', [
+                'title' => 'Empty',
                 'path' => 'none'
             ]);
 		}

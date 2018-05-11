@@ -64,7 +64,7 @@ class DesignModel extends Model
             'idpapers'
         )
         ->where('idpapers', $idpapers)
-        ->orderBy('image.idimage',$stt)
+        ->orderBy('image.idimage', $stt)
         ->get();
     }
     function scopeGetId($query, $id, $idpapers)

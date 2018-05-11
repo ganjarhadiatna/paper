@@ -123,7 +123,7 @@ class PaperController extends Controller
         $iduser = PaperModel::GetIduser($idpapers);
         if ($id == $iduser) {
             //deleting cover
-            $cover = DesignModel::GetAllDesign($idpapers);
+            $cover = DesignModel::GetAllDesign($idpapers, 'desc');
             foreach ($cover as $dt) {
                 unlink(public_path('story/covers/'.$dt->image));
                 unlink(public_path('story/thumbnails/'.$dt->image));
@@ -143,26 +143,34 @@ class PaperController extends Controller
 
     function paperEdit($idpapers)
     {
-        $iduser = PaperModel::GetIduser($idpapers);
-        if ($iduser == Auth::id()) {
-            $getStory = PaperModel::GetPaper($idpapers);
-            $restTags = TagModel::GetTags($idpapers,'paper');
-            $temp = [];
-            foreach ($restTags as $tag) {
-                array_push($temp, $tag->tag);
-            }
-            $tags = implode(", ", $temp);
-            return view('papers.edit', [
-                'title' => 'Edit Paper',
-                'path' => 'none',
-                'getStory' => $getStory,
-                'tags' => $tags,
-                'idpapers' => $idpapers
-            ]);   
+        $res = PaperModel::CheckPaper($idpapers);
+        if (is_int($res)) {
+            $iduser = PaperModel::GetIduser($idpapers);
+            if ($iduser == Auth::id()) {
+                $getStory = PaperModel::GetPaper($idpapers);
+                $restTags = TagModel::GetTags($idpapers,'paper');
+                $temp = [];
+                foreach ($restTags as $tag) {
+                    array_push($temp, $tag->tag);
+                }
+                $tags = implode(", ", $temp);
+                return view('papers.edit', [
+                    'title' => 'Edit Paper',
+                    'path' => 'none',
+                    'getStory' => $getStory,
+                    'tags' => $tags,
+                    'idpapers' => $idpapers
+                ]);   
+            } else {
+                return view('main.denied', [
+                    'title' => 'Denied',
+                    'path' => 'none'
+                ]);
+            }   
         } else {
-            return view('main.denied', [
-                'title' => 'Denied',
-                'path' => 'none'
+            return view('papers.empty', [
+                'title' => 'Empty Paper',
+                'path' => 'none',
             ]);
         }
     }

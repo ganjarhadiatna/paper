@@ -66,7 +66,7 @@
 					<p id="edit-about">{{ $p->about }}</p>
 				</div>
 				<div class="other">
-					<a class="link" href="{{ $p->website }}" target="_blank">{{ $p->website }}</a>
+					<a class="link ctn-main-font ctn-min-color ctn-link" href="{{ $p->website }}" target="_blank">{{ $p->website }}</a>
 				</div>
 				<div>
 					<div class="menu-val">

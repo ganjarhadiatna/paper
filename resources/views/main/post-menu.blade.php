@@ -20,9 +20,9 @@
 		window.location = server_post;
 	}
 	function opQuestionPost(idpapers) {
-		opQuestion('open','Are you sure you want to delete this paper?', 'deletePost("'+idpapers+'")');
+		opQuestion('open','Are you sure you want to delete this paper?', 'deletePaper("'+idpapers+'")');
 	}
-	function deletePost(idpapers) {
+	function deletePaper(idpapers) {
 		$.ajax({
 			url: '{{ url("/paper/delete") }}',
 			type: 'post',
