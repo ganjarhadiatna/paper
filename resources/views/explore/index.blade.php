@@ -3,7 +3,7 @@
 @section('path', $path)
 @section('content')
 <script type="text/javascript">
-    var path = '{{ $path }}';
+    var path = '{{ $sekPath }}';
     $(document).ready(function () {
         $('#explore-nav ul li').each(function () {
             $(this).removeClass('active');

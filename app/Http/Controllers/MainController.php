@@ -69,7 +69,8 @@ class MainController extends Controller
         $topTags = TagModel::TopTags(5);
         return view('explore.index', [
             'title' => 'Explore',
-            'path' => 'fresh',
+            'path' => 'explore',
+            'sekPath' => 'fresh',
             'topStory' => $topStory,
             'topTags' => $topTags
         ]);
@@ -81,7 +82,8 @@ class MainController extends Controller
         $topTags = TagModel::TopTags(5);
         return view('explore.index', [
             'title' => 'Populars',
-            'path' => 'tag-'.$idtags,
+            'path' => 'explore',
+            'sekPath' => 'tag-'.$idtags,
             'topStory' => $topStory,
             'topTags' => $topTags
         ]);
@@ -92,7 +94,8 @@ class MainController extends Controller
         $topTags = TagModel::TopTags(5);
         return view('explore.index', [
             'title' => 'Populars',
-            'path' => 'populars',
+            'path' => 'explore',
+            'sekPath' => 'populars',
             'topStory' => $topStory,
             'topTags' => $topTags
         ]);
@@ -103,7 +106,8 @@ class MainController extends Controller
         $topTags = TagModel::TopTags(5);
         return view('explore.index', [
             'title' => 'Fresh',
-            'path' => 'fresh',
+            'path' => 'explore',
+            'sekPath' => 'fresh',
             'topStory' => $topStory,
             'topTags' => $topTags
         ]);
@@ -114,7 +118,8 @@ class MainController extends Controller
         $topTags = TagModel::TopTags(5);
         return view('explore.index', [
             'title' => 'Trendings',
-            'path' => 'trendings',
+            'path' => 'explore',
+            'sekPath' => 'trendings',
             'topStory' => $topStory,
             'topTags' => $topTags
         ]);

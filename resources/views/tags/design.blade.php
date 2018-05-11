@@ -25,6 +25,7 @@
 		</ul>
 	</div>
 </div>
+<div class="padding-bottom-10px"></div>
 <div>
 	<div>
 		@if (count($topStory) == 0)
