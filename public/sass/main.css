@@ -302,7 +302,8 @@
     position: relative;
     overflow: hidden;
     border-radius: 7.5px;
-    margin-bottom: 2.5px; }
+    margin-bottom: 2.5px;
+    max-height: 400px; }
     .frame-post .mid .mid-tool:hover .zoom {
       display: block; }
     .frame-post .mid .mid-tool .cover {
