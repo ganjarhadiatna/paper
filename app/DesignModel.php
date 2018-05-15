@@ -375,6 +375,37 @@ class DesignModel extends Model
         ->orderBy('image.idimage', 'desc')
         ->simplePaginate($limit);
     }
+    function scopePagUserBookmark($query, $limit, $iduser)
+    {
+        if (Auth::id()) {
+            $id = Auth::id();
+        } else {
+            $id = 0;
+        }
+        return DB::table('bookmark')
+        ->select(
+            'image.idimage',
+            'image.image as cover',
+            'image.description',
+            'papers.idpapers',
+            'papers.created',
+            'papers.title',
+            'papers.views',
+            'users.id',
+            'users.name',
+            'users.username',
+            'users.visitor',
+            'users.foto',
+            DB::raw('(select count(bookmark.idbookmark) from bookmark where bookmark.idimage = image.idimage) as ttl_save'),
+            DB::raw('(select bookmark.idbookmark from bookmark where bookmark.idimage = image.idimage and bookmark.id = '.$id.' limit 1) as is_save')
+        )
+        ->join('image','image.idimage', '=', 'bookmark.idimage')
+        ->join('papers','papers.idpapers', '=', 'image.idpapers')
+        ->join('users','users.id', '=', 'image.id')
+        ->where('bookmark.id', $iduser)
+        ->orderBy('bookmark.idbookmark', 'desc')
+        ->simplePaginate($limit);
+    }
     function scopePagImagePaper($query, $limit, $idpapers)
     {
         if (Auth::id()) {

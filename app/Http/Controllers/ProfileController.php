@@ -72,7 +72,7 @@ class ProfileController extends Controller
 			$pathProfile = 'none';
 		}
         $profile = ProfileModel::UserData($id);
-        $userStory = PaperModel::PagUserBookmark(20, $id);
+        $userStory = DesignModel::PagUserBookmark(20, $id);
         return view('profile.saved', [
             'title' => 'User Profile',
             'path' => $pathProfile,
