@@ -232,6 +232,16 @@
     border-radius: 100%; }
   .image.image-pointer {
     cursor: pointer; }
+  .image.image-more:hover .ttl {
+    color: rgba(0, 0, 0, 0.84); }
+  .image .ttl {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 16px;
+    font-weight: 600; }
   .image .icn {
     position: absolute;
     top: 50%;

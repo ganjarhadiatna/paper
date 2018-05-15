@@ -118,7 +118,7 @@ class PaperModel extends Model
         ->join('users','users.id', '=', 'image.id')
         ->where('bookmark.id', $iduser)
         ->orderBy('bookmark.idbookmark', 'desc')
-        ->paginate($limit);
+        ->simplePaginate($limit);
     }
     function scopeUserSmallPaper($query, $id)
     {
@@ -166,7 +166,7 @@ class PaperModel extends Model
         ->join('users','users.id', '=', 'papers.id')
         ->where('papers.id', $id)
         ->orderBy('papers.title','asc')
-        ->paginate($limit);
+        ->simplePaginate($limit);
     }
     function scopeTagPaper($query, $ctr, $limit)
     {
@@ -202,6 +202,6 @@ class PaperModel extends Model
         })
         ->orderBy('papers.idpapers', 'desc')
         ->groupBy('papers.idpapers')
-        ->paginate($limit);
+        ->simplePaginate($limit);
     }
 }

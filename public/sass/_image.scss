@@ -49,6 +49,19 @@
 	&.image-pointer {
 		cursor: pointer;
 	}
+	&.image-more {
+		&:hover {
+			.ttl {
+				color: $txt-min-color;
+			}
+		}
+	}
+	.ttl {
+		@include post_center();
+		color: $txt-sek-color;
+		font-size: 16px;
+		font-weight: 600;
+	}
 	.icn {
 		@include post_center();
 		color: $txt-sek-color;

@@ -249,6 +249,13 @@
 												style="background-image: url({{ asset('/story/thumbnails/'.$img->image) }})"></div>
 										</a>
 									@endforeach
+									@if (count($getAllImage) >= 8)
+										<a href="{{ url('/paper/'.$img->idpapers) }}">
+											<div class="image image-100px image-radius image-more">
+												<span class="ttl">More</span>
+											</div>
+										</a>
+									@endif
 								@endif
 							</div>
 							<div class="st-rig">

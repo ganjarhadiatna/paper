@@ -54,7 +54,7 @@ class DesignModel extends Model
         ->where('image.idimage', $idimage)
         ->update(['image.views' => $no]);
     }
-    function scopeGetAllDesign($query, $idpapers, $stt)
+    function scopeGetAllDesign($query, $idpapers, $stt, $limit=8)
     {
         return DB::table('image')
         ->select(
@@ -65,6 +65,7 @@ class DesignModel extends Model
         )
         ->where('idpapers', $idpapers)
         ->orderBy('image.idimage', $stt)
+        ->limit($limit)
         ->get();
     }
     function scopeGetId($query, $id, $idpapers)
