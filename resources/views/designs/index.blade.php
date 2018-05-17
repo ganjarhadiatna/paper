@@ -186,8 +186,7 @@
 							<img 
 								class="place-pict-image"
 								data-src="{{ asset('/story/covers/'.$ds->image) }}" 
-								id="pict-{{ $idimage }}" 
-								alt="{{ $ds->description }}">
+								id="pict-{{ $idimage }}">
 						</div>
 					@endforeach
 					</div>

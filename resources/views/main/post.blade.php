@@ -44,7 +44,6 @@
 					<img 
 						class="place-pict-image" 
 						data-src="{{ asset('/story/thumbnails/'.$story->cover) }}"
-						alt="{{ $story->description }}"
 						id="pict-{{ $story->idimage }}"
 						key="{{ $story->idpapers }}">
 				</a>
