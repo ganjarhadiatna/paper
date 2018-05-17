@@ -38,13 +38,15 @@
 					</div>
 				</div>
 			</div>
-			<div>
+			<div class="place-pict" style="padding-bottom: {{ (($story->height / $story->width) * 100) }}%">
 				<a href="{{ url('/paper/'.$story->idpapers.'/design/'.$story->idimage) }}">
 					<div class="cover"></div>
-					<img src="{{ asset('/story/thumbnails/'.$story->cover) }}"
-					alt="pict"
-					id="pict-{{ $story->idimage }}"
-					key="{{ $story->idpapers }}">
+					<img 
+						class="place-pict-image" 
+						data-src="{{ asset('/story/thumbnails/'.$story->cover) }}"
+						alt="{{ $story->description }}"
+						id="pict-{{ $story->idimage }}"
+						key="{{ $story->idpapers }}">
 				</a>
 			</div>
 		</div>

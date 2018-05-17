@@ -340,9 +340,10 @@
 						.main-select {
 							position: relative;
 							width: calc(100% - 20px);
+							height: 40px;
 							padding: 10px;
-							@include grid_3x(55px, 1fr, 40px);
 							border-radius: 5px;
+							@include grid_3x(55px, 1fr, 40px);
 							&:hover {
 								background-color: #f0f0f0;
 								cursor: pointer;
@@ -362,15 +363,18 @@
 								}
 							}
 							.grid-1 {
+								position: relative;
 								@include column_1();
 							}
 							.grid-2 {
+								position: relative;
 								@include column_2();
 								.ttl {
 									@include post_top();
 								}
 							}
 							.grid-3 {
+								position: relative;
 								@include column_3();
 								.chk {
 									display: none;

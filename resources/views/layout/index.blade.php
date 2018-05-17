@@ -21,6 +21,7 @@
 	<!-- JS -->
 	<script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/jquery-ui.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/jquery.lazy.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/watch.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/frame.js') }}"></script>
 	<script type="text/javascript">
@@ -136,6 +137,26 @@
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			}
+		});
+		
+		$(function () {
+			$('.place-pict-image').lazy({
+				/*imageBase: "{{ asset('/story/thumbnails/') }}/",*/
+				effect: 'fadeIn',
+				beforeLoad: function () {
+					//console.log('load image');
+					$('.place-pict-image').css('background-color: #f0f0f0');
+				},
+				afterLoad: function () {
+					
+				},
+				onError: function () {
+					//console.log('image loaded error');
+				},
+				onFinishedAll: function () {
+					//console.log('all loaded');
+				}
+			});
 		});
 
 		$(document).ready(function() {

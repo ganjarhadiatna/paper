@@ -6,7 +6,7 @@
 	var id = '{{ Auth::id() }}';
 	var server = '{{ url("/") }}';
 	var idpapers = '{{ $idpapers }}';
-	function rvImage(url, image, idimage) {
+	function rvImage(url, image, idimage, padBottom) {
 		var srv_design = server+'/paper/'+idpapers+'/design/'+idimage;
 		var srv_design_edit = server+'/paper/'+idpapers+'/design/'+idimage+'/edit';
 		var review = '\
@@ -42,13 +42,15 @@
 							</div>\
 						</div>\
 					</div>\
-					<div>\
+					<div class="place-pict" style="padding-bottom: '+padBottom+'%">\
 						<a href="'+srv_design+'">\
 							<div class="cover"></div>\
-							<img src="'+url+'"\
-							alt="pict"\
-							id="pict-'+idimage+'"\
-							key="'+idpapers+'">\
+							<img \
+								class="place-pict-image"\
+								src="'+url+'"\
+								alt="pict"\
+								id="pict-'+idimage+'"\
+								key="'+idpapers+'">\
 						</a>\
 					</div>\
 				</div>\
@@ -101,8 +103,9 @@
 					//add place review
 					var img = '{{ asset("/story/thumbnails/") }}'+'/'+dt[i].filename;
 					var idimage = dt[i].idimage;
+					var padBottom = ((dt[i].height / dt[i].width) * 100);
 					$('#frame-empty').hide();
-					$('#place-design').prepend(rvImage(img, dt[i].filename, idimage));	
+					$('#place-design').prepend(rvImage(img, dt[i].filename, idimage, padBottom));
 				}
 			}
 			//console.log(data);

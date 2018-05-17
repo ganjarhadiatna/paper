@@ -10,6 +10,19 @@ class DesignModel extends Model
 {
 	protected $table = 'image';
 
+    function scopeGetAllPict($query)
+    {
+        return DB::table('image')
+        ->select(
+            'idimage',
+            'image',
+            'description',
+            'views',
+            'created'
+        )
+        ->get();
+    }
+
     function scopeAddDesign($query, $data)
     {
         return DB::table('image')
@@ -42,6 +55,8 @@ class DesignModel extends Model
             'image',
             'description',
             'views',
+            'width',
+            'height',
             'created'
         )
         ->where('idimage', $idimage)
@@ -117,6 +132,8 @@ class DesignModel extends Model
             'image.idimage',
             'image.image as cover',
             'image.description',
+            'image.width',
+            'image.height',
             'papers.idpapers',
             'papers.created',
             'papers.title',
@@ -146,6 +163,8 @@ class DesignModel extends Model
             'image.idimage',
             'image.image as cover',
             'image.description',
+            'image.width',
+            'image.height',
             'papers.idpapers',
             'papers.created',
             'papers.title',
@@ -175,6 +194,8 @@ class DesignModel extends Model
             'image.idimage',
             'image.image as cover',
             'image.description',
+            'image.width',
+            'image.height',
             'papers.idpapers',
             'papers.created',
             'papers.title',
@@ -205,6 +226,8 @@ class DesignModel extends Model
             'image.idimage',
             'image.image as cover',
             'image.description',
+            'image.width',
+            'image.height',
             'papers.idpapers',
             'papers.created',
             'papers.title',
@@ -235,6 +258,8 @@ class DesignModel extends Model
             'image.idimage',
             'image.image as cover',
             'image.description',
+            'image.width',
+            'image.height',
             'papers.idpapers',
             'papers.created',
             'papers.title',
@@ -277,6 +302,8 @@ class DesignModel extends Model
             'image.idimage',
             'image.image as cover',
             'image.description',
+            'image.width',
+            'image.height',
             'papers.idpapers',
             'papers.created',
             'papers.title',
@@ -321,6 +348,8 @@ class DesignModel extends Model
             'image.idimage',
             'image.image as cover',
             'image.description',
+            'image.width',
+            'image.height',
             'papers.idpapers',
             'papers.created',
             'papers.title',
@@ -357,6 +386,8 @@ class DesignModel extends Model
             'image.idimage',
             'image.image as cover',
             'image.description',
+            'image.width',
+            'image.height',
             'papers.idpapers',
             'papers.created',
             'papers.title',
@@ -387,6 +418,8 @@ class DesignModel extends Model
             'image.idimage',
             'image.image as cover',
             'image.description',
+            'image.width',
+            'image.height',
             'papers.idpapers',
             'papers.created',
             'papers.title',
@@ -418,6 +451,8 @@ class DesignModel extends Model
             'image.idimage',
             'image.image as cover',
             'image.description',
+            'image.width',
+            'image.height',
             'papers.idpapers',
             'papers.created',
             'papers.title',

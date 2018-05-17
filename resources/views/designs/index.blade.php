@@ -180,12 +180,16 @@
 		<div class="place">
 			<div class="frame-story grid col-900px" id="main-story">
 				<div class="grid-1">
-					<div class="mid padding-top-10px">
-						<div class="pict">
-							@foreach ($getImage as $ds)
-								<img src="{{ asset('/story/covers/'.$ds->image) }}" id="pict-{{ $idimage }}" alt="pict">
-							@endforeach
+					<div class="mid padding-10px">
+					@foreach ($getImage as $ds)
+						<div class="pict" style="padding-bottom: {{ (($ds->height / $ds->width) * 100) }}%">
+							<img 
+								class="place-pict-image"
+								data-src="{{ asset('/story/covers/'.$ds->image) }}" 
+								id="pict-{{ $idimage }}" 
+								alt="{{ $ds->description }}">
 						</div>
+					@endforeach
 					</div>
 				</div>
 				<div class="grid-2">

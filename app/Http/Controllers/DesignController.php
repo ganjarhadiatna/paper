@@ -184,11 +184,15 @@ class DesignController extends Controller
 					//rename file
 					$chrc = array('[',']','@',' ','+','-','#','*','<','>','_','(',')',';',',','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
 					$filename = $id.time().str_replace($chrc, '', $image[$i]->getClientOriginalName());
+					$width = getimagesize($image[$i])[0];
+					$height = getimagesize($image[$i])[1];
 
 					$data = array(
 						'image' => $filename,
 						'id' => $id,
-						'idpapers' => $idpapers
+						'idpapers' => $idpapers,
+						'width' => $width,
+						'height' => $height
 					);
 					$rest = DesignModel::AddDesign($data);
 					if ($rest) {
@@ -207,13 +211,18 @@ class DesignController extends Controller
 						//getting last idimage
 						$idimage = DesignModel::GetId($id, $idpapers);
 
+						//getting nows image
+						//$imgNow = asset('/story/covers/'.$filename);
+
 						array_push($final, [
 							'filename' => $filename,
 							'id' => $id,
 							'idpapers' => $idpapers,
 							'idimage' => $idimage,
 							'description' => '',
-							'created' => ''
+							'created' => '',
+							'width' => $width,
+							'height' => $height
 						]);
 					} else {
 						echo "failed-saving";
