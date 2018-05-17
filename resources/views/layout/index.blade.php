@@ -141,21 +141,8 @@
 		
 		$(function () {
 			$('.place-pict-image').lazy({
-				/*imageBase: "{{ asset('/story/thumbnails/') }}/",*/
 				effect: 'fadeIn',
-				beforeLoad: function () {
-					//console.log('load image');
-					$('.place-pict-image').css('background-color: #f0f0f0');
-				},
-				afterLoad: function () {
-					
-				},
-				onError: function () {
-					//console.log('image loaded error');
-				},
-				onFinishedAll: function () {
-					//console.log('all loaded');
-				}
+				visibleOnly: true
 			});
 		});
 
