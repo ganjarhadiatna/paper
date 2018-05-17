@@ -133,12 +133,6 @@
 							type="button">
 							<span class="fa fa-lg fa-arrow-left"></span>
 						</button>
-						<button 
-							class="btn btn-circle btn-primary-color btn-focus" 
-							onclick="opQuestionDesign({{ $idimage }})" 
-							type="button">
-							<span class="fa fa-lg fa-trash-alt"></span>
-						</button>
 					</div>
 					<div class="sc-col-2">
 						<h3 class="ttl-head ttl-sekunder-color">Edit Design</h3>
@@ -172,7 +166,7 @@
 								</div>
 							</div>
                         </div>
-						<div class="padding-5px"></div>
+						<div class="padding-10px"></div>
 						<div class="block-field">
 							<div class="pan">
 								<div class="left">
@@ -187,10 +181,11 @@
 							<textarea
                                 name="write-design" 
                                 id="write-design" 
-                                class="txt edit-text txt-main-color txt-box-shadow ctn ctn-main ctn-sans-serif" 
+								class="txt edit-text txt-main-color txt-box-shadow ctn ctn-main ctn-sans-serif" 
+								placeholder="About your design"
                                 maxlength="250"><?php echo $ds->description; ?></textarea>
 						</div>
-						<div class="padding-5px"></div>
+						<div class="padding-10px"></div>
 						<div class="block-field">
 						@foreach ($selectedPaper as $pp)
 							<div class="pan">
@@ -223,7 +218,7 @@
                             </div>
 						@endforeach
                         </div>
-						<div class="padding-5px"></div>
+						<div class="padding-10px"></div>
 						<div class="block-field">
 							<div class="pan">
 								<div class="left">
@@ -242,6 +237,18 @@
 								</div>
 							</div>
 						</div>
+						<div class="padding-10px"></div>
+						<div class="btn btn-primary-color btn-text-left btn-no-pad" onclick="opQuestionDesign({{ $idimage }})">
+							<div class="pan">
+								<div class="left">
+									<p class="ttl">Delete Design</p>
+								</div>
+							</div>
+							<div class="ctn-main-font ctn-sek-color ctn-thin ctn-12px">
+								It will delete this design permanently, you can't undo this sections.
+							</div>
+						</div>
+						
 					</div>
 				</div>
 			</div>

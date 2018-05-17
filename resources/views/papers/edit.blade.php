@@ -77,13 +77,6 @@
 						<button class="btn btn-circle btn-primary-color btn-focus" onclick="goBack()" type="button">
 							<span class="fa fa-lg fa-arrow-left"></span>
 						</button>
-						<button 
-							class="btn btn-circle btn-main2-color btn-focus" 
-							onclick="opQuestionPost('{{ $idpapers }}')"
-							type="button"
-							title="delete this paper">
-							<span class="far fa-lg fa-trash-alt"></span>
-						</button>
 					</div>
 					<div class="sc-col-2">
 						<h3 class="ttl-head ttl-sekunder-color">Edit Paper</h3>
@@ -137,7 +130,12 @@
 									</div>
 								</div>
 							</div>
-							<textarea name="write-story" id="write-story" class="txt edit-text txt-main-color txt-box-shadow ctn ctn-main ctn-sans-serif" maxlength="250"><?php echo $story->description; ?></textarea>
+							<textarea 
+								name="write-story" 
+								id="write-story" 
+								class="txt edit-text txt-main-color txt-box-shadow ctn ctn-main ctn-sans-serif" 
+								maxlength="250"
+								placeholder="About your paper" ><?php echo $story->description; ?></textarea>
 						</div>
 						<div class="padding-5px"></div>
 						<div class="block-field">
@@ -150,6 +148,17 @@
 								<div class="block-field">
 									<input type="text" name="tags" id="tags-story" class="tg txt txt-main-color txt-box-shadow" placeholder="Tags1, Tags2, Tags N..." value="{{ $tags }}">
 								</div>
+							</div>
+						</div>
+						<div class="padding-15px"></div>
+						<div class="btn btn-primary-color btn-text-left btn-no-pad" onclick="opQuestionPost('{{ $idpapers }}')">
+							<div class="pan">
+								<div class="left">
+									<p class="ttl">Delete Paper</p>
+								</div>
+							</div>
+							<div class="ctn-main-font ctn-sek-color ctn-thin ctn-12px">
+								It will delete all your design permanently, you can't undo this sections.
 							</div>
 						</div>
 					</div>

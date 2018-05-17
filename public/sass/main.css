@@ -46,7 +46,6 @@
 /*button normal*/
 .btn {
   position: relative;
-  width: auto;
   padding: 12.5px 14px;
   border-radius: 5px;
   font-size: 14px;
@@ -130,6 +129,10 @@
   .btn.btn-color-tw {
     background-color: #60d3f5;
     color: #fff; }
+  .btn.btn-text-left {
+    text-align: left; }
+  .btn.btn-no-pad {
+    padding: 15px 0; }
 
 .txt {
   width: calc(100% - 30px);
@@ -2234,6 +2237,19 @@ a {
 
 .hide-input-file {
   display: none; }
+
+.bdr-top {
+  border-top: 1px rgba(0, 0, 0, 0.1) solid; }
+
+.bdr-bottom {
+  border-bottom: 1px rgba(0, 0, 0, 0.1) solid; }
+
+.bdr-top-bottom {
+  border-top: 1px rgba(0, 0, 0, 0.1) solid;
+  border-bottom: 1px rgba(0, 0, 0, 0.1) solid; }
+
+.bdr-all {
+  border: 1px rgba(0, 0, 0, 0.1) solid; }
 
 .col-all {
   width: calc(100% - 30px);

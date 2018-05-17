@@ -124,12 +124,16 @@ class DesignController extends Controller
 				//rename file
 				$chrc = array('[',']','@',' ','+','-','#','*','<','>','_','(',')',';',',','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
 				$filename = $id.time().str_replace($chrc, '', $image->getClientOriginalName());
+				$width = getimagesize($image)[0];
+				$height = getimagesize($image)[1];
 
 				$data = array(
 					'image' => $filename,
 					'id' => $id,
 					'idpapers' => $idpapers,
 					'description' => $content,
+					'width' => $width,
+					'height' => $height
 				);
 				$rest = DesignModel::AddDesign($data);
 				if ($rest) {

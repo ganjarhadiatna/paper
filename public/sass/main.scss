@@ -52,6 +52,19 @@ a {
 	display: none;
 }
 
+.bdr-top {
+	@include bdr_top();
+}
+.bdr-bottom {
+	@include bdr_bottom();
+}
+.bdr-top-bottom {
+	@include bdr_top_bottom();
+}
+.bdr-all {
+	@include bdr_all();
+}
+
 .col-all {
 	@include col_all();
 }

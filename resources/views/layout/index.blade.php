@@ -197,7 +197,7 @@
 					</div>
 				</div>
 				<div class="pos mid" id="main-search">
-					<div class="main-search bdr-all">
+					<div class="main-search">
 						<form id="place-search" action="javascript:void(0)" method="get">
 							<button type="submit" class="btn btn-circle btn-main4-color">
 								<span class="fa fa-lg fa-search"></span>
