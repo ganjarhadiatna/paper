@@ -224,7 +224,7 @@
 					@if (!Auth::id())
 						<a href="{{ url('/login') }}">
 							<button class="btn-icn btn btn-main2-color ctn-up btn-radius" id="profile">
-								<span>Login</span>
+								<span class="fas fa-lg fa-sign-in-alt"></span>
 							</button>
 						</a>
 						<a href="{{ url('/register') }}">
@@ -242,7 +242,6 @@
 							<a href="{{ url('/user/'.$dt->id) }}">
 								<button class="btn-icn pp btn btn-main2-color btn-radius" id="profile">
 									<div class="image image-35px image-circle" style="background-image: url({{ asset('/profile/thumbnails/'.$dt->foto) }});" id="profile"></div>
-									<span class="username">{{ $dt->username }}</span>
 								</button>
 							</a>
 						@endforeach
