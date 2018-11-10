@@ -48,7 +48,7 @@ class DesignController extends Controller
             $getImage = DesignModel::GetDetailDesign($idimage);
             $getAllImage = DesignModel::GetAllDesign($idpapers,'desc');
             
-			$newStory = DesignModel::PagRelatedDesign(20, $idpapers);
+			$newStory = DesignModel::PagPopularDesign(30);
 			
 			$tags = TagModel::GetTags($idimage, 'design');
 

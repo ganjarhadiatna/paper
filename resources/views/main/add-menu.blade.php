@@ -21,7 +21,7 @@
     <ul>
         <a href="{{ url('/compose/design') }}">
             <li class="bdr-bottom">
-                <span class="ttl">Add Design</span>
+                <span class="ttl">Create Design</span>
             </li>
         </a>
         <a href="{{ url('/compose/paper') }}">

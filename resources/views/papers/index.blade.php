@@ -119,32 +119,55 @@
 		});
 	}
 </script>
-@foreach ($getPaper as $dt)
-	<div class="sc-header">
-		<div class="sc-place pos-fix">
-			<div class="col-800px">
-				<div class="sc-grid sc-grid-2x">
-					<div class="sc-col-1">
-						<button class="btn btn-circle btn-primary-color btn-focus" onclick="goBack()" type="button">
-							<span class="fa fa-lg fa-arrow-left"></span>
-						</button>
-						<button 
-							class="btn btn-circle btn-primary-color btn-focus" 
-							onclick="opPostPopup('open', 'menu-popup', '{{ $idpapers }}', '{{ $dt->id }}')"
-							title="menu">
-							<span class="fas fa-lg fa-ellipsis-h"></span>
-						</button>
+<div>
+	@foreach ($getPaper as $dt)
+		<div class="col-800px">
+			<div>
+				<h1 class="ctn-main-font ctn-bold ctn-standar ctn-sek-color padding-10px">{{ $dt->title }}</h1>
+			</div>
+			@if ($dt->description != "")
+				<div>
+					<div class="desc ctn-main-font ctn-bold ctn-16px ctn-sek-color">
+						<?php echo $dt->description; ?>
+					</div>
+				</div>
+			@endif
+			<div class="menu-val">
+				<ul>
+					<li>
+						<div class="val">{{ $dt->views }}</div>
+						<div class="ttl">Visited</div>
+					</li>
+					<li>
+						<div class="val">{{ $dt->ttl_image }}</div>
+						<div class="ttl">Designs</div>
+					</li>
+					<li>
+						<div class="val">{{ $dt->ttl_watch }}</div>
+						<div class="ttl">Watchs</div>
+					</li>
+				</ul>
+			</div>
+			<div class="menu-val">
+				<ul>
+					<li>
+						<a href="{{ url('/user/'.$dt->id) }}">
+							<div class="image image-45px image-circle" 
+							style="background-image: url({{ asset('/profile/photos/'.$dt->foto) }});"></div>
+						</a>
+					</li>
+					<li class="right">
 						@if ($dt->id == Auth::id())
 							<a href="{{ url('/paper/'.$idpapers.'/edit') }}">
-								<button class="btn btn-circle btn-primary-color btn-focus" title="edit paper">
-									<span class="fas fa-lg fa-pencil-alt"></span>
+								<button class="btn btn-circle btn-main2-color btn-focus" title="edit paper">
+									<span class="fas fa-lg fa-cog"></span>
 								</button>
 							</a>
 						@endif
-					</div>
-					<div class="sc-col-2 txt-right">
+					</li>
+				    <li class="right">
 						@if ($dt->id == Auth::id())
-							<div>
+							<span>
 								<form id="form-publish"
 									method="post"
 									action="javascript:void(0)"
@@ -160,12 +183,11 @@
 										multiple>
 								</form>
 								<label for="get-image">
-									<div class="btn btn-sekunder-color btn-focus" title="add design">
+									<div class="btn btn-circle btn-main2-color btn-focus" title="add design">
 										<span class="fa fa-lg fa-plus"></span>
-										<span>Designs</span>
 									</div>
 								</label>
-							</div>
+							</span>
 						@else
 							@if (!is_int($watchStatus))
 								<input
@@ -185,65 +207,14 @@
 									onclick="opWatch('{{ $idpapers }}', '{{ url("/") }}', '{{ Auth::id() }}', '{{ $dt->id }}')">
 							@endif
 						@endif
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-@endforeach
-<div class="col-800px padding-bottom-20px">
-	@foreach ($getPaper as $dt)
-		<div>
-			<h1 class="ctn-main-font ctn-bold ctn-standar ctn-sek-color padding-10px">{{ $dt->title }}</h1>
-		</div>
-		@if ($dt->description != "")
-			<div>
-				<div class="desc ctn-main-font ctn-bold ctn-16px ctn-sek-color">
-					<?php echo $dt->description; ?>
-				</div>
-			</div>
-		@endif
-		<div>
-			<div class="menu-val">
-				<ul>
-					<li>
-						<div class="val">{{ $dt->views }}</div>
-						<div class="ttl">Visited</div>
-					</li>
-					<li>
-						<div class="val">{{ $dt->ttl_image }}</div>
-						<div class="ttl">Designs</div>
-					</li>
-					<li>
-						<div class="val">{{ $dt->ttl_watch }}</div>
-						<div class="ttl">Watchs</div>
-					</li>
-					<li class="right">
-						<a href="{{ url('/user/'.$dt->id) }}">
-							<div class="image image-40px image-circle" 
-							style="background-image: url({{ asset('/profile/photos/'.$dt->foto) }});"></div>
-						</a>
 					</li>
 				</ul>
 			</div>
 		</div>
-		<div>
-			@if (count($tags) > 0)
-				@foreach($tags as $tag)
-					<?php 
-						$replace = array('[',']','@',',','.','#','+','-','*','<','>','-','(',')',';','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
-						$title = str_replace($replace, '', $tag->tag); 
-					?>
-					<a href="{{ url('/tags/paper/'.$title) }}" class="frame-top-tag">
-						<div>{{ $tag->tag }}</div>
-					</a>
-				@endforeach
-			@endif
-		</div>
 	@endforeach
 </div>
-<div>
-	<div class="padding-top-15px">
+<div class="padding-top-5px">
+	<div>
 		@if (count($paperImage) == 0)
 		<div class="frame-empty" id="frame-empty">
 			<div class="icn fa fa-lg fa-thermometer-empty btn-main-color"></div>
@@ -252,10 +223,25 @@
 			</div>
 		</div>
 		@endif
-		<div class="post" id="place-design">
-			@foreach ($paperImage as $story)
-				@include('main.post')
-			@endforeach
+		<div class="post">
+			<div class="padding-10px">
+				@if (count($tags) > 0)
+					@foreach($tags as $tag)
+						<?php 
+							$replace = array('[',']','@',',','.','#','+','-','*','<','>','-','(',')',';','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
+							$title = str_replace($replace, '', $tag->tag); 
+						?>
+						<a href="{{ url('/tags/paper/'.$title) }}" class="frame-top-tag">
+							<div>{{ $tag->tag }}</div>
+						</a>
+					@endforeach
+				@endif
+			</div>
+			<div id="place-design">
+				@foreach ($paperImage as $story)
+					@include('main.post')
+				@endforeach
+			</div>
 		</div>
 		{{ $paperImage->links() }}
 		

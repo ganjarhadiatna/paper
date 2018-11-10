@@ -187,7 +187,7 @@
 </head>
 <body>
 	<div id="header">
-		<div class="place bdr-bottom">
+		<div class="place">
 			<div class="menu col-all">
 				<div class="pos lef">
 					<div class="logo" >
@@ -212,11 +212,13 @@
 							<span class="ttl">Home Feeds</span>
 						</button>
 					</a>
+					<!--
 					<a href="{{ url('/explore') }}">
 						<button class="mobile btn-icn btn btn-main2-color btn-radius" id="explore">
 							<span class="ttl">Explore</span>
 						</button>
 					</a>
+					-->
 					<button class="btn-icn btn btn-circle btn-main2-color" id="nav-more-target" key="hide">
 						<span class="fas fa-lg fa-bars"></span>
 					</button>
@@ -240,7 +242,7 @@
 						</button>
 						@foreach (ProfileModel::UserSmallData(Auth::id()) as $dt)
 							<a href="{{ url('/user/'.$dt->id) }}">
-								<button class="btn-icn pp btn btn-main2-color btn-radius" id="profile">
+								<button class="pp btn btn-circle btn-main2-color btn-radius" id="profile">
 									<div class="image image-35px image-circle" style="background-image: url({{ asset('/profile/thumbnails/'.$dt->foto) }});" id="profile"></div>
 								</button>
 							</a>

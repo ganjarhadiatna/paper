@@ -7,55 +7,11 @@
 	});
 </script>
 @foreach ($profile as $p)
-@if (Auth::id() == $p->id)
-	<div class="sc-header">
-		<div class="sc-place pos-fix">
-			<div class="col-700px">
-				<div class="sc-grid sc-grid-2x">
-					<div class="sc-col-1">
-						@if (Auth::id() == $p->id)
-							<a href="{{ url('/me/setting') }}">
-								<button class="btn btn-circle btn-primary-color btn-focus">
-									<span class="fas fa-lg fa-cog"></span>
-								</button>
-							</a>
-							<a href="{{ url('/me/setting/profile') }}">
-								<button class="btn btn-circle btn-primary-color btn-focus">
-									<span class="fas fa-lg fa-pencil-alt"></span>
-								</button>
-							</a>
-							<a href="{{ url('/compose') }}">
-								<button class="btn btn-circle btn-primary-color btn-focus">
-									<span class="fas fa-lg fa-plus"></span>
-								</button>
-							</a>
-						@endif
-					</div>
-					<div class="sc-col-2 txt-right">
-						@if (Auth::id() == $p->id)
-							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-								{{ csrf_field() }}
-							</form>
-							<a href="{{ route('logout') }}" 
-								onclick="event.preventDefault();
-								document.getElementById('logout-form').submit();">
-								<button class="btn btn-primary-color btn-radius btn-focus">
-									<span class="fas fa-lg fa-power-off"></span>
-									<span class="">Logout</span>
-								</button>
-							</a>
-						@endif
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-@endif
-<div class="padding-20px">
+<div>
 	<div class="frame-profile">
 		<div class="profile col-700px">
 			<div class="foto">
-				<div class="image image-150px image-circle" id="place-picture" style="background-image: url({{ asset('/profile/photos/'.$p->foto) }});"></div>
+				<div class="image image-140px image-circle" id="place-picture" style="background-image: url({{ asset('/profile/photos/'.$p->foto) }});"></div>
 			</div>
 			<div class="info">
 				<div class="user-name ctn-main-font ctn-standar" id="edit-name">{{ $p->name }}</div>
@@ -66,7 +22,7 @@
 					<p id="edit-about">{{ $p->about }}</p>
 				</div>
 				<div class="other">
-					<a class="link ctn-main-font ctn-min-color ctn-link" href="{{ $p->website }}" target="_blank">{{ $p->website }}</a>
+					<a class="link ctn-main-font ctn-sek-color ctn-link" href="{{ $p->website }}" target="_blank">{{ $p->website }}</a>
 				</div>
 				<div>
 					<div class="menu-val">
@@ -88,6 +44,20 @@
 									<div class="val">{{ $p->ttl_saved }}</div>
 									<div class="ttl">Saved</div>
 								</a>
+							</li>
+							<li class="right">
+								@if (Auth::id() == $p->id)
+									<a href="{{ url('/compose') }}">
+										<button class="btn btn-circle btn-primary-color btn-focus">
+											<span class="fas fa-lg fa-plus"></span>
+										</button>
+									</a>
+									<a href="{{ url('/me/setting') }}">
+										<button class="btn btn-circle btn-primary-color btn-focus">
+											<span class="fas fa-lg fa-cog"></span>
+										</button>
+									</a>
+								@endif
 							</li>
 						</ul>
 					</div>

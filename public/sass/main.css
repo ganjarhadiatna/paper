@@ -220,6 +220,18 @@
   .image.image-100px {
     width: 100px;
     height: 100px; }
+  .image.image-110px {
+    width: 110px;
+    height: 110px; }
+  .image.image-120px {
+    width: 120px;
+    height: 120px; }
+  .image.image-130px {
+    width: 130px;
+    height: 130px; }
+  .image.image-140px {
+    width: 140px;
+    height: 140px; }
   .image.image-150px {
     width: 150px;
     height: 150px; }
@@ -259,7 +271,7 @@
   position: relative;
   width: calc(100% - 25px);
   padding: 10px 7.5px;
-  margin: 0 5px;
+  margin: 0 5px 10px 5px;
   display: inline-block;
   background-color: #fff;
   border-radius: 7.5px; }
@@ -1751,10 +1763,10 @@
       max-height: calc(100vh - 150px);
       overflow-y: auto; }
 
-#compose-popup {
+.compose-popup {
   display: none;
   overflow-y: auto; }
-  #compose-popup .compose {
+  .compose-popup .compose {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1769,10 +1781,10 @@
     border-radius: 5px;
     overflow: hidden; }
     @media (max-width: 768px) {
-      #compose-popup .compose {
+      .compose-popup .compose {
         width: calc(100% - 20px); } }
     @media (max-width: 768px) {
-      #compose-popup .compose {
+      .compose-popup .compose {
         display: block;
         position: relative;
         top: 0;
@@ -1784,35 +1796,35 @@
         transform: translate(0, 0);
         margin-top: 20px;
         margin-bottom: 20px; } }
-    #compose-popup .compose .grid-1 {
+    .compose-popup .compose .grid-1 {
       position: relative;
       width: calc(100% - 2px);
       border-right: 2px rgba(0, 0, 0, 0.1) dashed;
       grid-column: 1;
       -ms-grid-column: 1; }
       @media (max-width: 768px) {
-        #compose-popup .compose .grid-1 {
+        .compose-popup .compose .grid-1 {
           width: 100%;
           border-right: 0 rgba(0, 0, 0, 0.1) dashed; } }
-      #compose-popup .compose .grid-1 #cover {
+      .compose-popup .compose .grid-1 #cover {
         display: none; }
-      #compose-popup .compose .grid-1 .cover-icn {
+      .compose-popup .compose .grid-1 .cover-icn {
         position: relative;
         width: 100%;
         padding-bottom: 100%;
         cursor: pointer; }
-        #compose-popup .compose .grid-1 .cover-icn:hover {
+        .compose-popup .compose .grid-1 .cover-icn:hover {
           background-color: #f0f0f0; }
-          #compose-popup .compose .grid-1 .cover-icn:hover .icn {
+          .compose-popup .compose .grid-1 .cover-icn:hover .icn {
             color: rgba(0, 0, 0, 0.84); }
-        #compose-popup .compose .grid-1 .cover-icn .icn {
+        .compose-popup .compose .grid-1 .cover-icn .icn {
           position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
           color: rgba(0, 0, 0, 0.54);
           font-size: 24px; }
-      #compose-popup .compose .grid-1 .image-icn {
+      .compose-popup .compose .grid-1 .image-icn {
         position: relative;
         width: 100%;
         padding-bottom: 100%;
@@ -1821,7 +1833,7 @@
         background-repeat: no-repeat;
         display: none;
         cursor: pointer; }
-        #compose-popup .compose .grid-1 .image-icn .change-cover {
+        .compose-popup .compose .grid-1 .image-icn .change-cover {
           position: absolute;
           top: 50%;
           -webkit-transform: translate(0, -50%);
@@ -1835,14 +1847,14 @@
           background-color: rgba(0, 0, 0, 0.54);
           color: #fff;
           font-size: 14px; }
-    #compose-popup .compose .grid-2 {
+    .compose-popup .compose .grid-2 {
       position: relative;
       width: calc(100% - 30px);
       height: calc(300px - 30px);
       padding: 15px;
       grid-column: 2;
       -ms-grid-column: 2; }
-      #compose-popup .compose .grid-2 .block-field .pan {
+      .compose-popup .compose .grid-2 .block-field .pan {
         height: 20px;
         font-size: 12px;
         color: rgba(0, 0, 0, 0.54);
@@ -1850,24 +1862,24 @@
         display: -ms-grid;
         grid-template-columns: 1fr 50px;
         -ms-grid-columns: 1fr 50px; }
-        #compose-popup .compose .grid-2 .block-field .pan .left {
+        .compose-popup .compose .grid-2 .block-field .pan .left {
           grid-column: 1;
           -ms-grid-column: 1; }
-        #compose-popup .compose .grid-2 .block-field .pan .right {
+        .compose-popup .compose .grid-2 .block-field .pan .right {
           grid-column: 2;
           -ms-grid-column: 2;
           text-align: right; }
-      #compose-popup .compose .grid-2 .block-field .edit-text {
+      .compose-popup .compose .grid-2 .block-field .edit-text {
         min-height: 85px;
         max-height: 85px; }
-      #compose-popup .compose .grid-2 .block-field .label-image {
+      .compose-popup .compose .grid-2 .block-field .label-image {
         position: relative;
         width: 100px;
         height: 100px;
         display: block; }
-      #compose-popup .compose .grid-2 .place-button {
+      .compose-popup .compose .grid-2 .place-button {
         text-align: right; }
-        #compose-popup .compose .grid-2 .place-button .btn {
+        .compose-popup .compose .grid-2 .place-button .btn {
           margin-left: 10px; }
 
 .place-review-image {
@@ -2188,7 +2200,7 @@
   cursor: default; }
   .menu-val ul li {
     position: relative;
-    padding: 5px;
+    padding: 0 5px;
     display: inline-block;
     vertical-align: middle;
     text-align: left;
@@ -2396,8 +2408,7 @@ a {
     left: 0;
     width: 100%;
     z-index: 100;
-    background-color: #fff;
-    border-bottom: 1px rgba(0, 0, 0, 0.1) solid; }
+    background-color: #fff; }
     @media (max-width: 768px) {
       #header .place {
         border-bottom: 0 #fff solid; } }
@@ -2509,17 +2520,17 @@ a {
             display: none; }
         @media (max-width: 768px) {
           #header .place .menu .rig .create {
-            position: fixed;
+            display: none;
+            /*position: fixed;
             bottom: 10px;
             right: 10px;
             z-index: inherit;
             width: 50px;
             height: 50px;
             border-radius: 100%;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.54);
-            display: none; } }
+            box-shadow: 0 0 10px rgba(0,0,0,0.54);*/ } }
         #header .place .menu .rig .pp {
-          padding: 0 5px;
+          width: 45px;
           height: 45px;
           vertical-align: top;
           text-align: center;
@@ -2533,7 +2544,7 @@ a {
               height: 45px; } }
           #header .place .menu .rig .pp .image {
             position: relative;
-            top: 2.5px;
+            top: 5px;
             display: inline-block; }
             @media (max-width: 468px) {
               #header .place .menu .rig .pp .image {
@@ -2630,8 +2641,7 @@ a {
         -moz-column-count: 2;
         -moz-column-gap: 0;
         -ms-column-count: 2;
-        -ms-column-gap: 0;
-        padding-top: 10px; } }
+        -ms-column-gap: 0; } }
     @media (max-width: 348px) {
       #body .post {
         column-count: 1;
@@ -2641,8 +2651,7 @@ a {
         -moz-column-count: 1;
         -moz-column-gap: 0;
         -ms-column-count: 1;
-        -ms-column-gap: 0;
-        padding-top: 10px; } }
+        -ms-column-gap: 0; } }
   #body .post-flex {
     width: 1300px;
     margin: 0 auto;
@@ -2659,7 +2668,7 @@ a {
   padding: 30px 10px 30px 10px;
   text-align: center;
   cursor: default;
-  border-top: 1px rgba(0, 0, 0, 0.1) solid; }
+  background-color: rgba(225, 225, 225, 0.34); }
   #footer ul li {
     list-style: none;
     display: inline-block;

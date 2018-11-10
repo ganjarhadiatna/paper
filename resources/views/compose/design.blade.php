@@ -101,30 +101,22 @@
 	});
 </script>
 <form id="form-publish" method="post" action="javascript:void(0)" enctype="multipart/form-data" onsubmit="publish()">
+<div>
 	<div class="sc-header">
-		<div class="sc-place pos-fix">
+		<div class="sc-place">
 			<div class="col-700px">
-				<div class="sc-grid sc-grid-3x">
-					<div class="sc-col-1">
-						<button 
-							class="btn btn-circle btn-primary-color btn-focus" 
-							onclick="goBack()" 
-							type="button">
-							<span class="fa fa-lg fa-arrow-left"></span>
-						</button>
-					</div>
+				<div class="sc-grid sc-grid-3x" style="height: 45px;">
+					<div class="sc-col-1"></div>
 					<div class="sc-col-2">
-						<h3 class="ttl-head ttl-sekunder-color">Add Design</h3>
+						<h3 class="ttl-head ttl-sekunder-color">Create Design</h3>
 					</div>
-					<div class="sc-col-3 txt-right">
-						<input type="submit" name="save" class="btn btn-main-color" value="Upload" id="btn-publish">
-					</div>
+					<div class="sc-col-3 txt-right"></div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="compose" id="create">
-		<div class="main col-700px">
+		<div class="main col-600px">
 			<div class="create-body">
 				<div class="create-mn">
 					<div class="create-block no-pad">
@@ -137,7 +129,7 @@
 								</div>
 							</div>
 							<div class="place-design">
-								<div class="block-field">
+								<div class="block-field" style="width: 100px;">
 									<input type="file" 
 										name="get-image" 
 										accept="image/*" 
@@ -221,11 +213,17 @@
 								</div>
 							</div>
 						</div>
+						<div class="padding-10px"></div>
+						<div class="block-field" style="text-align: right;">
+							<input type="button" class="btn btn-primary-color" value="Cancel" style="margin-right: 10px;" onclick="goBack()">
+							<input type="submit" name="save" class="btn btn-main-color" value="Upload" id="btn-publish">
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </form>
 @include('main.paper-list')
 @endsection

@@ -48,30 +48,56 @@
 			</div>
 		</div>
 		<div class="put">
-			<div class="val column-2">
-				<ul class="mn">
-					<li>
-						<a href="{{ url('/') }}">
-							Home Feeds
-						</a>
-					</li>
-					<li>
-						<a href="{{ url('/explore') }}">
-							Explore
-						</a>
-					</li>
-					@foreach (TagModel::AllTags() as $tag)
-						<?php 
-							$replace = array('[',']','@',',','.','#','+','-','*','<','>','-','(',')',';','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
-							$title = str_replace($replace, '', $tag->tag); 
-						?>
-						<li>
-							<a href="{{ url('/tags/'.$title) }}">
-								{{ $tag->tag }}
-							</a>
-						</li>
-					@endforeach
-				</ul>
+			<div class="val">
+				<div>
+					<div class="ctn-main-font ctn-14px ctn-min-color padding-bottom-10px" style="margin-left: 10px;">
+						Top Collections
+					</div>
+					<div class="column-2">
+						<ul class="mn">
+							<li>
+								<a href="{{ url('/') }}">
+									Home Feeds
+								</a>
+							</li>
+							<li>
+								<a href="{{ url('/explore/fresh') }}">
+									Fresh
+								</a>
+							</li>
+							<li>
+								<a href="{{ url('/explore/populars') }}">
+									Populars
+								</a>
+							</li>
+							<li>
+								<a href="{{ url('/explore/trendings') }}">
+									Trendings
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div>
+					<div class="ctn-main-font ctn-14px ctn-min-color padding-10px" style="margin-left: 10px;">
+						All Collections
+					</div>
+					<div class="column-2">
+						<ul class="mn">
+							@foreach (TagModel::AllTags() as $tag)
+								<?php 
+									$replace = array('[',']','@',',','.','#','+','-','*','<','>','-','(',')',';','&','%','$','!','`','~','=','{','}','/',':','?','"',"'",'^');
+									$title = str_replace($replace, '', $tag->tag); 
+								?>
+								<li>
+									<a href="{{ url('/tags/'.$title) }}">
+										{{ $tag->tag }}
+									</a>
+								</li>
+							@endforeach
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

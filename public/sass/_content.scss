@@ -33,6 +33,7 @@
 	}
 }
 
+
 /*content popup*/
 .content-popup {
 	@include post_fixed();
@@ -604,7 +605,7 @@
 	}
 }
 
-#compose-popup {
+.compose-popup {
 	display: none;
 	overflow-y: auto;
 	.compose {

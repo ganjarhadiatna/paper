@@ -139,13 +139,15 @@
 </script>
 @foreach ($getPaper as $paper)
 <div class="sc-header">
-	<div class="sc-place pos-fix">
-		<div class="col-900px">
+	<div class="sc-place">
+		<div class="col-600px">
 			<div class="sc-grid sc-grid-2x">
 				<div class="sc-col-1">
+					<!--
 					<button class="btn btn-circle btn-primary-color btn-focus" onclick="goBack()" type="button">
 						<span class="fa fa-lg fa-arrow-left"></span>
 					</button>
+					-->
 					<button class="btn btn-circle btn-primary-color btn-focus"
 						onclick="opPostSmallPopup('open', 'menu-popup', '{{ $idpapers }}', '{{ $paper->id }}', '{{ $idimage }}')">
 						<span class="fas fa-lg fa-ellipsis-h"></span>
@@ -178,7 +180,7 @@
 <div class="place-story">
 	<div class="main">
 		<div class="place">
-			<div class="frame-story grid col-900px" id="main-story">
+			<div class="frame-story col-600px" id="main-story">
 				<div class="grid-1">
 					<div class="mid padding-10px">
 					@foreach ($getImage as $ds)
@@ -236,6 +238,7 @@
 							</div>
 						</div>
 					</div>
+					<!--
 					<div class="pos mid bdr-bottom" key="more design">
 						<div class="ctn-main-font ctn-14px ctn-sek-color ctn-bold padding-bottom-15px">More designs</div>
 						<div class="place-search-tag">
@@ -268,6 +271,7 @@
 							</div>
 						</div>
 					</div>
+					-->
 					<div class="bot place-comment padding-top-10px">
 						<div class="loved top-comment" id="tr-comment">
 						<div class="ctn-main-font ctn-14px ctn-sek-color ctn-bold">Comments</div>
@@ -292,7 +296,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="frame-story col-900px padding-bottom-20px">
+			<div class="frame-story col-600px padding-bottom-20px">
 				
 			</div>
 		</div>
